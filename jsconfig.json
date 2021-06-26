@@ -1,0 +1,4 @@
+//tells vscode to treat as javascript project
+{
+  "exclude": ["node_modules"]
+}

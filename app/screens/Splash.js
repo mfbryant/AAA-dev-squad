@@ -1,8 +1,8 @@
 import React from "react";
 import { StyleSheet, View, Image, ImageBackground } from "react-native";
 
-var logo = require("../assets/aims-splash-logo.png");
-var watermark = require("../assets/ua-watermark.png");
+var logo = require("../assets/graphics/aims-splash-logo.png");
+var watermark = require("../assets/graphics/ua-watermark.png");
 
 function Splash() {
   return (

@@ -3,27 +3,17 @@ import { SafeAreaView, Button, TouchableOpacity, StyleSheet, View } from 'react-
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 
-function IconButton({ onPress, name, size, color }) {
+function IconButton({ onPress, name, size, color, style }) {
     return (
     <Swipeable>
       <SafeAreaView>
         <View>
-          <TouchableOpacity onPress={onPress}>
-          <MaterialCommunityIcons name={name} color={color} size={size} />
+          <TouchableOpacity onPress={onPress} style={style}>
+          <MaterialCommunityIcons name={name} color={color} size={size}/>
           </TouchableOpacity>
         </View>
       </SafeAreaView>
     </Swipeable>
     );
 }
-
-const styles = StyleSheet.create({
-  // container: {
-  //   paddingRight: 10,
-  //   paddingBottom: 5,
-  //   paddingTop: 5,
-  //   alignItems: 'flex-end'
-  // }
-})
-
 export default IconButton;

@@ -1,11 +1,11 @@
 import React from 'react';
 import { View, ImageBackground, StyleSheet } from 'react-native';
 import Button from '../assets/components/AppButton';
-import Icon from '../assets/components/IconButton';
+
 
 function InvolvementScreen(props) {
     return (
-        <ImageBackground style={styles.image} source={require('../assets/denny.jpg')} blurRadius={1}>
+        <ImageBackground style={styles.image} source={require('../assets/graphics/denny.jpg')} blurRadius={1}>
         <View style={styles.container}>
             <Button title="Internship Info" onPress={() => console.log('internship pressed')}/>
             <Button title="Involvement" onPress={() => console.log("involement pressed") }/>
@@ -18,7 +18,8 @@ function InvolvementScreen(props) {
 
 const styles = StyleSheet.create({
     container: {
-        alignSelf:'center'
+        alignSelf:'center',
+        marginTop: 50
     },
     image: {
         flex: 1,

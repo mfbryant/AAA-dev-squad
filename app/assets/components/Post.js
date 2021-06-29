@@ -17,7 +17,7 @@ function Post({ title, subtitle, onPress }) {
 
 const styles = StyleSheet.create({
     conatiner: {
-        backgroundColor: 'grey',
+        backgroundColor: 'crimson',
         width: '95%',
         padding: 20,
         borderRadius: 25,

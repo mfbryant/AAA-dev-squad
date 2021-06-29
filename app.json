@@ -4,9 +4,9 @@
     "slug": "AAA",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./app/assets/icon.png",
+    "icon": "./app/assets/graphics/icon.png",
     "splash": {
-      "image": "./app/assets/splash.png",
+      "image": "./app/assets/graphics/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -19,7 +19,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./app/assets/adaptive-icon.png",
+        "foregroundImage": "./app/assets/graphics/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       }
     },

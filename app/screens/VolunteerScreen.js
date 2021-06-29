@@ -3,8 +3,8 @@ import { StyleSheet, View, ImageBackground, FlatList, TouchableOpacity } from 'r
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { StatusBar } from 'expo-status-bar';
 
-import Icon from '../components/IconButton';
-import Post from '../components/Post';
+import Icon from '../assets/components/IconButton';
+import Post from '../assets/components/Post';
 
 const fakePosts = [
     {
@@ -36,13 +36,23 @@ function VolunteerScreen(props) {
     //Possible Icons: close, arrow-left, chevron-left/chevron-right/chevron-down/chevron-up
     return (
             <>
-            <ImageBackground style={styles.image} backgroundColor="crimson">
-            <View style={styles.icon}>
-            <Icon 
-            name="chevron-down" 
-            color='black' 
+            <ImageBackground style={styles.image} backgroundColor="#e9e2e4">
+            <StatusBar style="auto"/>
+            <View style={{flexDirection: 'row'}}>
+            <Icon
+            style={styles.icon}
+            name="close" 
+            color='crimson' 
             onPress={() => console.log("exit pressed")} 
-            size={35}/>
+            size={40}/>
+            <TouchableOpacity>
+                    <Icon name='plus-box' 
+                    onPress={() => 
+                    console.log('Add Pressed')} 
+                    size={40} 
+                    color='crimson'
+                    style={styles.add}/>
+                </TouchableOpacity>
             </View>
             <View style={styles.container}>
                 <FlatList 
@@ -53,17 +63,6 @@ function VolunteerScreen(props) {
                 subtitle={item.subtitle}
                 onPress={() => console.log(item.id)}
                 />} />
-                <TouchableOpacity>
-                <View style={styles.add}>
-                    <MaterialCommunityIcons 
-                    name='plus' 
-                    size={40}
-                    onPress={() => console.log('add pressed')}
-                    color="crimson" 
-                    />
-                    {/*<Icon name='plus' onPress={() => console.log('Add Pressed')} size={40} color='crimson'/> */}
-                </View>
-                </TouchableOpacity>
             </View>
             </ImageBackground>
            </>
@@ -72,33 +71,20 @@ function VolunteerScreen(props) {
 
 const styles = StyleSheet.create({
     add: {
-        height:50,
-        width: 50,
-        alignSelf: 'flex-end',
-        borderRadius: 25,
-        backgroundColor:'white',
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginRight: 10,
-        marginBottom: 10,
+        paddingLeft: 310,
+        paddingTop: 10,
         
-    },
+        },
     container: {
-        width: '100%',
-        color: 'white',
         flex: 1,
+        width: '100%',
     },
     icon: {
         paddingRight: 10,
-        paddingBottom: 5,
-        paddingTop: 5,
-        alignItems: 'flex-end'
+        paddingTop: 10,
     },
     image: {
         flex: 1,
-    },
-    text: {
-        color: '#fff',
     },
 })
 

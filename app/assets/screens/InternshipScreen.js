@@ -1,4 +1,4 @@
-import { setStatusBarBackgroundColor, StatusBar } from 'expo-status-bar';
+import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { SafeAreaView, StyleSheet, View, Image, TouchableOpacity, Text } from 'react-native';
 
@@ -7,7 +7,7 @@ import Icon from '../components/IconButton';
 function InternshipScreen(props) {
     return (
         <View style={styles.container}>
-            <StatusBar style="dark" />
+            <StatusBar style="inverted" />
                <SafeAreaView>
                    <View style={styles.icon}>
                     <Icon 

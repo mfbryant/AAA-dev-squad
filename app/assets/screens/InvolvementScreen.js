@@ -1,7 +1,8 @@
 import React from 'react';
 import { View, ImageBackground, StyleSheet } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
+
 import Button from '../components/AppButton';
-import Icon from '../components/IconButton';
 
 function InvolvementScreen(props) {
     return (

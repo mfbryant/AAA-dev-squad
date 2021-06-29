@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, ImageBackground, FlatList, TouchableOpacity } from 'react-native';
-import { MaterialCommunityIcons } from '@expo/vector-icons'
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { StatusBar } from 'expo-status-bar';
 
 import Icon from '../components/IconButton';
 import Post from '../components/Post';
@@ -16,6 +17,16 @@ const fakePosts = [
         id: 2,
         title: "Involvement oppurtunity",
         subtitle: "Get involved today! There needs everywhere!"
+    },
+    {
+        id: 3,
+        title: "Get Involved!",
+        subtitle: "Today is the day to do this and that and allll that"
+    },
+    {
+        id: 4,
+        title: "SIGN UP NOW!",
+        subtitle: "Tomorrow"
     }
 
 ]
@@ -26,7 +37,7 @@ function VolunteerScreen(props) {
     return (
             <>
             <ImageBackground style={styles.image} backgroundColor="crimson">
-            <View style={styles.icon} >
+            <View style={styles.icon}>
             <Icon 
             name="chevron-down" 
             color='black' 
@@ -42,7 +53,7 @@ function VolunteerScreen(props) {
                 subtitle={item.subtitle}
                 onPress={() => console.log(item.id)}
                 />} />
-                <TouchableOpacity >
+                <TouchableOpacity>
                 <View style={styles.add}>
                     <MaterialCommunityIcons 
                     name='plus' 

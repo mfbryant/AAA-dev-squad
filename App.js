@@ -5,12 +5,13 @@ import { StyleSheet, Text, View } from 'react-native';
 
 import VolunteerScreen from './app/assets/screens/VolunteerScreen';
 import InternshipScreen from './app/assets/screens/InternshipScreen';
+import InvolvementScreen from './app/assets/screens/InvolvementScreen';
 
 export default function App() {
   // console.log("app be working");
 
   return (
-    <InternshipScreen />
+    <VolunteerScreen />
   );
 }
 

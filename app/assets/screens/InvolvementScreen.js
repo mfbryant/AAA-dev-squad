@@ -3,7 +3,7 @@ import { View, ImageBackground, StyleSheet } from 'react-native';
 import Button from '../components/AppButton';
 import Icon from '../components/IconButton';
 
-function InvolvmentScreen(props) {
+function InvolvementScreen(props) {
     return (
         <ImageBackground style={styles.image} source={require('../assets/denny.jpg')} blurRadius={1}>
         <View style={styles.container}>
@@ -28,4 +28,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default InvolvmentScreen;
+export default InvolvementScreen;

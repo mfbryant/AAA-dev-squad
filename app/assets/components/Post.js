@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { SafeAreaView, View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 
 function Post({ title, subtitle, onPress }) {
+    //Makes a "postcard" for each post within the selected tab
     return (
           <TouchableOpacity onPress={onPress}>
           <View style={styles.conatiner}>
@@ -22,7 +23,6 @@ const styles = StyleSheet.create({
         borderRadius: 25,
         marginBottom: 20,
         alignSelf: 'center'
-
     },
     post: {
         flex: 1,
@@ -32,7 +32,8 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontWeight: 'bold',
         fontSize: 25,
-        textDecorationLine: 'underline',
+        // textDecorationLine: 'underline',
+        //^ not sure if we should or should not use an underline, thoughts?
         marginBottom: 10
     },
     subtitle: {

@@ -1,21 +1,17 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import Agenda from './app/screens/CalendarScreen';
-import { StyleSheet, Text, View } from 'react-native';
-
-import InternshipScreen from './app/screens/InternshipScreen';
-import InvolvementScreen from './app/screens/InvolvementScreen';
-import CalendarScreen from './app/screens/CalendarScreen';
-import Splash from './app/screens/Splash';
-import VolunteerScreen from './app/screens/VolunteerScreen';
-
+import { StatusBar } from "expo-status-bar";
+import React from "react";
+import Agenda from "./app/screens/CalendarScreen";
+import Internships from "./app/screens/InternshipScreen";
+import Involvement from "./app/screens/InvolvementScreen";
+import * as Splash from "expo-splash-screen";
+import Volunteer from "./app/screens/VolunteerScreen";
+import { StyleSheet, Text, View } from "react-native";
 
 export default function App() {
   // console.log("app be working");
-
-  return (
-    <VolunteerScreen />
-  );
+  Splash.preventAutoHideAsync();
+  setTimeout(Splash.hideAsync, 2000);
+  return <Volunteer />;
 }
 
 // const styles = StyleSheet.create({

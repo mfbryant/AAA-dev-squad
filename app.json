@@ -6,7 +6,7 @@
     "orientation": "portrait",
     "icon": "./app/assets/graphics/icon.png",
     "splash": {
-      "image": "./app/assets/graphics/splash.png",
+      "image": "./app/assets/graphics/aims-splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },

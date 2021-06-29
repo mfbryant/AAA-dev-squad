@@ -4,6 +4,7 @@ import { Agenda } from 'react-native-calendars';
 
 function CalendarScreen(props) {
   const vacation = {key: 'vacation', color: 'red', selectedDotColor: 'blue'};
+  //message or massage? I do like massages but I'm not sure if it's meant to be on this calendar. 
   const massage = {key: 'massage', color: 'blue', selectedDotColor: 'blue'};
   const workout = {key: 'workout', color: 'green'};
 

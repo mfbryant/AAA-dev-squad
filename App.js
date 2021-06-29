@@ -1,9 +1,9 @@
 import { StatusBar } from "expo-status-bar";
 import React from "react";
+import * as Splash from "expo-splash-screen";
 import Agenda from "./app/screens/CalendarScreen";
 import Internships from "./app/screens/InternshipScreen";
 import Involvement from "./app/screens/InvolvementScreen";
-import * as Splash from "expo-splash-screen";
 import Volunteer from "./app/screens/VolunteerScreen";
 import { StyleSheet, Text, View } from "react-native";
 

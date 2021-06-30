@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Agenda } from 'react-native-calendars';
 
+<<<<<<< HEAD:app/assets/screens/CalendarScreen.js
 export default class CalendarScreen extends Component {
   constructor(props) {
     super(props);
@@ -12,6 +13,13 @@ export default class CalendarScreen extends Component {
       }
     };
   }
+=======
+function CalendarScreen(props) {
+  const vacation = {key: 'vacation', color: 'red', selectedDotColor: 'blue'};
+  //message or massage? I do like massages but I'm not sure if it's meant to be on this calendar. 
+  const massage = {key: 'massage', color: 'blue', selectedDotColor: 'blue'};
+  const workout = {key: 'workout', color: 'green'};
+>>>>>>> 1cb4a182c21dd04d47d2464d201d10fc3c4b40d2:app/screens/CalendarScreen.js
 
   render() {
     return (

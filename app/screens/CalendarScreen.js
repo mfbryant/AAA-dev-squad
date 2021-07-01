@@ -6,9 +6,11 @@ export default class CalendarScreen extends Component {
   constructor(props) {
     super(props);
 
+    const ambassadors = {key: 'ambassadors', color: 'green'}
+
     this.state = {
       items: {
-        '2021-06-30': [{name: 'current day testing'}],
+        '2021-07-01': [{dots: [ambassadors], name: 'current day testing', selected: true, selectedColor: 'red'}],
         //August
         '2021-08-20': [{name: 'Welcome Back Event at the UA Rec Fields @5-7:00!!'}],
         '2021-08-26': [{name: 'Get On Board Day at the Ferg Promenade @5-9:00'}],

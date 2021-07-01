@@ -1,7 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import React from "react";
 import * as Splash from "expo-splash-screen";
-import Agenda from "./app/screens/CalendarScreen";
+import CalendarScreen from "./app/screens/CalendarScreen";
 import Internships from "./app/screens/InternshipScreen";
 import Involvement from "./app/screens/InvolvementScreen";
 import Volunteer from "./app/screens/VolunteerScreen";
@@ -11,7 +11,8 @@ export default function App() {
   // console.log("app be working");
   Splash.preventAutoHideAsync();
   setTimeout(Splash.hideAsync, 2000);
-  return <Volunteer />;
+  return <CalendarScreen />;
+  //return <Volunteer />; 
 }
 
 // const styles = StyleSheet.create({

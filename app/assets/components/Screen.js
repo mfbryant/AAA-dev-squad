@@ -7,7 +7,7 @@ function Screen({ children, style }) {
         <SafeAreaView style={[styles.screen, style]}>
             <View style={[styles.view, style]}>
                 {children}
-            </View>
+            </View> 
         </SafeAreaView>
     );
 }

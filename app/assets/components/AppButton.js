@@ -6,7 +6,7 @@ function AppButton({ title, onPress }) {
         <SafeAreaView>
         <TouchableOpacity style={[styles.button, {backgroundColor: 'crimson'}]}
         onPress={onPress}>
-        <Text style={styles.text} numberOfLines={2}>{title}</Text>
+            <Text style={styles.text} numberOfLines={2}>{title}</Text>
         </TouchableOpacity>
         </SafeAreaView>
     );
@@ -14,22 +14,22 @@ function AppButton({ title, onPress }) {
 
 const styles = StyleSheet.create({
     button: {
-        width: '100%',
-        height: 125,
-        borderRadius: 50,
-        marginVertical: 10,
-        padding: 20,
         alignItems: 'center',
+        borderRadius: 50,
+        height: 50,
+        justifyContent: 'center',
+        marginVertical: 10,
+        padding: 0,
+        width: '100%',
 
     },
     text: {
         color: "#c9d1d8",
-        textTransform: 'uppercase',
+        fontSize: 15,
         fontWeight: 'bold',
-        fontSize: 40,
-        padding: 20,
+        padding: 10,
         textAlign: 'center',
-        fontWeight:'300',
+        textTransform: 'uppercase',
     },
 })
 

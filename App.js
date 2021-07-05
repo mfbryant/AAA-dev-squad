@@ -7,38 +7,31 @@ import {
 } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
+import { NavigationContainer } from "@react-navigation/native";
 import * as Splash from "expo-splash-screen";
 import * as SQLite from 'expo-sqlite';
 
+import AuthNavigator from "./app/navigation/AuthNavigator";
 import CalendarScreen from "./app/screens/CalendarScreen";
+import HomeScreen from "./app/screens/HomeScreen";
 import Internships from "./app/screens/InternshipScreen";
 import Involvement from "./app/screens/InvolvementScreen";
 import OrgScreen from "./app/screens/OrgScreen";
 import Volunteer from "./app/screens/VolunteerScreen";
-
-// function openDatabase() {
-//   if (Platform.OS === "web") {
-//     return {
-//       transaction: () => {
-//         return {
-//           executeSql: () => {},
-//         };
-//       },
-//     };
-//   }
-
-//   const db = SQLite.openDatabase("AAA.db");
-//   return db;
-// }
-
-// const db = openDatabase();
 
 
 export default function App() {
   // console.log("app be working");
   Splash.preventAutoHideAsync();
   setTimeout(Splash.hideAsync, 2000);
-  return <OrgScreen />; 
+
+  return (
+    <NavigationContainer>
+      <AuthNavigator />
+    </NavigationContainer>
+  );
+  
+  // return <HomeScreen />; 
   // return <CalendarScreen />;
   //return <Volunteer />; 
 }

@@ -26,14 +26,10 @@ function ScanScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <View style={styles.top} />
       <BarCodeScanner
         onBarCodeScanned={handleBarCodeScanned}
         style={styles.camera}
       />
-      <View style={styles.bottom}>
-        <Text style={styles.text}>Scan QR Code</Text>
-      </View>
     </View>
   );
 }

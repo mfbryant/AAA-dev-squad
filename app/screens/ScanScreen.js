@@ -18,7 +18,7 @@ function ScanScreen({ navigation }) {
   };
 
   if (hasPermission === null) {
-    return <Text>Requesting for camera permission</Text>;
+    return <Text>Requesting for camera permission...</Text>;
   }
   if (hasPermission === false) {
     return <Text>Error! No access to camera.</Text>;

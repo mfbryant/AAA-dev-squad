@@ -9,11 +9,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 import * as Splash from "expo-splash-screen";
-<<<<<<< HEAD
-import * as SQLite from 'expo-sqlite';
-=======
 import * as SQLite from "expo-sqlite";
->>>>>>> 3f36e091f7947a4378067de8815fb1b65482be26
 
 import AuthNavigator from "./app/navigation/AuthNavigator";
 import CalendarScreen from "./app/screens/CalendarScreen";
@@ -23,6 +19,7 @@ import Involvement from "./app/screens/InvolvementScreen";
 import OrgScreen from "./app/screens/OrgScreen";
 import Volunteer from "./app/screens/VolunteerScreen";
 import SponsorsScreen from "./app/screens/SponsorsScreen";
+import ScanScreen from "./app/screens/ScanScreen";
 
 export default function App() {
   // console.log("app be working");
@@ -30,17 +27,7 @@ export default function App() {
   setTimeout(Splash.hideAsync, 2000);
 
   return (
-<<<<<<< HEAD
-    <SponsorsScreen />
-    // <NavigationContainer>
-    //   <AuthNavigator />
-    // </NavigationContainer>
-  );
-  
-  // return <HomeScreen />; 
-  // return <CalendarScreen />;
-  //return <Volunteer />; 
-=======
+
     <NavigationContainer>
       <AuthNavigator />
     </NavigationContainer>
@@ -49,7 +36,6 @@ export default function App() {
   // return <HomeScreen />;
   // return <CalendarScreen />;
   //return <Volunteer />;
->>>>>>> 3f36e091f7947a4378067de8815fb1b65482be26
 }
 
 // const styles = StyleSheet.create({

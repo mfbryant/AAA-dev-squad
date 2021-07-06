@@ -4,6 +4,8 @@ import { StyleSheet, Text, View } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 
+//https://github.com/mfbryant/AAA-dev-squad
+
 import * as Splash from "expo-splash-screen";
 import CalendarScreen from "./app/screens/CalendarScreen";
 import Internships from "./app/screens/InternshipScreen";

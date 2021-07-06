@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Alert, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Agenda } from 'react-native-calendars';
+
+import AppButton from '../assets/components/AppButton';
 
 export default class CalendarScreen extends Component {
   constructor(props) {
@@ -29,19 +31,20 @@ export default class CalendarScreen extends Component {
       }
     };
   }
-
   render() {
     return (
-      <Agenda
-        items={this.state.items}
-        loadItemsForMonth={this.loadItems.bind(this)}
-        renderEmptyData={() => { return null }}
-        renderEmptyDate={this.renderEmptyDate.bind(this)}
-        renderItem={this.renderItem.bind(this)}
-        rowHasChanged={this.rowHasChanged.bind(this)}
-        selected={Date()}
-        showClosingKnob={true}
-      />
+        <Agenda
+          items={this.state.items}
+          loadItemsForMonth={this.loadItems.bind(this)}
+          renderEmptyData={() => { return null }}
+          renderEmptyDate={this.renderEmptyDate.bind(this)}
+          renderItem={this.renderItem.bind(this)}
+          rowHasChanged={this.rowHasChanged.bind(this)}
+          selected={Date()}
+          showClosingKnob={true}
+          style={styles.calendar}
+        />
+      
     );
   }
 
@@ -81,6 +84,10 @@ export default class CalendarScreen extends Component {
 }
 
 const styles = StyleSheet.create({
+  calendar: {
+    borderRadius: 10,
+    padding: 10,
+  },
   item: {
     backgroundColor: 'white',
     flex: 1,

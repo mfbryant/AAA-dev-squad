@@ -2,30 +2,36 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import CalendarScreen from '../screens/CalendarScreen';
+import HomeScreen from '../screens/HomeScreen';
 import InternshipScreen from '../screens/InternshipScreen';
 import InvolvementScreen from '../screens/InvolvementScreen';
 // import Screen from '../assets/components/Screen';
 import VolunteerScreen from '../screens/VolunteerScreen';
+import OrgScreen from '../screens/OrgScreen';
 
 const Stack = createStackNavigator();
 
 const AuthNavigator = () => (
     <Stack.Navigator>
         <Stack.Screen
-            name="Event Calendar"
-            component={CalendarScreen}
-            options={{ headerShown: false }}
+            name="Home"
+            component={HomeScreen}
         />
         <Stack.Screen
-            name="Internships"
-            component={InternshipScreen}
+            name="Calendar"
+            component={CalendarScreen}
+            options={{ headerShown: false }}
         />
         <Stack.Screen 
             name="Involvement"
             component={InvolvementScreen}
         />
         <Stack.Screen 
-            name="Volunteer Opportunities"
+            name="Organizations"
+            component={OrgScreen}
+        />
+        <Stack.Screen 
+            name="Volunteer"
             component={VolunteerScreen}
         />
     </Stack.Navigator>

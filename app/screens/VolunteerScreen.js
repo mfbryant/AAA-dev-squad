@@ -35,7 +35,6 @@ function VolunteerScreen(props) {
     const [posts, setPost] = useState(fakePosts);
     //Possible Icons: close, arrow-left, chevron-left/chevron-right/chevron-down/chevron-up
     return (
-            <>
             <ImageBackground style={styles.image} backgroundColor="#e9e2e4">
             <StatusBar style="auto"/>
             <View style={{flexDirection: 'row'}}>
@@ -65,7 +64,6 @@ function VolunteerScreen(props) {
                 />} />
             </View>
             </ImageBackground>
-           </>
     );
 }
 
@@ -73,7 +71,6 @@ const styles = StyleSheet.create({
     add: {
         paddingLeft: 310,
         paddingTop: 10,
-        
         },
     container: {
         flex: 1,

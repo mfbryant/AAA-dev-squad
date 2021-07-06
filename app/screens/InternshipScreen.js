@@ -7,7 +7,7 @@ import Icon from '../assets/components/IconButton';
 function InternshipScreen(props) {
     return (
         <View style={styles.container}>
-            <StatusBar style="inverted" />
+            <StatusBar style="auto" />
                <SafeAreaView>
                    <View style={styles.icon}>
                     <Icon 

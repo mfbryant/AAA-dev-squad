@@ -9,57 +9,28 @@ import InvolvementScreen from "../screens/InvolvementScreen";
 import VolunteerScreen from "../screens/VolunteerScreen";
 import OrgScreen from "../screens/OrgScreen";
 import ScanScreen from "../screens/ScanScreen";
+import PersonalEventsScreen from "../screens/PersonalEventsScreen";
+import EventDetailsScreen from "../screens/EventDetailsScreen";
 
 const Stack = createStackNavigator();
 
 const AuthNavigator = () => (
-<<<<<<< HEAD
-    <>
+  <>
     <Stack.Navigator>
-        <Stack.Screen
-            name="Home"
-            component={HomeScreen}
-        />
-        <Stack.Screen
-            name="Calendar"
-            component={CalendarScreen}
-            options={{ headerShown: false }}
-        />
-        <Stack.Screen 
-            name="Involvement"
-            component={InvolvementScreen}
-            />
-        <Stack.Screen 
-            name="Organizations"
-            component={OrgScreen}
-            />
-        <Stack.Screen 
-            name="Volunteer"
-            component={VolunteerScreen}
-            />
-</Stack.Navigator>
-=======
->>>>>>> 3f36e091f7947a4378067de8815fb1b65482be26
-  <Stack.Navigator>
-    <Stack.Screen name="Home" component={HomeScreen} />
-    <Stack.Screen
-      name="Calendar"
-      component={CalendarScreen}
-      options={{ headerShown: false }}
-<<<<<<< HEAD
+      <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Screen
+        name="Calendar"
+        component={CalendarScreen}
+        options={{ headerShown: false }}
       />
-=======
-    />
->>>>>>> 3f36e091f7947a4378067de8815fb1b65482be26
-    <Stack.Screen name="Involvement" component={InvolvementScreen} />
-    <Stack.Screen name="Organizations" component={OrgScreen} />
-    <Stack.Screen name="Volunteer" component={VolunteerScreen} />
-    <Stack.Screen name="Scanner" component={ScanScreen} />
-  </Stack.Navigator>
-<<<<<<< HEAD
+      <Stack.Screen name="Involvement" component={InvolvementScreen} />
+      <Stack.Screen name="Organizations" component={OrgScreen} />
+      <Stack.Screen name="Volunteer" component={VolunteerScreen} />
+      <Stack.Screen name="Scanner" component={ScanScreen} />
+      <Stack.Screen name="Events" component={PersonalEventsScreen} />
+      <Stack.Screen name="Event Details" component={EventDetailsScreen} />
+    </Stack.Navigator>
   </>
-=======
->>>>>>> 3f36e091f7947a4378067de8815fb1b65482be26
 );
 
 export default AuthNavigator;

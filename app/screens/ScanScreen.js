@@ -42,19 +42,6 @@ const styles = StyleSheet.create({
   camera: {
     flex: 3,
   },
-  text: {
-    fontSize: 30,
-  },
-  top: {
-    flex: 1,
-    color: "#fff",
-  },
-  bottom: {
-    flex: 2,
-    color: "#fff",
-    justifyContent: "center",
-    alignItems: "center",
-  },
 });
 
 export default ScanScreen;

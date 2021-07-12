@@ -9,22 +9,28 @@ import InvolvementScreen from "../screens/InvolvementScreen";
 import VolunteerScreen from "../screens/VolunteerScreen";
 import OrgScreen from "../screens/OrgScreen";
 import ScanScreen from "../screens/ScanScreen";
+import PersonalEventsScreen from "../screens/PersonalEventsScreen";
+import EventDetailsScreen from "../screens/EventDetailsScreen";
 
 const Stack = createStackNavigator();
 
 const AuthNavigator = () => (
-  <Stack.Navigator>
-    <Stack.Screen name="Home" component={HomeScreen} />
-    <Stack.Screen
-      name="Calendar"
-      component={CalendarScreen}
-      options={{ headerShown: false }}
-    />
-    <Stack.Screen name="Involvement" component={InvolvementScreen} />
-    <Stack.Screen name="Organizations" component={OrgScreen} />
-    <Stack.Screen name="Volunteer" component={VolunteerScreen} />
-    <Stack.Screen name="Scanner" component={ScanScreen} />
-  </Stack.Navigator>
+  <>
+    <Stack.Navigator>
+      <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Screen
+        name="Calendar"
+        component={CalendarScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen name="Involvement" component={InvolvementScreen} />
+      <Stack.Screen name="Organizations" component={OrgScreen} />
+      <Stack.Screen name="Volunteer" component={VolunteerScreen} />
+      <Stack.Screen name="Scanner" component={ScanScreen} />
+      <Stack.Screen name="Events" component={PersonalEventsScreen} />
+      <Stack.Screen name="Event Details" component={EventDetailsScreen} />
+    </Stack.Navigator>
+  </>
 );
 
 export default AuthNavigator;

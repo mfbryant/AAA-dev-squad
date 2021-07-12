@@ -8,7 +8,7 @@ function InvolvementScreen(props) {
         <ImageBackground style={styles.image} source={require('../assets/graphics/denny.jpg')} blurRadius={1}>
         <View style={styles.container}>
             <Button title="Internship Info" onPress={() => console.log('internship pressed')}/>
-            <Button title="Involvement" onPress={() => console.log("involement pressed") }/>
+            {/* <Button title="Involvement" onPress={() => console.log("involement pressed") }/> */}
             <Button title="Volunteer Info" onPress={() => console.log('volunteer pressed')}/>
             <Button title="Hiring Sponsors" onPress={() => console.log('hiring pressed')} />
         </View>

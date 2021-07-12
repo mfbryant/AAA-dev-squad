@@ -14,6 +14,8 @@ import Internships from "./app/screens/InternshipScreen";
 import Involvement from "./app/screens/InvolvementScreen";
 import OrgScreen from "./app/screens/OrgScreen";
 import Volunteer from "./app/screens/VolunteerScreen";
+import SponsorsScreen from "./app/screens/SponsorsScreen";
+import ScanScreen from "./app/screens/ScanScreen";
 
 export default function App() {
   // console.log("app be working");

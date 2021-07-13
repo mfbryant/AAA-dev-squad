@@ -8,6 +8,13 @@ namespace api.models
         public List<Organization> GetAllOrgs()
         {
             //add connection string
+            //changed namespace to api on all files - reevaluate if errors
+
+        }
+
+        public Organization GetOrg(int id)
+        {
+
         }
     }
 }

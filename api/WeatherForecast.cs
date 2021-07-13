@@ -1,6 +1,6 @@
 using System;
 
-namespace AAA_dev_squad
+namespace api
 {
     public class WeatherForecast
     {

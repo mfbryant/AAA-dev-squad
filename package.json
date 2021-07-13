@@ -17,11 +17,7 @@
     "expo": "~41.0.1",
     "expo-app-loading": "^1.1.2",
     "expo-asset": "~8.3.1",
-<<<<<<< HEAD
-    "expo-barcode-scanner": "~10.1.2",
-=======
     "expo-barcode-scanner": "^10.1.2",
->>>>>>> 13767ce8ae67c8bdcb4cb3a7bbb4de4e41ced9e2
     "expo-camera": "~11.0.2",
     "expo-constants": "~10.1.3",
     "expo-file-system": "~11.0.2",

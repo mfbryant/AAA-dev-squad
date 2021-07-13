@@ -26,6 +26,10 @@ function HomeScreen({ navigation }) {
         title="QR Scanner"
         onPress={() => navigation.navigate("Scanner")}
       />
+      <AppButton
+        title="Your Events"
+        onPress={() => navigation.navigate("Events")}
+      />
     </View>
   );
 }

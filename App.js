@@ -1,10 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import React from "react";
-import { 
-  StyleSheet, 
-  Text, 
-  View 
-} from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
@@ -18,6 +14,11 @@ import Internships from "./app/screens/InternshipScreen";
 import Involvement from "./app/screens/InvolvementScreen";
 import OrgScreen from "./app/screens/OrgScreen";
 import Volunteer from "./app/screens/VolunteerScreen";
+<<<<<<< HEAD
+=======
+import SponsorsScreen from "./app/screens/SponsorsScreen";
+import ScanScreen from "./app/screens/ScanScreen";
+>>>>>>> 13767ce8ae67c8bdcb4cb3a7bbb4de4e41ced9e2
 
 export default function App() {
   // console.log("app be working");

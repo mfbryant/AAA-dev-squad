@@ -3,8 +3,10 @@ import { StyleSheet, View, ImageBackground, FlatList, TouchableOpacity } from 'r
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { StatusBar } from 'expo-status-bar';
 
+import Screen from '../assets/components/Screen';
 import Icon from '../assets/components/IconButton';
 import Post from '../assets/components/Post';
+import routes from '../navigation/route';
 
 const fakePosts = [
     {
@@ -31,13 +33,15 @@ const fakePosts = [
 
 ]
 
-function VolunteerScreen(props) {
+function VolunteerScreen({ navigation }) {
+    
     const [posts, setPost] = useState(fakePosts);
     //Possible Icons: close, arrow-left, chevron-left/chevron-right/chevron-down/chevron-up
     return (
-            <ImageBackground style={styles.image} backgroundColor="#e9e2e4">
+    <Screen>
+        <ImageBackground style={styles.image} backgroundColor="#e9e2e4">
             <StatusBar style="auto"/>
-            <View style={{flexDirection: 'row'}}>
+            {/* <View style={{flexDirection: 'row'}}>
             <Icon
             style={styles.icon}
             name="close" 
@@ -52,7 +56,7 @@ function VolunteerScreen(props) {
                     color='crimson'
                     style={styles.add}/>
                 </TouchableOpacity>
-            </View>
+            </View> */}
             <View style={styles.container}>
                 <FlatList 
                 data={posts}
@@ -60,10 +64,11 @@ function VolunteerScreen(props) {
                 renderItem={({ item }) => <Post 
                 title={item.title}
                 subtitle={item.subtitle}
-                onPress={() => console.log(item.id)}
-                />} />
+                onPress={() => navigation.navigate(routes.VOLUNTEER_DETAILS , item)}
+                />}/>
             </View>
-            </ImageBackground>
+          </ImageBackground>
+        </Screen>
     );
 }
 
@@ -75,6 +80,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         width: '100%',
+        paddingTop: 10
     },
     icon: {
         paddingRight: 10,

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using api.models.interfaces;
 
 namespace api.Controllers
 {
@@ -12,10 +13,11 @@ namespace api.Controllers
     public class organizationsController : ControllerBase
     {
         // GET: api/organizations
-        [HttpGet]
-        public IEnumerable<string> Get()
+        [HttpGet(Name = "GetOrgs")]
+        public List<Organization> Get()
         {
-            return new string[] { "value1", "value2" };
+            IGetAllOrgs readObj = new ReadOrgData();
+            return readObj.GetAllOrgs();
         }
 
         // GET: api/organizations/5

@@ -40,7 +40,28 @@ namespace api.models
 
         public Organization GetOrg(int id)
         {
+            ConnectionString myConnection = new ConnectionString();
+            string cs = myConnection.cs;
+            using var con = new MySqlConnection(cs);
+            con.Open();
 
+            string stm = "SELECT * FROM organizations WHERE orgID==@orgID";
+            using var cmd = new MySqlCommand(stm, con);
+            cmd.Parameters.AddWithValue("@orgID", id);
+            cmd.Prepare();
+            MySqlDataReader rdr = cmd.ExecuteReader();
+
+            rdr.Read();
+            return new Organization()
+            {
+                OrgId = int.Parse(rdr["orgID"].ToString()),
+                OrgName = rdr["orgName"].ToString(),
+                OrgDeets = rdr["orgDeets"].ToString(),
+                Insta = rdr["insta"].ToString(),
+                Twitter = rdr["twitter"].ToString(),
+                LinkedIn = rdr["linkedIn"].ToString(),
+                Facebook = rdr["facebook"].ToString(),
+            };
         }
     }
 }

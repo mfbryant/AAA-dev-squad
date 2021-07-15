@@ -45,7 +45,7 @@ namespace api.models
             using var con = new MySqlConnection(cs);
             con.Open();
 
-            string stm = "SELECT * FROM organizations WHERE orgID==@orgID";
+            string stm = "SELECT * FROM organizations WHERE orgID=@orgID";
             using var cmd = new MySqlCommand(stm, con);
             cmd.Parameters.AddWithValue("@orgID", id);
             cmd.Prepare();

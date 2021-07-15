@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using api.models;
 using api.models.interfaces;
 
 namespace api.Controllers
@@ -16,15 +17,16 @@ namespace api.Controllers
         [HttpGet(Name = "GetOrgs")]
         public List<Organization> Get()
         {
-            IGetAllOrgs readObj = new ReadOrgData();
-            return readObj.GetAllOrgs();
+            IGetAllOrgs readOrg = new ReadOrgData();
+            return readOrg.GetAllOrgs();
         }
 
         // GET: api/organizations/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+        [HttpGet("{id}", Name = "GetOrg")]
+        public Organization Get(int id)
         {
-            return "value";
+            IGetOrg readOrg = new ReadOrgData();
+            return readOrg.GetOrg(id);
         }
 
         // POST: api/organizations

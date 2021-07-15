@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Cors;
 using api.models;
 using api.models.interfaces;
 
@@ -14,6 +15,7 @@ namespace api.Controllers
     public class organizationsController : ControllerBase
     {
         // GET: api/organizations
+        [EnableCors("AnotherPolicy")]
         [HttpGet(Name = "GetOrgs")]
         public List<Organization> Get()
         {
@@ -22,6 +24,7 @@ namespace api.Controllers
         }
 
         // GET: api/organizations/5
+        [EnableCors("AnotherPolicy")]
         [HttpGet("{id}", Name = "GetOrg")]
         public Organization Get(int id)
         {

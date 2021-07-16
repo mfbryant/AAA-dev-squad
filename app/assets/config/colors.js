@@ -7,6 +7,8 @@ export default {
   light: "#f8f4f4",
   leet: "#c1c1c1",
   dark: "#0c0c0c",
+  grey: "#333333",
+  charcoal: "#222222",
   danger: "#ff5252",
   green: "#008000",
 };

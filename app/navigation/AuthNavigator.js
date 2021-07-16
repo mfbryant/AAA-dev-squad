@@ -11,6 +11,7 @@ import OrgScreen from "../screens/OrgScreen";
 import ScanScreen from "../screens/ScanScreen";
 import PersonalEventsScreen from "../screens/PersonalEventsScreen";
 import EventDetailsScreen from "../screens/EventDetailsScreen";
+import AddEventScreen from "../screens/AddEventScreen";
 
 const Stack = createStackNavigator();
 
@@ -27,8 +28,13 @@ const AuthNavigator = () => (
       <Stack.Screen name="Organizations" component={OrgScreen} />
       <Stack.Screen name="Volunteer" component={VolunteerScreen} />
       <Stack.Screen name="Scanner" component={ScanScreen} />
-      <Stack.Screen name="Events" component={PersonalEventsScreen} />
+      <Stack.Screen
+        name="Events"
+        component={PersonalEventsScreen}
+        options={{ headerShown: false }}
+      />
       <Stack.Screen name="Event Details" component={EventDetailsScreen} />
+      <Stack.Screen name="Add Event" component={AddEventScreen} />
     </Stack.Navigator>
   </>
 );

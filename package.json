@@ -9,7 +9,11 @@
   },
   "dependencies": {
     "@expo/vector-icons": "^12.0.0",
+<<<<<<< HEAD
     "@react-native-community/datetimepicker": "^3.5.2",
+=======
+    "@react-native-community/datetimepicker": "3.5.2",
+>>>>>>> 1a2e1d0a7f62bb0e474e57e2d16326e5b7fd7db5
     "@react-native-community/masked-view": "0.1.10",
     "@react-navigation/bottom-tabs": "^5.11.11",
     "@react-navigation/native": "^5.9.4",

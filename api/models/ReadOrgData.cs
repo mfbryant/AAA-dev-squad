@@ -24,7 +24,7 @@ namespace api.models
             {
                 Organization x = new Organization()
                 {
-                    OrgId = int.Parse(rdr["orgID"].ToString()),
+                    OrgId = int.Parse(rdr["orgId"].ToString()),
                     OrgName = rdr["orgName"].ToString(),
                     OrgDeets = rdr["orgDeets"].ToString(),
                     Insta = rdr["insta"].ToString(),
@@ -45,16 +45,16 @@ namespace api.models
             using var con = new MySqlConnection(cs);
             con.Open();
 
-            string stm = "SELECT * FROM organizations WHERE orgID=@orgID";
+            string stm = "SELECT * FROM organizations WHERE orgId=@orgId";
             using var cmd = new MySqlCommand(stm, con);
-            cmd.Parameters.AddWithValue("@orgID", id);
+            cmd.Parameters.AddWithValue("@orgId", id);
             cmd.Prepare();
             MySqlDataReader rdr = cmd.ExecuteReader();
 
             rdr.Read();
             return new Organization()
             {
-                OrgId = int.Parse(rdr["orgID"].ToString()),
+                OrgId = int.Parse(rdr["orgId"].ToString()),
                 OrgName = rdr["orgName"].ToString(),
                 OrgDeets = rdr["orgDeets"].ToString(),
                 Insta = rdr["insta"].ToString(),

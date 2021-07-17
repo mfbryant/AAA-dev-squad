@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.charcoal,
   },
   list: {
-    padding: 15,
+    padding: 10,
     height: "100%",
   },
   background: {

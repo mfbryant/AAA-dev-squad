@@ -12,7 +12,7 @@ const fakePosts = [
     {
         id: 1,
         title: "Involvement oppurtunity at soup bowl!",
-        subtitle: "This week soup bowl is in need of people to help make food, serve, and many other things. I am going to keep writing for more length"
+        subtitle: 'Going to make this a very long text to make sure we are still handling everything the way we should be handling it'
     },
 
     {
@@ -75,12 +75,11 @@ function VolunteerScreen({ navigation }) {
 const styles = StyleSheet.create({
     add: {
         paddingLeft: 310,
-        paddingTop: 10,
+        paddingTop: 10
         },
     container: {
         flex: 1,
         width: '100%',
-        paddingTop: 10
     },
     icon: {
         paddingRight: 10,

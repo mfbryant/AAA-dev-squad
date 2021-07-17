@@ -21,7 +21,8 @@ const styles = StyleSheet.create({
         width: '95%',
         padding: 20,
         borderRadius: 25,
-        marginBottom: 20,
+        marginBottom: 10,
+        marginTop: 10,
         alignSelf: 'center'
     },
     post: {

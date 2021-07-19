@@ -4,7 +4,6 @@ import { FlatList, StyleSheet, Text, View } from 'react-native';
 
 export default function OrgScreen() {
     const [data, setData] = useState([]);
-    // const [orgName, setOrgName] = React.useState('')
 
     const getOrgs = async () => {
         try {
@@ -20,24 +19,15 @@ export default function OrgScreen() {
         getOrgs();
     }, []);
 
-        // const getOrgsApiUrl = 'https://localhost:5001/api/organizations';
-        // fetch(getOrgsApiUrl)
-        //     .then(response => response.json())
-        //     .then(response => {
-        //         setOrgID(response.orgID);
-        //         setOrgName(response.orgName);
-        //     })
-
     return (
         <View style={styles.container}>
             <FlatList 
                 data={data}
                 keyExtractor={({ orgId }, index) => orgId.toString()}
                 renderItem={({ item }) => (
-                   <Text>{item.orgName}, {item.orgDeets}</Text>
+                   <Text>{item.orgName}, {item.orgDeets}, {item.insta}, {item.twitter}, {item.linkedIn}, {item.facebook} </Text>
                )}
             />
-            {/* <Text>{orgName}</Text> */}
         </View>
     );
 }

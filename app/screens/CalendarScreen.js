@@ -5,6 +5,7 @@ import { Agenda } from 'react-native-calendars';
 import AppButton from '../assets/components/AppButton';
 
 export default class CalendarScreen extends Component {
+  
   constructor(props) {
     super(props);
 
@@ -44,7 +45,6 @@ export default class CalendarScreen extends Component {
           showClosingKnob={true}
           style={styles.calendar}
         />
-      
     );
   }
 
@@ -81,7 +81,9 @@ export default class CalendarScreen extends Component {
     const date = new Date(time);
     return date.toISOString().split('T')[0];
   }
+  
 }
+
 
 const styles = StyleSheet.create({
   calendar: {

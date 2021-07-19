@@ -9,11 +9,7 @@
   },
   "dependencies": {
     "@expo/vector-icons": "^12.0.0",
-<<<<<<< HEAD
     "@react-native-community/datetimepicker": "^3.5.2",
-=======
-    "@react-native-community/datetimepicker": "3.5.2",
->>>>>>> 1a2e1d0a7f62bb0e474e57e2d16326e5b7fd7db5
     "@react-native-community/masked-view": "0.1.10",
     "@react-navigation/bottom-tabs": "^5.11.11",
     "@react-navigation/native": "^5.9.4",
@@ -33,18 +29,23 @@
     "expo-sqlite": "~9.2.1",
     "expo-status-bar": "~1.0.4",
     "moment": "^2.29.1",
+    "native-base": "^3.0.6",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-42.0.0.tar.gz",
     "react-native-calendars": "^1.1263.0",
     "react-native-gesture-handler": "~1.10.2",
     "react-native-modal-datetime-picker": "^10.2.0",
+    "react-native-modal-selector": "^2.0.7",
     "react-native-qrcode-scanner": "^1.5.4",
     "react-native-reanimated": "~2.2.0",
     "react-native-safe-area-context": "3.2.0",
     "react-native-screens": "~3.4.0",
     "react-native-sqlite-storage": "^5.0.0",
+    "react-native-svg": "12.1.1",
     "react-native-web": "^0.17.1",
+    "styled-components": "^5.3.0",
+    "styled-system": "^5.1.5",
     "tedious": "^11.0.9"
   },
   "devDependencies": {

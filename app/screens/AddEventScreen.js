@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   StyleSheet,
@@ -7,12 +7,30 @@ import {
   Text,
 } from "react-native";
 import DateTimePicker from "react-native-modal-datetime-picker";
+import AppPicker from "../assets/components/AppPicker";
 import Screen from "../assets/components/Screen";
 import colors from "../assets/config/colors";
 
+const systemOrgs = [
+  {
+    value: 1, // orgID
+    label: "AIMS", // orgAbbr
+  },
+  {
+    value: 2,
+    label: "CMISS",
+  },
+  {
+    value: 3,
+    label: "WIT",
+  },
+];
+
 function AddEventScreen(props) {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+  const [selectedValue, setSelectedValue] = useState("");
   const [date, setDate] = useState(new Date());
+  const [org, setOrg] = useState();
 
   let currentDate = new Date();
   let curMonth = new Date().getMonth();
@@ -47,25 +65,28 @@ function AddEventScreen(props) {
 
   return (
     <Screen style={styles.screen}>
-      <Text style={styles.title}>Name of Event</Text>
+      <Text style={styles.header}>Name of Event</Text>
       <View style={styles.textBox}>
         <TextInput
           placeholder="GOBD, Tree-Cleaning, etc.,"
           style={styles.textInput}
         />
       </View>
-      <View style={styles.separator}></View>
       <Text style={styles.title}>Organization</Text>
-      <View style={styles.textBox}>
-        <TextInput
-          placeholder="aims, cmiss, wit, etc.,"
-          style={styles.textInput}
-        />
-      </View>
-      <View style={styles.separator}></View>
+      <AppPicker
+        selectedItem={org}
+        onSelectItem={(item) => setOrg(item)}
+        items={systemOrgs}
+        icon="school"
+        placeholder="aims, cmiss, wit, etc.,"
+      />
       <View style={styles.date}>
         <Text style={styles.title}>Date of Event</Text>
-        <TouchableOpacity onPress={showDatePicker} style={styles.button}>
+        <TouchableOpacity
+          onPress={showDatePicker}
+          style={styles.button}
+          onValueChange={(itemValue) => setSelectedValue(itemValue)}
+        >
           <Text style={styles.buttonText}>{date.toDateString()}</Text>
         </TouchableOpacity>
       </View>
@@ -86,9 +107,18 @@ function AddEventScreen(props) {
 
 const styles = StyleSheet.create({
   screen: {
-    padding: 20,
+    padding: 15,
+  },
+  picker: {
+    height: 50,
+    width: "100%",
   },
   textInput: {},
+  header: {
+    fontSize: 20,
+    fontWeight: "600",
+    paddingBottom: 3,
+  },
   textBox: {
     backgroundColor: colors.leet,
     paddingHorizontal: 10,
@@ -96,15 +126,13 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   title: {
+    marginTop: 10,
     fontSize: 20,
     fontWeight: "600",
     paddingBottom: 3,
   },
-  separator: {
-    width: "100%",
-    height: 10,
-  },
   date: {
+    marginTop: 5,
     flexDirection: "row",
     alignItems: "center",
     width: "100%",

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { View, Text, FlatList, StyleSheet, SafeAreaView } from "react-native";
 
-import Screen from "../assets/components/Screen";
 import EventListItem from "../assets/components/EventListItem";
 import Icon from "../assets/components/IconButton";
 

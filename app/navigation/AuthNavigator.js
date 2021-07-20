@@ -27,7 +27,7 @@ const AuthNavigator = () => (
       />
       <Stack.Screen name="Involvement" component={InvolvementScreen} />
       <Stack.Screen name="Organizations" component={OrgScreen} />
-      <Stack.Screen name="Volunteer" component={FeedNavigator} options={{ headerShown: false}} />
+      <Stack.Screen name="Volunteer" component={FeedNavigator} options={{ headerShown: false }} />
       <Stack.Screen name="Scanner" component={ScanScreen} />
       <Stack.Screen
         name="Events"

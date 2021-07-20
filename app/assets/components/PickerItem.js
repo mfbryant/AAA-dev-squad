@@ -5,8 +5,8 @@ import colors from "../config/colors";
 function PickerItem({ label, onPress }) {
   return (
     <TouchableOpacity onPress={onPress}>
-      <View style={styles.bar} />
       <Text style={styles.text}>{label}</Text>
+      <View style={styles.bar} />
     </TouchableOpacity>
   );
 }
@@ -16,11 +16,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 10,
     fontWeight: "500",
-    fontSize: 17,
+    fontSize: 15,
   },
   bar: {
     borderBottomWidth: 1,
-    borderColor: colors.medium,
+    borderColor: colors.light,
   },
 });
 

@@ -53,7 +53,6 @@ function AppPicker({ icon, items, onSelectItem, placeholder, selectedItem }) {
         <SafeAreaView style={styles.screen}>
           <View style={styles.modalBox}>
             <View style={styles.modal}>
-              <Button title="Close" onPress={() => setModalVisible(false)} />
               <FlatList
                 data={items}
                 keyExtractor={(item) => item.value.toString()}
@@ -67,6 +66,7 @@ function AppPicker({ icon, items, onSelectItem, placeholder, selectedItem }) {
                   />
                 )}
               />
+              <Button title="Close" onPress={() => setModalVisible(false)} />
             </View>
           </View>
         </SafeAreaView>
@@ -78,7 +78,6 @@ function AppPicker({ icon, items, onSelectItem, placeholder, selectedItem }) {
 const styles = StyleSheet.create({
   container: {
     borderColor: defaultStyles.colors.black,
-    borderWidth: 2,
     borderRadius: 5,
     flexDirection: "row",
     width: "100%",
@@ -87,7 +86,7 @@ const styles = StyleSheet.create({
     marginVertical: 5,
     alignItems: "center",
   },
-  cont1: { backgroundColor: defaultStyles.colors.light },
+  cont1: { backgroundColor: defaultStyles.colors.light, borderWidth: 2 },
   cont2: { backgroundColor: defaultStyles.colors.leet },
   text1: { color: defaultStyles.colors.black },
   text2: { color: defaultStyles.colors.medium },
@@ -101,7 +100,7 @@ const styles = StyleSheet.create({
   modal: {
     paddingVertical: 10,
     paddingHorizontal: 5,
-    backgroundColor: defaultStyles.colors.leet,
+    backgroundColor: defaultStyles.colors.white,
     width: "90%",
     borderRadius: 25,
   },

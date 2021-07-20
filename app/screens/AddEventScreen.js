@@ -6,6 +6,8 @@ import {
   TextInput,
   Text,
 } from "react-native";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { format } from "date-fns";
 import DateTimePicker from "react-native-modal-datetime-picker";
 import AppPicker from "../assets/components/AppPicker";
 import Screen from "../assets/components/Screen";
@@ -58,7 +60,6 @@ function AddEventScreen(props) {
   };
 
   const handleConfirm = (date) => {
-    console.log("A date has been picked: ", date);
     setDate(date);
     hideDatePicker();
   };
@@ -69,6 +70,7 @@ function AddEventScreen(props) {
       <View style={styles.textBox}>
         <TextInput
           placeholder="GOBD, Tree-Cleaning, etc.,"
+          placeholderTextColor={colors.leet}
           style={styles.textInput}
         />
       </View>
@@ -80,27 +82,45 @@ function AddEventScreen(props) {
         icon="school"
         placeholder="aims, cmiss, wit, etc.,"
       />
-      <View style={styles.date}>
-        <Text style={styles.title}>Date of Event</Text>
+      <Text style={styles.title}>Date & Time of Event</Text>
+      <>
         <TouchableOpacity
           onPress={showDatePicker}
           style={styles.button}
-          onValueChange={(itemValue) => setSelectedValue(itemValue)}
+          onValueChange={(item) => setSelectedValue(item)}
         >
-          <Text style={styles.buttonText}>{date.toDateString()}</Text>
+          <MaterialCommunityIcons
+            name="calendar-multiselect"
+            size={20}
+            color={colors.white}
+          />
+          <Text style={styles.buttonText}>
+            {format(date, "MMMM do yyyy  hh:mm a")}
+          </Text>
         </TouchableOpacity>
+      </>
+      <View style={styles.buttonBox}>
+        <View style={styles.buttonRow}>
+          <TouchableOpacity style={styles.bigButton}></TouchableOpacity>
+          <TouchableOpacity style={styles.bigButton}></TouchableOpacity>
+          <TouchableOpacity style={styles.bigButton}></TouchableOpacity>
+        </View>
+        <View style={styles.buttonRow}>
+          <TouchableOpacity style={styles.bigButton}></TouchableOpacity>
+          <TouchableOpacity style={styles.bigButton}></TouchableOpacity>
+        </View>
+        <DateTimePicker
+          isVisible={isDatePickerVisible}
+          value={date}
+          mode="datetime"
+          date={currentDate}
+          minimumDate={currentDate}
+          maximumDate={laterDate}
+          display={Platform.OS === "ios" ? "inline" : "calendar"}
+          onConfirm={handleConfirm}
+          onCancel={hideDatePicker}
+        />
       </View>
-      <DateTimePicker
-        isVisible={isDatePickerVisible}
-        value={date}
-        mode="datetime"
-        date={currentDate}
-        minimumDate={currentDate}
-        maximumDate={laterDate}
-        display={Platform.OS === "ios" ? "inline" : "calendar"}
-        onConfirm={handleConfirm}
-        onCancel={hideDatePicker}
-      />
     </Screen>
   );
 }
@@ -113,14 +133,19 @@ const styles = StyleSheet.create({
     height: 50,
     width: "100%",
   },
-  textInput: {},
+  textInput: {
+    height: 20,
+    fontWeight: "600",
+  },
   header: {
     fontSize: 20,
     fontWeight: "600",
     paddingBottom: 3,
   },
   textBox: {
-    backgroundColor: colors.leet,
+    backgroundColor: colors.light,
+    borderWidth: 2,
+    borderColor: colors.black,
     paddingHorizontal: 10,
     paddingVertical: 5,
     borderRadius: 5,
@@ -131,24 +156,37 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     paddingBottom: 3,
   },
-  date: {
-    marginTop: 5,
-    flexDirection: "row",
-    alignItems: "center",
-    width: "100%",
-    justifyContent: "space-between",
-    paddingRight: 5,
-  },
   button: {
+    marginTop: 5,
     backgroundColor: colors.charcoal,
     paddingHorizontal: 10,
     paddingVertical: 5,
     borderRadius: 10,
+    width: "100%",
+    justifyContent: "space-between",
+    alignItems: "center",
+    flexDirection: "row",
   },
   buttonText: {
     color: colors.white,
     fontWeight: "600",
-    fontSize: 20,
+    fontSize: 17,
+  },
+  buttonBox: {
+    flex: 1,
+  },
+  buttonRow: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    alignItems: "center",
+  },
+  bigButton: {
+    flex: 1,
+    height: 50,
+    margin: 5,
+    borderRadius: 10,
+    backgroundColor: "black",
   },
 });
 

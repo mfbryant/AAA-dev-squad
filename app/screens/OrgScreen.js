@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
 
+import Screen from '../assets/components/Screen';
+
 
 export default function OrgScreen() {
     const [data, setData] = useState([]);
@@ -20,15 +22,17 @@ export default function OrgScreen() {
     }, []);
 
     return (
-        <View style={styles.container}>
-            <FlatList 
-                data={data}
-                keyExtractor={({ orgId }, index) => orgId.toString()}
-                renderItem={({ item }) => (
-                   <Text>{item.orgName}, {item.orgDeets}, {item.insta}, {item.twitter}, {item.linkedIn}, {item.facebook} </Text>
-               )}
-            />
-        </View>
+        <Screen>
+            <View style={styles.container}>
+                <FlatList
+                    data={data}
+                    keyExtractor={({ orgId }, index) => orgId.toString()}
+                    renderItem={({ item }) => (
+                        <Text>{item.orgName}, {item.orgDeets}, {item.insta}, {item.twitter}, {item.linkedIn}, {item.facebook} </Text>
+                    )}
+                />
+            </View>
+        </Screen>
     );
 }
 

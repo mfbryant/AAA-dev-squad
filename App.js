@@ -16,6 +16,7 @@ import OrgScreen from "./app/screens/OrgScreen";
 import Volunteer from "./app/screens/VolunteerScreen";
 import SponsorsScreen from "./app/screens/SponsorsScreen";
 import ScanScreen from "./app/screens/ScanScreen";
+import SwipeNavigator from "./app/navigation/SwipeNavigator";
 
 export default function App() {
   // console.log("app be working");
@@ -24,7 +25,7 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <AuthNavigator />
+      <SwipeNavigator />
     </NavigationContainer>
   );
 

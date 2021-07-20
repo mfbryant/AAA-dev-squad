@@ -1,5 +1,6 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
+import { StatusBar } from "expo-status-bar";
 
 import AppButton from "../assets/components/AppButton";
 
@@ -22,14 +23,14 @@ function HomeScreen({ navigation }) {
         title="Volunteer Opportunities"
         onPress={() => navigation.navigate("Volunteer")}
       />
-      <AppButton
+      {/* <AppButton
         title="QR Scanner"
         onPress={() => navigation.navigate("Scanner")}
       />
       <AppButton
         title="Your Events"
         onPress={() => navigation.navigate("Events")}
-      />
+      /> */}
     </View>
   );
 }

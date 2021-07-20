@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { View, Text, FlatList, StyleSheet, SafeAreaView } from "react-native";
 
-import Screen from "../assets/components/Screen";
 import EventListItem from "../assets/components/EventListItem";
 import Icon from "../assets/components/IconButton";
 
 import colors from "../assets/config/colors";
 import { LinearGradient } from "expo-linear-gradient";
+import { StatusBar } from "expo-status-bar";
 
 // Load in user specific events from server
 // handleOnLoad
@@ -46,6 +46,7 @@ function PersonalEventsScreen({ navigation }) {
       colors={[colors.light, colors.leet]}
       style={styles.gradient}
     >
+      <StatusBar style='auto' />
       <View style={styles.container}>
         <SafeAreaView style={{ alignItems: "center" }}>
           <View style={styles.bar}>

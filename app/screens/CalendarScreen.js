@@ -3,26 +3,27 @@ import { Alert, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'r
 import { Agenda } from 'react-native-calendars';
 
 import AppButton from '../assets/components/AppButton';
+import Screen from '../assets/components/Screen';
 
 export default class CalendarScreen extends Component {
-  
+
   constructor(props) {
     super(props);
 
-    const ambassadors = {key: 'ambassadors', color: 'green'}
+    const ambassadors = { key: 'ambassadors', color: 'green' }
 
     this.state = {
       items: {
-        '2021-07-01': [{dots: [ambassadors], name: 'current day testing', selected: true, selectedColor: 'red'}],
+        '2021-07-01': [{ dots: [ambassadors], name: 'current day testing', selected: true, selectedColor: 'red' }],
         //August
-        '2021-08-20': [{name: 'Welcome Back Event at the UA Rec Fields @5-7:00!!'}],
-        '2021-08-26': [{name: 'Get On Board Day at the Ferg Promenade @5-9:00'}],
+        '2021-08-20': [{ name: 'Welcome Back Event at the UA Rec Fields @5-7:00!!' }],
+        '2021-08-26': [{ name: 'Get On Board Day at the Ferg Promenade @5-9:00' }],
         //September
-        '2021-09-09': [{name: 'Mock Mock Interviews with Commonly Asked Interview Questions Workshop'}],
-        '2021-09-11': [{name: 'Tailgate sponsored by International Paper'}],
-        '2021-09-16': [{name: 'Mock Interviews' }],
-        '2021-09-17': [{name: 'Mock Interviews' }],
-        '2021-09-22': [{name: 'Career Fair' }],
+        '2021-09-09': [{ name: 'Mock Mock Interviews with Commonly Asked Interview Questions Workshop' }],
+        '2021-09-11': [{ name: 'Tailgate sponsored by International Paper' }],
+        '2021-09-16': [{ name: 'Mock Interviews' }],
+        '2021-09-17': [{ name: 'Mock Interviews' }],
+        '2021-09-22': [{ name: 'Career Fair' }],
         //October
 
         //November
@@ -34,6 +35,7 @@ export default class CalendarScreen extends Component {
   }
   render() {
     return (
+      <Screen>
         <Agenda
           items={this.state.items}
           loadItemsForMonth={this.loadItems.bind(this)}
@@ -45,12 +47,13 @@ export default class CalendarScreen extends Component {
           showClosingKnob={true}
           style={styles.calendar}
         />
+      </Screen>
     );
   }
 
   loadItems(day) {
     const newItems = {};
-    Object.keys(this.state.items).forEach(key => {newItems[key] = this.state.items[key];});
+    Object.keys(this.state.items).forEach(key => { newItems[key] = this.state.items[key]; });
     this.setState({
       items: newItems
     });
@@ -59,7 +62,7 @@ export default class CalendarScreen extends Component {
   renderItem(item) {
     return (
       <TouchableOpacity
-        style={[styles.item, {height: item.height}]}
+        style={[styles.item, { height: item.height }]}
         onPress={() => Alert.alert(item.name)}
       >
         <Text>{item.name}</Text>
@@ -81,7 +84,7 @@ export default class CalendarScreen extends Component {
     const date = new Date(time);
     return date.toISOString().split('T')[0];
   }
-  
+
 }
 
 
@@ -100,7 +103,7 @@ const styles = StyleSheet.create({
   },
   emptyDate: {
     height: 15,
-    flex:1,
+    flex: 1,
     paddingTop: 30
   }
 });

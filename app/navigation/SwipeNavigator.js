@@ -8,17 +8,21 @@ import Screen from '../assets/components/Screen';
 import AuthNavigator from './AuthNavigator';
 import PersonalEventsScreen from '../screens/PersonalEventsScreen';
 import { View } from 'react-native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import TabNavigator from './TabNavigator';
 
-const Tab = createMaterialTopTabNavigator();
+const SwipeTab = createMaterialTopTabNavigator();
+
+const BottomTab = createBottomTabNavigator();
 
 const SwipeNavigator = () => (
     <>
         <StatusBar style='auto' />
-        <Tab.Navigator tabBarOptions={{ showLabel: false }} tabBarPosition="hidden" initialRouteName='Home'>
-            <Tab.Screen name='Scanner' component={ScanScreen} />
-            <Tab.Screen name='Home' component={AuthNavigator} />
-            <Tab.Screen name='PersonalEvent' component={PersonalEventsScreen} />
-        </Tab.Navigator>
+        <SwipeTab.Navigator tabBarOptions={{ showLabel: false }} tabBarPosition="hidden" initialRouteName='Home'>
+            <SwipeTab.Screen name='Scanner' component={ScanScreen} />
+            <SwipeTab.Screen name='Home' component={TabNavigator} />
+            <SwipeTab.Screen name='PersonalEvent' component={PersonalEventsScreen} />
+        </SwipeTab.Navigator>
     </>
 );
 

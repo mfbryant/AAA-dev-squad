@@ -4,13 +4,9 @@ import EventScreen from "../assets/components/EventScreen";
 import Icon from "../assets/components/IconButton";
 import colors from "../assets/config/colors";
 
-import Print from "expo-print";
-import MediaLibrary from "expo-media-library";
-import Sharing from "expo-sharing";
-
-import { ReactPDF } from "@react-pdf/renderer";
-import EventPDF from "../assets/components/EventPDF";
-import FormButton from "../assets/components/FormButton";
+// import Print from "expo-print";
+// import MediaLibrary from "expo-media-library";
+// import Sharing from "expo-sharing";
 
 // const createAndSavePDF = async (html) => {
 //   try {
@@ -62,15 +58,17 @@ function EventDetailsScreen({ route, navigation }) {
         </View>
       }
     >
-      <SafeAreaView>
+      <SafeAreaView style={styles.screen}>
         <Text>{eventId}</Text>
-        <FormButton></FormButton>
       </SafeAreaView>
     </EventScreen>
   );
 }
 
 const styles = StyleSheet.create({
+  screen: {
+    flex: 1,
+  },
   barText: {
     fontSize: 17,
     fontWeight: "600",

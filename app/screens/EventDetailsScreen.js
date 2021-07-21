@@ -4,6 +4,30 @@ import EventScreen from "../assets/components/EventScreen";
 import Icon from "../assets/components/IconButton";
 import colors from "../assets/config/colors";
 
+import Print from "expo-print";
+import MediaLibrary from "expo-media-library";
+import Sharing from "expo-sharing";
+
+import ReactPDF from "@react-pdf/renderer";
+import EventPDF from "../assets/components/EventPDF";
+import FormButton from "../assets/components/FormButton";
+
+// const createAndSavePDF = async (html) => {
+//   try {
+//     const { uri } = await Print.printToFileAsync({ html });
+//     if (Platform.OS === "ios") {
+//       await Sharing.shareAsync(uri);
+//     } else {
+//       const permission = await MediaLibrary.requestPermissionsAsync();
+//       if (permission.granted) {
+//         await MediaLibrary.createAssetAsync(uri);
+//       }
+//     }
+//   } catch (error) {
+//     console.error(error);
+//   }
+// };
+
 function EventDetailsScreen({ route, navigation }) {
   const [data, setData] = useState([]);
   var eventId = route.params.paramKey;
@@ -40,6 +64,13 @@ function EventDetailsScreen({ route, navigation }) {
     >
       <SafeAreaView>
         <Text>{eventId}</Text>
+        <FormButton
+          onPress={() =>
+            ReactPDF.render(<EventPDF />, `${__dirname}/example.pdf`)
+          }
+        >
+          Press
+        </FormButton>
       </SafeAreaView>
     </EventScreen>
   );

@@ -10,6 +10,7 @@ import PersonalEventsScreen from '../screens/PersonalEventsScreen';
 import { View } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import TabNavigator from './TabNavigator';
+import YourEventsNavigator from './YourEventsNavigator';
 
 const SwipeTab = createMaterialTopTabNavigator();
 
@@ -17,11 +18,11 @@ const BottomTab = createBottomTabNavigator();
 
 const SwipeNavigator = () => (
     <>
-        <StatusBar style='auto' />
+       <StatusBar style='auto' />
         <SwipeTab.Navigator tabBarOptions={{ showLabel: false }} tabBarPosition="hidden" initialRouteName='Home'>
             <SwipeTab.Screen name='Scanner' component={ScanScreen} />
             <SwipeTab.Screen name='Home' component={TabNavigator} />
-            <SwipeTab.Screen name='PersonalEvent' component={PersonalEventsScreen} />
+            <SwipeTab.Screen name='Events' component={YourEventsNavigator} />
         </SwipeTab.Navigator>
     </>
 );

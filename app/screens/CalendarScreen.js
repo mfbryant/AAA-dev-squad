@@ -5,8 +5,15 @@ import { Agenda } from 'react-native-calendars';
 import AppButton from '../assets/components/AppButton';
 import Screen from '../assets/components/Screen';
 
-export default class CalendarScreen extends Component {
+  // return(
+  //   <SafeAreaView>
+  //     <Agenda items={items} renderItem={renderItem}/>
+  //   </SafeAreaView>
+  // );
 
+
+
+export default class CalendarScreen extends Component {
   constructor(props) {
     super(props);
 
@@ -33,6 +40,7 @@ export default class CalendarScreen extends Component {
       }
     };
   }
+
   render() {
     return (
       <Screen>
@@ -50,6 +58,27 @@ export default class CalendarScreen extends Component {
       </Screen>
     );
   }
+
+  // populateCalendar() {
+  //   const [data, setData] = useState([]);
+
+  //   const getEvents = async () => {
+  //     try {
+  //         const response = await fetch('https://aims-ambassadorship-app.herokuapp.com/api/events');
+  //         const json = await response.json();
+  //         setData(json);
+  //     } catch (error) {
+  //         console.error(error);
+  //     }   
+  //   }
+    
+  //   useEffect(() => {
+  //       getEvents();
+  //   }, []);
+    
+  // }
+
+  
 
   loadItems(day) {
     const newItems = {};
@@ -105,6 +134,9 @@ const styles = StyleSheet.create({
     height: 15,
     flex: 1,
     paddingTop: 30
+  },
+  safe: {
+    flex: 1,
   }
 });
 

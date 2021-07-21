@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { FlatList, StyleSheet, Text, View } from 'react-native';
+import { Button, FlatList, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 
+import AffinityText from "../assets/components/AffinityText";
+import colors from '../assets/config/colors';
+import OrgName from '../assets/components/OrgName';
 import Screen from '../assets/components/Screen';
 
 
@@ -23,22 +26,29 @@ export default function OrgScreen() {
 
     return (
         <Screen>
+            <SafeAreaView>
             <View style={styles.container}>
                 <FlatList
                     data={data}
                     keyExtractor={({ orgId }, index) => orgId.toString()}
                     renderItem={({ item }) => (
-                        <Text>{item.orgName}, {item.orgDeets}, {item.insta}, {item.twitter}, {item.linkedIn}, {item.facebook} </Text>
+                        <OrgName 
+                            orgName={item.orgName}
+                            onPress
+                        />
                     )}
                 />
             </View>
+            </SafeAreaView>
         </Screen>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
-
+        justifyContent: "center",
+        padding: 10,
+        width: "100%"
     }
 });
 

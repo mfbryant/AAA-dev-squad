@@ -8,7 +8,7 @@ import Print from "expo-print";
 import MediaLibrary from "expo-media-library";
 import Sharing from "expo-sharing";
 
-import ReactPDF from "@react-pdf/renderer";
+import { ReactPDF } from "@react-pdf/renderer";
 import EventPDF from "../assets/components/EventPDF";
 import FormButton from "../assets/components/FormButton";
 
@@ -64,13 +64,7 @@ function EventDetailsScreen({ route, navigation }) {
     >
       <SafeAreaView>
         <Text>{eventId}</Text>
-        <FormButton
-          onPress={() =>
-            ReactPDF.render(<EventPDF />, `${__dirname}/example.pdf`)
-          }
-        >
-          Press
-        </FormButton>
+        <FormButton></FormButton>
       </SafeAreaView>
     </EventScreen>
   );

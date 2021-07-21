@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { View, StyleSheet, TextInput, Text } from "react-native";
+import { SafeAreaView, View, StyleSheet, TextInput, Text } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
 import colors from "../assets/config/colors";
-
+import Icon from "../assets/components/IconButton";
 import AppPicker from "../assets/components/AppPicker";
 import Screen from "../assets/components/Screen";
 import DatePicker from "../assets/components/DatePicker";
@@ -23,7 +24,7 @@ const systemOrgs = [
   },
 ];
 
-function AddEventScreen(props) {
+function AddEventScreen({ navigation }) {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [date, setDate] = useState(new Date());
   const [org, setOrg] = useState();
@@ -42,72 +43,109 @@ function AddEventScreen(props) {
   };
 
   return (
-    <Screen style={styles.screen}>
-      <Text style={styles.header}>Name of Event</Text>
-      <View style={styles.textBox}>
-        <TextInput
-          placeholder="GOBD, Tree-Cleaning, etc.,"
-          placeholderTextColor={colors.leet}
-          style={styles.textInput}
-        />
+    <LinearGradient
+      colors={[colors.light, colors.leet]}
+      style={styles.gradient}
+    >
+      <View style={styles.container}>
+        <SafeAreaView style={{ alignItems: "center" }}>
+          <View style={styles.bar}>
+            <Icon
+              name="arrow-left"
+              color={colors.white}
+              onPress={() => navigation.goBack()}
+              size={25}
+            />
+            <Text style={styles.barText}>Your Events</Text>
+          </View>
+        </SafeAreaView>
       </View>
-      <Text style={styles.title}>Organization</Text>
-      <AppPicker
-        selectedItem={org}
-        onSelectItem={(item) => setOrg(item)}
-        items={systemOrgs}
-        icon="school"
-        placeholder="aims, cmiss, wit, etc.,"
-      />
-      <Text style={styles.title}>Date & Time of Event</Text>
-      <DatePicker
-        showDatePicker={showDatePicker}
-        hideDatePicker={hideDatePicker}
-        isDatePickerVisible={isDatePickerVisible}
-        date={date}
-        handleConfirm={handleConfirm}
-      />
-      <Text style={styles.title}>When Does it End?</Text>
-      <DatePicker
-        showDatePicker={showDatePicker}
-        hideDatePicker={hideDatePicker}
-        isDatePickerVisible={isDatePickerVisible}
-        date={date}
-        handleConfirm={handleConfirm}
-      />
-      <Text style={styles.title}>Event Description/Details</Text>
-      <View style={styles.descriptionBox}>
-        <TextInput
-          placeholder="Cleaning the wonderful trees around campus..."
-          placeholderTextColor={colors.leet}
-          multiline={true}
-          style={styles.descriptionInput}
-        />
-      </View>
-      <View style={styles.buttonRow}>
-        <View style={styles.spacing}>
-          <TextModal
-            icon="lock"
-            buttonText="Bypass Review"
-            buttonColor={colors.medium}
-            text="Enter Executive Key"
-            input={input}
-            secure={true}
+      <Screen style={styles.screen}>
+        <Text style={styles.header}>Name of Event</Text>
+        <View style={styles.textBox}>
+          <TextInput
+            placeholder="GOBD, Tree-Cleaning, etc.,"
+            placeholderTextColor={colors.leet}
+            style={styles.textInput}
           />
         </View>
-        <FormButton text="Submit for Review" color={colors.green} />
-      </View>
-      <View style={styles.buttonRow}>
-        <FormButton text="Save as Draft" color={colors.medium} />
-      </View>
-      <View style={styles.button}>
-        <FormButton text="Cancel" color={colors.danger} />
-      </View>
-    </Screen>
+        <Text style={styles.title}>Organization</Text>
+        <AppPicker
+          selectedItem={org}
+          onSelectItem={(item) => setOrg(item)}
+          items={systemOrgs}
+          icon="school"
+          placeholder="aims, cmiss, wit, etc.,"
+        />
+        <Text style={styles.title}>Date & Time of Event</Text>
+        <DatePicker
+          showDatePicker={showDatePicker}
+          hideDatePicker={hideDatePicker}
+          isDatePickerVisible={isDatePickerVisible}
+          date={date}
+          handleConfirm={handleConfirm}
+        />
+        <Text style={styles.title}>When Does it End?</Text>
+        <DatePicker
+          showDatePicker={showDatePicker}
+          hideDatePicker={hideDatePicker}
+          isDatePickerVisible={isDatePickerVisible}
+          date={date}
+          handleConfirm={handleConfirm}
+        />
+        <Text style={styles.title}>Event Description/Details</Text>
+        <View style={styles.descriptionBox}>
+          <TextInput
+            placeholder="Cleaning the wonderful trees around campus..."
+            placeholderTextColor={colors.leet}
+            multiline={true}
+            style={styles.descriptionInput}
+          />
+        </View>
+        <View style={styles.buttonRow}>
+          <View style={styles.spacing}>
+            <TextModal
+              icon="lock"
+              buttonText="Bypass Review"
+              buttonColor={colors.medium}
+              text="Enter Executive Key"
+              input={input}
+              secure={true}
+            />
+          </View>
+          <FormButton text="Submit for Review" color={colors.green} />
+        </View>
+        <View style={styles.buttonRow}>
+          <FormButton text="Save as Draft" color={colors.medium} />
+        </View>
+        <View style={styles.button}>
+          <FormButton text="Cancel" color={colors.danger} />
+        </View>
+      </Screen>
+    </LinearGradient>
   );
 }
 
 const styles = StyleSheet.create({
+  container: {
+    backgroundColor: colors.charcoal,
+  },
+  gradient: {
+    flex: 1,
+  },
+  barText: {
+    fontSize: 17,
+    fontWeight: "600",
+    color: colors.white,
+    marginLeft: 10,
+  },
+  bar: {
+    width: "100%",
+    flexDirection: "row",
+    alignItems: "center",
+    paddingHorizontal: 25,
+    paddingBottom: 7,
+  },
   screen: {
     padding: 15,
   },
@@ -140,7 +178,7 @@ const styles = StyleSheet.create({
     borderColor: colors.black,
     paddingHorizontal: 10,
     paddingVertical: 5,
-    borderRadius: 5,
+    borderRadius: 10,
     marginBottom: 10,
   },
   title: {
@@ -152,7 +190,7 @@ const styles = StyleSheet.create({
   buttonRow: {
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: 7,
+    marginBottom: 10,
     justifyContent: "space-evenly",
   },
   button: {

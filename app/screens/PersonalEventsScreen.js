@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, FlatList, StyleSheet, SafeAreaView } from "react-native";
 
 import EventListItem from "../assets/components/EventListItem";
@@ -11,34 +11,51 @@ import { LinearGradient } from "expo-linear-gradient";
 // handleOnLoad
 
 // Examples
-const userEvents = [
-  {
-    org: "aims",
-    id: 2021000001,
-    title: "Welcome Back Event",
-    description: "See you soon!",
-    status: "Pending",
-  },
-  {
-    org: "cmiss",
-    id: 2021000002,
-    title: "Get On Board Day",
-    description: "See you soon!",
-    status: "Approved",
-  },
-  {
-    org: "Wit",
-    id: 2021000003,
-    title: "Mock Interviews",
-    description: "See you soon!",
-    status: "Denied",
-  },
-];
+// const userEvents = [
+//   {
+//     org: "aims",
+//     id: 2021000001,
+//     title: "Welcome Back Event",
+//     description: "See you soon!",
+//     status: "Pending",
+//   },
+//   {
+//     org: "cmiss",
+//     id: 2021000002,
+//     title: "Get On Board Day",
+//     description: "See you soon!",
+//     status: "Approved",
+//   },
+//   {
+//     org: "Wit",
+//     id: 2021000003,
+//     title: "Mock Interviews",
+//     description: "See you soon!",
+//     status: "Denied",
+//   },
+// ];
 // Examples
 
 function PersonalEventsScreen({ navigation }) {
-  const [events, setEvents] = useState(userEvents);
+  // const [events, setEvents] = useState(userEvents);
   const [refreshing, setRefreshing] = useState(false);
+  const [data, setData] = useState([]);
+
+  const getEvents = async () => {
+    try {
+      const response = await fetch(
+        "https://aims-ambassadorship-app.herokuapp.com/api/events"
+      );
+      const json = await response.json();
+      setData(json);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    getEvents();
+  }, []);
 
   return (
     <LinearGradient
@@ -52,14 +69,14 @@ function PersonalEventsScreen({ navigation }) {
               name="home"
               color={colors.white}
               onPress={() => navigation.navigate("Home")}
-              size={30}
+              size={25}
             />
             <Text style={styles.barText}>Your Events</Text>
             <Icon
               name="plus"
               color={colors.white}
               onPress={() => navigation.navigate("Add Event")}
-              size={30}
+              size={25}
             />
           </View>
         </SafeAreaView>
@@ -67,21 +84,25 @@ function PersonalEventsScreen({ navigation }) {
       <SafeAreaView>
         <View style={styles.list}>
           <FlatList
-            data={events}
-            keyExtractor={(event) => event.id.toString()}
+            data={data}
+            keyExtractor={({ eventId }) => eventId.toString()}
             renderItem={({ item }) => (
               <EventListItem
-                org={item.org}
-                title={item.title}
-                subTitle={item.description}
-                status={item.status}
-                onPress={() => navigation.navigate("Event Details")}
+                org="aims"
+                title={item.eventName}
+                subTitle={item.location}
+                status="Approved"
+                onPress={() =>
+                  navigation.navigate("Event Details", {
+                    paramKey: item.eventId,
+                  })
+                }
               />
             )}
             ItemSeparatorComponent={() => <View style={styles.separator} />}
             refreshing={refreshing}
             onRefresh={() => {
-              setEvents(userEvents);
+              // setEvents(data);
             }}
           />
         </View>
@@ -120,11 +141,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingHorizontal: 25,
     paddingBottom: 7,
-  },
-  statusBar: {
-    backgroundColor: colors.dark,
-    flexDirection: "row",
-    width: "100%",
   },
 });
 

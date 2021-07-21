@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { SafeAreaView, View, StyleSheet, TextInput, Text } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
+import { View, StyleSheet, TextInput, Text } from "react-native";
 import colors from "../assets/config/colors";
 import Icon from "../assets/components/IconButton";
 import AppPicker from "../assets/components/AppPicker";
@@ -8,6 +7,7 @@ import Screen from "../assets/components/Screen";
 import DatePicker from "../assets/components/DatePicker";
 import FormButton from "../assets/components/FormButton";
 import TextModal from "../assets/components/TextModal";
+import EventScreen from "../assets/components/EventScreen";
 
 const systemOrgs = [
   {
@@ -43,23 +43,19 @@ function AddEventScreen({ navigation }) {
   };
 
   return (
-    <LinearGradient
-      colors={[colors.light, colors.leet]}
-      style={styles.gradient}
+    <EventScreen
+      barChildren={
+        <View style={styles.bar}>
+          <Icon
+            name="arrow-left"
+            color={colors.white}
+            onPress={() => navigation.goBack()}
+            size={25}
+          />
+          <Text style={styles.barText}>Your Events</Text>
+        </View>
+      }
     >
-      <View style={styles.container}>
-        <SafeAreaView style={{ alignItems: "center" }}>
-          <View style={styles.bar}>
-            <Icon
-              name="arrow-left"
-              color={colors.white}
-              onPress={() => navigation.goBack()}
-              size={25}
-            />
-            <Text style={styles.barText}>Your Events</Text>
-          </View>
-        </SafeAreaView>
-      </View>
       <Screen style={styles.screen}>
         <Text style={styles.header}>Name of Event</Text>
         <View style={styles.textBox}>
@@ -122,17 +118,11 @@ function AddEventScreen({ navigation }) {
           <FormButton text="Cancel" color={colors.danger} />
         </View>
       </Screen>
-    </LinearGradient>
+    </EventScreen>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: colors.charcoal,
-  },
-  gradient: {
-    flex: 1,
-  },
   barText: {
     fontSize: 17,
     fontWeight: "600",
@@ -147,7 +137,9 @@ const styles = StyleSheet.create({
     paddingBottom: 7,
   },
   screen: {
-    padding: 15,
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    flex: 1,
   },
   textInput: {
     height: 20,

@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, FlatList, StyleSheet, SafeAreaView } from "react-native";
+import { View, Text, FlatList, StyleSheet } from "react-native";
 
 import EventListItem from "../assets/components/EventListItem";
 import Icon from "../assets/components/IconButton";
-
+import EventScreen from "../assets/components/EventScreen";
 import colors from "../assets/config/colors";
-import { LinearGradient } from "expo-linear-gradient";
 
 // Load in user specific events from server
 // handleOnLoad
@@ -58,76 +57,65 @@ function PersonalEventsScreen({ navigation }) {
   }, []);
 
   return (
-    <LinearGradient
-      colors={[colors.light, colors.leet]}
-      style={styles.gradient}
-    >
-      <View style={styles.container}>
-        <SafeAreaView style={{ alignItems: "center" }}>
-          <View style={styles.bar}>
-            <Icon
-              name="home"
-              color={colors.white}
-              onPress={() => navigation.navigate("Home")}
-              size={25}
-            />
-            <Text style={styles.barText}>Your Events</Text>
-            <Icon
-              name="plus"
-              color={colors.white}
-              onPress={() => navigation.navigate("Add Event")}
-              size={25}
-            />
-          </View>
-        </SafeAreaView>
-      </View>
-      <SafeAreaView>
-        <View style={styles.list}>
-          <FlatList
-            data={data}
-            keyExtractor={({ eventId }) => eventId.toString()}
-            renderItem={({ item }) => (
-              <EventListItem
-                org="aims"
-                title={item.eventName}
-                subTitle={item.location}
-                status="Approved"
-                onPress={() =>
-                  navigation.navigate("Event Details", {
-                    paramKey: item.eventId,
-                  })
-                }
-              />
-            )}
-            ItemSeparatorComponent={() => <View style={styles.separator} />}
-            refreshing={refreshing}
-            onRefresh={() => {
-              // setEvents(data);
-            }}
+    <EventScreen
+      barChildren={
+        <View style={styles.bar}>
+          <Icon
+            name="home"
+            color={colors.white}
+            onPress={() => navigation.navigate("Home")}
+            size={25}
+          />
+          <Text style={styles.barText}>Your Events</Text>
+          <Icon
+            name="plus"
+            color={colors.white}
+            onPress={() => navigation.navigate("Add Event")}
+            size={25}
           />
         </View>
-      </SafeAreaView>
-    </LinearGradient>
+      }
+    >
+      <View style={styles.list}>
+        <FlatList
+          style={styles.flatList}
+          data={data}
+          keyExtractor={({ eventId }) => eventId.toString()}
+          renderItem={({ item }) => (
+            <EventListItem
+              org="aims" // change to item.org
+              title={item.eventName}
+              subTitle={item.location}
+              status="Approved" // change to item.status
+              onPress={() =>
+                navigation.navigate("Event Details", {
+                  paramKey: item.eventId,
+                })
+              }
+            />
+          )}
+          ItemSeparatorComponent={() => <View style={styles.separator} />}
+          refreshing={refreshing}
+          onRefresh={() => {
+            // setEvents(data);
+          }}
+        />
+      </View>
+    </EventScreen>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: colors.charcoal,
-  },
   list: {
-    padding: 10,
-    height: "100%",
-  },
-  background: {
     flex: 1,
+  },
+  flatList: {
+    paddingVertical: 10,
+    paddingHorizontal: 15,
   },
   separator: {
     width: "100%",
     height: 10,
-  },
-  gradient: {
-    flex: 1,
   },
   barText: {
     fontSize: 17,

@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     width: "100%",
     paddingHorizontal: 10,
     paddingVertical: 5,
-    marginVertical: 5,
+    marginVertical: 2,
     alignItems: "center",
   },
   cont1: { backgroundColor: defaultStyles.colors.light, borderWidth: 2 },

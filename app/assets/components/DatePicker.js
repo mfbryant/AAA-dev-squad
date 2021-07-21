@@ -74,7 +74,7 @@ function DatePicker({
 
 const styles = StyleSheet.create({
   button: {
-    marginTop: 5,
+    marginTop: 2,
     backgroundColor: colors.charcoal,
     paddingHorizontal: 10,
     paddingVertical: 5,

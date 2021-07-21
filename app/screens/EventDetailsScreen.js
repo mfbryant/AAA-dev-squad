@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Text, SafeAreaView, View, StyleSheet } from "react-native";
+import EventScreen from "../assets/components/EventScreen";
 import Icon from "../assets/components/IconButton";
-import { LinearGradient } from "expo-linear-gradient";
 import colors from "../assets/config/colors";
 
 function EventDetailsScreen({ route, navigation }) {
@@ -25,48 +25,27 @@ function EventDetailsScreen({ route, navigation }) {
   }, []);
 
   return (
-    <LinearGradient
-      colors={[colors.light, colors.leet]}
-      style={styles.gradient}
+    <EventScreen
+      barChildren={
+        <View style={styles.bar}>
+          <Icon
+            name="arrow-left"
+            color={colors.white}
+            onPress={() => navigation.goBack()}
+            size={25}
+          />
+          <Text style={styles.barText}>Your Events</Text>
+        </View>
+      }
     >
-      <View style={styles.container}>
-        <SafeAreaView style={{ alignItems: "center" }}>
-          <View style={styles.bar}>
-            <Icon
-              name="arrow-left"
-              color={colors.white}
-              onPress={() => navigation.goBack()}
-              size={25}
-            />
-            <Text style={styles.barText}>Your Events</Text>
-          </View>
-        </SafeAreaView>
-      </View>
       <SafeAreaView>
         <Text>{eventId}</Text>
       </SafeAreaView>
-    </LinearGradient>
+    </EventScreen>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: colors.charcoal,
-  },
-  list: {
-    padding: 10,
-    height: "100%",
-  },
-  background: {
-    flex: 1,
-  },
-  separator: {
-    width: "100%",
-    height: 10,
-  },
-  gradient: {
-    flex: 1,
-  },
   barText: {
     fontSize: 17,
     fontWeight: "600",

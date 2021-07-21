@@ -1,17 +1,12 @@
-import React, { useState, useEffect } from "react";
-import {
-  View,
-  StyleSheet,
-  TouchableOpacity,
-  TextInput,
-  Text,
-} from "react-native";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { format } from "date-fns";
-import DateTimePicker from "react-native-modal-datetime-picker";
+import React, { useState } from "react";
+import { View, StyleSheet, TextInput, Text } from "react-native";
+import colors from "../assets/config/colors";
+
 import AppPicker from "../assets/components/AppPicker";
 import Screen from "../assets/components/Screen";
-import colors from "../assets/config/colors";
+import DatePicker from "../assets/components/DatePicker";
+import FormButton from "../assets/components/FormButton";
+import TextModal from "../assets/components/TextModal";
 
 const systemOrgs = [
   {
@@ -30,27 +25,9 @@ const systemOrgs = [
 
 function AddEventScreen(props) {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
-  const [selectedValue, setSelectedValue] = useState("");
   const [date, setDate] = useState(new Date());
   const [org, setOrg] = useState();
-
-  let currentDate = new Date();
-  let curMonth = new Date().getMonth();
-  let curDay = new Date().getDate();
-  let laterYear = new Date().getFullYear() + 2;
-  let curHour = new Date().getUTCHours();
-  let curMin = new Date().getUTCMinutes();
-  let curSeconds = new Date().getUTCSeconds();
-  let curMillisec = new Date().getUTCMilliseconds();
-  let laterDate = new Date(
-    laterYear,
-    curMonth,
-    curDay,
-    curHour,
-    curMin,
-    curSeconds,
-    curMillisec
-  );
+  const [input, setInput] = useState();
 
   const showDatePicker = () => {
     setDatePickerVisibility(true);
@@ -83,43 +60,48 @@ function AddEventScreen(props) {
         placeholder="aims, cmiss, wit, etc.,"
       />
       <Text style={styles.title}>Date & Time of Event</Text>
-      <>
-        <TouchableOpacity
-          onPress={showDatePicker}
-          style={styles.button}
-          onValueChange={(item) => setSelectedValue(item)}
-        >
-          <MaterialCommunityIcons
-            name="calendar-multiselect"
-            size={20}
-            color={colors.white}
-          />
-          <Text style={styles.buttonText}>
-            {format(date, "MMMM do yyyy  hh:mm a")}
-          </Text>
-        </TouchableOpacity>
-      </>
-      <View style={styles.buttonBox}>
-        <View style={styles.buttonRow}>
-          <TouchableOpacity style={styles.bigButton}></TouchableOpacity>
-          <TouchableOpacity style={styles.bigButton}></TouchableOpacity>
-          <TouchableOpacity style={styles.bigButton}></TouchableOpacity>
-        </View>
-        <View style={styles.buttonRow}>
-          <TouchableOpacity style={styles.bigButton}></TouchableOpacity>
-          <TouchableOpacity style={styles.bigButton}></TouchableOpacity>
-        </View>
-        <DateTimePicker
-          isVisible={isDatePickerVisible}
-          value={date}
-          mode="datetime"
-          date={currentDate}
-          minimumDate={currentDate}
-          maximumDate={laterDate}
-          display={Platform.OS === "ios" ? "inline" : "calendar"}
-          onConfirm={handleConfirm}
-          onCancel={hideDatePicker}
+      <DatePicker
+        showDatePicker={showDatePicker}
+        hideDatePicker={hideDatePicker}
+        isDatePickerVisible={isDatePickerVisible}
+        date={date}
+        handleConfirm={handleConfirm}
+      />
+      <Text style={styles.title}>When Does it End?</Text>
+      <DatePicker
+        showDatePicker={showDatePicker}
+        hideDatePicker={hideDatePicker}
+        isDatePickerVisible={isDatePickerVisible}
+        date={date}
+        handleConfirm={handleConfirm}
+      />
+      <Text style={styles.title}>Event Description/Details</Text>
+      <View style={styles.descriptionBox}>
+        <TextInput
+          placeholder="Cleaning the wonderful trees around campus..."
+          placeholderTextColor={colors.leet}
+          multiline={true}
+          style={styles.descriptionInput}
         />
+      </View>
+      <View style={styles.buttonRow}>
+        <View style={styles.spacing}>
+          <TextModal
+            icon="lock"
+            buttonText="Bypass Review"
+            buttonColor={colors.medium}
+            text="Enter Executive Key"
+            input={input}
+            secure={true}
+          />
+        </View>
+        <FormButton text="Submit for Review" color={colors.green} />
+      </View>
+      <View style={styles.buttonRow}>
+        <FormButton text="Save as Draft" color={colors.medium} />
+      </View>
+      <View style={styles.button}>
+        <FormButton text="Cancel" color={colors.danger} />
       </View>
     </Screen>
   );
@@ -129,16 +111,17 @@ const styles = StyleSheet.create({
   screen: {
     padding: 15,
   },
-  picker: {
-    height: 50,
-    width: "100%",
-  },
   textInput: {
     height: 20,
     fontWeight: "600",
   },
+  descriptionInput: {
+    fontWeight: "600",
+    overflow: "scroll",
+    height: "100%",
+  },
   header: {
-    fontSize: 20,
+    fontSize: 17,
     fontWeight: "600",
     paddingBottom: 3,
   },
@@ -150,43 +133,34 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
     borderRadius: 5,
   },
+  descriptionBox: {
+    flex: 1,
+    backgroundColor: colors.light,
+    borderWidth: 2,
+    borderColor: colors.black,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    borderRadius: 5,
+    marginBottom: 10,
+  },
   title: {
     marginTop: 10,
-    fontSize: 20,
+    fontSize: 17,
     fontWeight: "600",
     paddingBottom: 3,
   },
-  button: {
-    marginTop: 5,
-    backgroundColor: colors.charcoal,
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    borderRadius: 10,
-    width: "100%",
-    justifyContent: "space-between",
-    alignItems: "center",
-    flexDirection: "row",
-  },
-  buttonText: {
-    color: colors.white,
-    fontWeight: "600",
-    fontSize: 17,
-  },
-  buttonBox: {
-    flex: 1,
-  },
   buttonRow: {
-    flex: 1,
     flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 7,
     justifyContent: "space-evenly",
+  },
+  button: {
+    flexDirection: "row",
     alignItems: "center",
   },
-  bigButton: {
-    flex: 1,
-    height: 50,
-    margin: 5,
-    borderRadius: 10,
-    backgroundColor: "black",
+  spacing: {
+    marginRight: 10,
   },
 });
 

@@ -1,17 +1,21 @@
 import React from "react";
-import { TouchableOpacity, Text, StyleSheet } from "react-native";
+import { TouchableOpacity, Text, StyleSheet, View } from "react-native";
 import colors from "../config/colors";
 
-function FormButton({ text, color, onPress }) {
+function FormButton({ v, text, color, onPress }) {
   return (
-    <TouchableOpacity
-      onPress={onPress}
-      style={[{ backgroundColor: color }, styles.button]}
-    >
-      <Text adjustsFontSizeToFit numberOfLines={1} style={styles.text}>
-        {text}
-      </Text>
-    </TouchableOpacity>
+    <>
+      {v ? (
+        <TouchableOpacity
+          onPress={onPress}
+          style={[{ backgroundColor: color }, styles.button]}
+        >
+          <Text adjustsFontSizeToFit numberOfLines={1} style={styles.text}>
+            {text}
+          </Text>
+        </TouchableOpacity>
+      ) : null}
+    </>
   );
 }
 

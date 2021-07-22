@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Text, SafeAreaView, View, StyleSheet } from "react-native";
 import EventScreen from "../assets/components/EventScreen";
 import Icon from "../assets/components/IconButton";
 import colors from "../assets/config/colors";
+import AffinityText from "../assets/components/AffinityText";
+import FormButton from "../assets/components/FormButton";
 
 // import Print from "expo-print";
 // import MediaLibrary from "expo-media-library";
@@ -24,25 +26,25 @@ import colors from "../assets/config/colors";
 //   }
 // };
 
+const user = {
+  officerStatus: 1, // orgID
+  label: "AIMS", // orgAbbr
+};
+const event2 = {
+  eventStatus: "Approved", // orgID
+  label: "AIMS", // orgAbbr
+};
 function EventDetailsScreen({ route, navigation }) {
-  const [data, setData] = useState([]);
-  var eventId = route.params.paramKey;
+  const event = route.params;
+  // const user = route.params;
 
-  const getEvents = async () => {
-    try {
-      const response = await fetch(
-        "https://aims-ambassadorship-app.herokuapp.com/api/events"
-      );
-      const json = await response.json();
-      setData(json);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  useEffect(() => {
-    getEvents();
-  }, []);
+  // users access status
+  var show;
+  if (user.officerStatus === 1 && event2.eventStatus === "Approved") {
+    show = true;
+  } else {
+    show = false;
+  }
 
   return (
     <EventScreen
@@ -59,7 +61,20 @@ function EventDetailsScreen({ route, navigation }) {
       }
     >
       <SafeAreaView style={styles.screen}>
-        <Text>{eventId}</Text>
+        <View style={styles.info}>
+          <Text style={styles.header}>{event.eventName}</Text>
+          <AffinityText style={styles.subHeader}>aims</AffinityText>
+        </View>
+        <View style={styles.buttonBox}>
+          <View style={styles.button}>
+            <FormButton
+              v={show}
+              text="Export Event Poster"
+              color={colors.medium}
+              // onPress={}
+            />
+          </View>
+        </View>
       </SafeAreaView>
     </EventScreen>
   );
@@ -68,6 +83,29 @@ function EventDetailsScreen({ route, navigation }) {
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+  },
+  info: {
+    flex: 1,
+  },
+  header: {
+    fontSize: 25,
+    fontWeight: "bold",
+    paddingBottom: 1,
+  },
+  subHeader: {
+    fontSize: 15,
+  },
+  button: {
+    width: "80%",
+    alignItems: "center",
+    flexDirection: "row",
+  },
+  buttonBox: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "flex-end",
   },
   barText: {
     fontSize: 17,

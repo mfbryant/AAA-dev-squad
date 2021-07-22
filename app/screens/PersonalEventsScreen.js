@@ -87,11 +87,7 @@ function PersonalEventsScreen({ navigation }) {
               title={item.eventName}
               subTitle={item.location}
               status="Approved" // change to item.status
-              onPress={() =>
-                navigation.navigate("Event Details", {
-                  paramKey: item.eventId,
-                })
-              }
+              onPress={() => navigation.navigate("Event Details", item)}
             />
           )}
           ItemSeparatorComponent={() => <View style={styles.separator} />}

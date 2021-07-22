@@ -21,6 +21,7 @@ function TextModal({ buttonColor, buttonText, text, icon, secure, input }) {
   return (
     <>
       <FormButton
+        v={true}
         onPress={() => setModalVisible(true)}
         text={buttonText}
         color={buttonColor}

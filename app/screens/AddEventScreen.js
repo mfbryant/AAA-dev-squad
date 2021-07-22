@@ -109,13 +109,13 @@ function AddEventScreen({ navigation }) {
               secure={true}
             />
           </View>
-          <FormButton text="Submit for Review" color={colors.green} />
+          <FormButton v={true} text="Submit for Review" color={colors.green} />
         </View>
         <View style={styles.buttonRow}>
-          <FormButton text="Save as Draft" color={colors.medium} />
+          <FormButton v={true} text="Save as Draft" color={colors.medium} />
         </View>
         <View style={styles.button}>
-          <FormButton text="Cancel" color={colors.danger} />
+          <FormButton v={true} text="Cancel" color={colors.danger} />
         </View>
       </Screen>
     </EventScreen>

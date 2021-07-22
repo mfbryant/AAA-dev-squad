@@ -29,10 +29,12 @@ import FormButton from "../assets/components/FormButton";
 const user = {
   officerStatus: 1, // orgID
   label: "AIMS", // orgAbbr
+  userOrgs: ["aims", "cmiss"],
 };
 const event2 = {
   eventStatus: "Approved", // orgID
   label: "AIMS", // orgAbbr
+  eventOrg: "aims",
 };
 
 function EventDetailsScreen({ route, navigation }) {
@@ -42,7 +44,11 @@ function EventDetailsScreen({ route, navigation }) {
   // users access status
   // Change values when data is correct
   var show = false;
-  if (user.officerStatus === 1 && event2.eventStatus === "Approved") {
+  if (
+    user.officerStatus === 1 &&
+    user.userOrgs.includes(event2.eventOrg) &&
+    event2.eventStatus === "Approved"
+  ) {
     var show = true;
   }
 

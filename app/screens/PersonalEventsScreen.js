@@ -35,6 +35,15 @@ import colors from "../assets/config/colors";
 // ];
 // Examples
 
+const user = {
+  officerStatus: 1, // orgID
+  label: "AIMS", // orgAbbr
+};
+const event2 = {
+  eventStatus: "Approved", // orgID
+  label: "AIMS", // orgAbbr
+};
+
 function PersonalEventsScreen({ navigation }) {
   // const [events, setEvents] = useState(userEvents);
   const [refreshing, setRefreshing] = useState(false);
@@ -56,23 +65,38 @@ function PersonalEventsScreen({ navigation }) {
     getEvents();
   }, []);
 
+  // users access status
+  // Change values when data is correct
+  var show = false;
+  if (user.officerStatus === 1 && event2.eventStatus === "Approved") {
+    var show = true;
+  }
+
   return (
     <EventScreen
       barChildren={
         <View style={styles.bar}>
-          <Icon
-            name="home"
-            color={colors.white}
-            onPress={() => navigation.navigate("Home")}
-            size={25}
-          />
-          <Text style={styles.barText}>Your Events</Text>
-          <Icon
-            name="plus"
-            color={colors.white}
-            onPress={() => navigation.navigate("Add Event")}
-            size={25}
-          />
+          <View style={styles.barItem}>
+            <Icon
+              name="home"
+              color={colors.white}
+              onPress={() => navigation.navigate("Home")}
+              size={25}
+            />
+          </View>
+          <View style={[{ justifyContent: "center" }, styles.barItem]}>
+            <Text style={styles.barText}>Your Events</Text>
+          </View>
+          <View style={[{ justifyContent: "flex-end" }, styles.barItem]}>
+            {show ? (
+              <Icon
+                name="plus"
+                color={colors.white}
+                onPress={() => navigation.navigate("Add Event")}
+                size={25}
+              />
+            ) : null}
+          </View>
         </View>
       }
     >
@@ -109,6 +133,11 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 15,
   },
+  barItem: {
+    flex: 1,
+    alignItems: "center",
+    flexDirection: "row",
+  },
   separator: {
     width: "100%",
     height: 10,
@@ -121,7 +150,6 @@ const styles = StyleSheet.create({
   bar: {
     width: "100%",
     flexDirection: "row",
-    justifyContent: "space-between",
     alignItems: "center",
     paddingHorizontal: 25,
     paddingBottom: 7,

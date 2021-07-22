@@ -34,16 +34,16 @@ const event2 = {
   eventStatus: "Approved", // orgID
   label: "AIMS", // orgAbbr
 };
+
 function EventDetailsScreen({ route, navigation }) {
   const event = route.params;
   // const user = route.params;
 
   // users access status
-  var show;
+  // Change values when data is correct
+  var show = false;
   if (user.officerStatus === 1 && event2.eventStatus === "Approved") {
-    show = true;
-  } else {
-    show = false;
+    var show = true;
   }
 
   return (

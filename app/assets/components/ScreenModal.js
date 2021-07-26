@@ -3,6 +3,7 @@ import {
   Modal,
   SafeAreaView,
   View,
+  Text,
   StyleSheet,
   TouchableOpacity,
 } from "react-native";
@@ -42,11 +43,12 @@ function ScreenModal({
               }}
             >
               <View style={styles.top}>
-                <MaterialIcons
+                {/* <MaterialIcons
                   name="keyboard-arrow-down"
                   size={40}
                   color={colors.white}
-                />
+                /> */}
+                <Text style={styles.text}>Close</Text>
               </View>
             </TouchableOpacity>
           </SafeAreaView>
@@ -82,6 +84,12 @@ const styles = StyleSheet.create({
   },
   body: {
     flex: 1,
+  },
+  text: {
+    color: colors.white,
+    fontWeight: "500",
+    fontSize: 20,
+    marginVertical: 10,
   },
 });
 

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Text, SafeAreaView, View, StyleSheet } from "react-native";
+import { Text, SafeAreaView, View, StyleSheet, Dimensions } from "react-native";
+import QRCode from "react-native-qrcode-svg";
 import EventScreen from "../assets/components/EventScreen";
 import Icon from "../assets/components/IconButton";
 import colors from "../assets/config/colors";
@@ -12,12 +13,14 @@ const user = {
   userOrgs: ["aims", "cmiss"],
 };
 const event2 = {
+  eventId: 2021000001,
   eventStatus: "Approved", // orgID
   label: "AIMS", // orgAbbr
   eventOrg: "aims",
 };
 
 function EventDetailsScreen({ route, navigation }) {
+  const qrWidth = 0.8 * Dimensions.get("window").width;
   const event = route.params;
   // const user = route.params;
 
@@ -57,7 +60,13 @@ function EventDetailsScreen({ route, navigation }) {
               buttonShow={show}
               buttonText="Get Event QR"
               buttonColor={colors.medium}
-            ></ScreenModal>
+            >
+              <View style={styles.qr}>
+                <View style={styles.qrBack}>
+                  <QRCode value={event2.eventId.toString()} size={qrWidth} />
+                </View>
+              </View>
+            </ScreenModal>
           </View>
         </View>
       </SafeAreaView>
@@ -104,6 +113,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingHorizontal: 25,
     paddingBottom: 7,
+  },
+  qr: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  qrBack: {
+    backgroundColor: colors.white,
+    padding: 10,
   },
 });
 

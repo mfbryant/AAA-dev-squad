@@ -4,27 +4,7 @@ import EventScreen from "../assets/components/EventScreen";
 import Icon from "../assets/components/IconButton";
 import colors from "../assets/config/colors";
 import AffinityText from "../assets/components/AffinityText";
-import FormButton from "../assets/components/FormButton";
-
-// import Print from "expo-print";
-// import MediaLibrary from "expo-media-library";
-// import Sharing from "expo-sharing";
-
-// const createAndSavePDF = async (html) => {
-//   try {
-//     const { uri } = await Print.printToFileAsync({ html });
-//     if (Platform.OS === "ios") {
-//       await Sharing.shareAsync(uri);
-//     } else {
-//       const permission = await MediaLibrary.requestPermissionsAsync();
-//       if (permission.granted) {
-//         await MediaLibrary.createAssetAsync(uri);
-//       }
-//     }
-//   } catch (error) {
-//     console.error(error);
-//   }
-// };
+import ScreenModal from "../assets/components/ScreenModal";
 
 const user = {
   officerStatus: 1, // orgID
@@ -73,12 +53,11 @@ function EventDetailsScreen({ route, navigation }) {
         </View>
         <View style={styles.buttonBox}>
           <View style={styles.button}>
-            <FormButton
-              v={show}
-              text="Export Event Poster"
-              color={colors.medium}
-              // onPress={}
-            />
+            <ScreenModal
+              buttonShow={show}
+              buttonText="Get Event QR"
+              buttonColor={colors.medium}
+            ></ScreenModal>
           </View>
         </View>
       </SafeAreaView>

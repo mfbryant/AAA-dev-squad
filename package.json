@@ -30,7 +30,6 @@
     "expo-google-app-auth": "^8.2.2",
     "expo-google-sign-in": "~9.2.1",
     "expo-linear-gradient": "~9.2.0",
-    "expo-media-library": "~12.1.2",
     "expo-print": "~10.2.1",
     "expo-sharing": "~9.2.1",
     "expo-splash-screen": "~0.11.2",
@@ -59,7 +58,7 @@
     "tedious": "^11.0.9"
   },
   "devDependencies": {
-    "@babel/core": "~7.9.0"
+    "@babel/core": "^7.14.8"
   },
   "private": true
 }

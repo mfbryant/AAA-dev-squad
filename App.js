@@ -17,6 +17,7 @@ import Volunteer from "./app/screens/VolunteerScreen";
 import SponsorsScreen from "./app/screens/SponsorsScreen";
 import ScanScreen from "./app/screens/ScanScreen";
 import SwipeNavigator from "./app/navigation/SwipeNavigator";
+import LoginScreen from "./app/screens/LoginScreen";
 
 export default function App() {
   // console.log("app be working");
@@ -24,9 +25,11 @@ export default function App() {
   setTimeout(Splash.hideAsync, 2000);
 
   return (
-    <NavigationContainer>
-      <SwipeNavigator />
-    </NavigationContainer>
+    <LoginScreen />
+
+    // <NavigationContainer>
+    //   <SwipeNavigator />
+    // </NavigationContainer>
   );
 
   // return <HomeScreen />;

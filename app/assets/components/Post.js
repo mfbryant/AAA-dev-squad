@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { SafeAreaView, View, StyleSheet, Text, TouchableOpacity } from 'react-native';
-import { alignContent, style } from 'styled-system';
 import colors from '../config/colors';
 
 import AffinityText from './AffinityText';

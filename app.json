@@ -35,7 +35,6 @@
       "favicon": "./app/assets/favicon.png"
     },
     "description": "",
-    "githubUrl": "https://github.com/mfbryant/AAA-dev-squad.git",
-    "plugins": ["expo-media-library"]
+    "githubUrl": "https://github.com/mfbryant/AAA-dev-squad.git"
   }
 }

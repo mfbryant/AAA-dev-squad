@@ -1,14 +1,13 @@
 import React from 'react';
-import { TouchableOpacity, Image, Text, StyleSheet } from 'react-native';
+import { TouchableOpacity, Image, View, StyleSheet } from 'react-native';
 
 
 
-function Company({ image, company }) {
+function Company({ source, style, onPress }) {
     return (
      <View style={styles.container}>
-        <TouchableOpacity>
-            <Image source={image}/>
-            <Text>{company}</Text>
+        <TouchableOpacity onPress={onPress} >
+            <Image source={source} style={style} />
         </TouchableOpacity>
      </View>
     );
@@ -16,9 +15,10 @@ function Company({ image, company }) {
 
 const styles = StyleSheet.create({
     container: {
-        borderBottomColor:'black',
-
-    }
+        justifyContent: 'center',
+        height: 100,
+        width: 100,
+    },
 })
 
 export default Company;

@@ -34,6 +34,7 @@ export default function OrgScreen() {
                     renderItem={({ item }) => (
                         <OrgName 
                             orgName={item.orgName}
+                            orgDeets={item.orgDeets}
                             onPress
                         />
                     )}

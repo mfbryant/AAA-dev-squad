@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, FlatList, StyleSheet } from "react-native";
+import { View, Text, FlatList, StyleSheet, SafeAreaView } from "react-native";
 
 import EventListItem from "../assets/components/EventListItem";
 import Icon from "../assets/components/IconButton";
@@ -121,7 +121,10 @@ function PersonalEventsScreen({ navigation }) {
           }}
         />
       </View>
+      
     </EventScreen>
+
+    
   );
 }
 

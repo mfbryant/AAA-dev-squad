@@ -57,7 +57,7 @@
     "tedious": "^11.0.9"
   },
   "devDependencies": {
-    "@babel/core": "^7.14.8"
+    "@babel/core": "~7.9.0"
   },
   "private": true
 }

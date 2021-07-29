@@ -27,11 +27,11 @@ export default function App() {
 
   return (
 
-    <SponsorsScreen />
+    // <SponsorsScreen />
 
-    // <NavigationContainer>
-    //   <SwipeNavigator />
-    // </NavigationContainer>
+    <NavigationContainer>
+      <SwipeNavigator />
+    </NavigationContainer>
   );
 
   // return <HomeScreen />;

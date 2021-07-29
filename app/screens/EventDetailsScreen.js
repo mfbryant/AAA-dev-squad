@@ -28,7 +28,7 @@ function EventDetailsScreen({ route, navigation }) {
   // Change values when data is correct
   var show = false;
   if (
-    user.officerStatus === 1 &&
+    (user.executive || user.officerStatus) &&
     user.userOrgs.includes(event2.eventOrg) &&
     event2.eventStatus === "Approved"
   ) {

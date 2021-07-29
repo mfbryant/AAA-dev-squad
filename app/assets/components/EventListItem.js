@@ -14,16 +14,6 @@ function EventListItem({
   subTitle,
   onPress,
 }) {
-  if (status === "Approved") {
-    var a = custom.colors.green;
-  } else if (status === "Denied") {
-    var a = custom.colors.danger;
-  } else if (status === "Pending") {
-    var a = custom.colors.medium;
-  } else if (status === "Draft") {
-    var a = custom.colors.yellow;
-  }
-
   var status = null;
   if (drafted) {
     var status = "Draft";
@@ -37,6 +27,16 @@ function EventListItem({
         var status = "Denied";
       }
     }
+  }
+
+  if (status === "Approved") {
+    var a = custom.colors.green;
+  } else if (status === "Denied") {
+    var a = custom.colors.danger;
+  } else if (status === "Pending") {
+    var a = custom.colors.medium;
+  } else if (status === "Draft") {
+    var a = custom.colors.yellow;
   }
 
   return (

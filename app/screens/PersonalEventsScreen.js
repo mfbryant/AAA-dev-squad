@@ -36,6 +36,7 @@ import colors from "../assets/config/colors";
 // Examples
 
 const user = {
+  userId: 1,
   officerStatus: 1, // orgID
   userName: "jdmay2",
   userOrg: "aims",
@@ -53,7 +54,8 @@ const event2 = {
 function PersonalEventsScreen({ navigation }) {
   // const [events, setEvents] = useState(userEvents);
   const [refreshing, setRefreshing] = useState(false);
-  const [data, setData] = useState([]);
+  const [eventData, setEventData] = useState([]);
+  const [orgData, setOrgData] = useState([]);
 
   const getEvents = async () => {
     try {
@@ -61,7 +63,19 @@ function PersonalEventsScreen({ navigation }) {
         "https://aims-ambassadorship-app.herokuapp.com/api/events"
       );
       const json = await response.json();
-      setData(json);
+      setEventData(json);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const getOrgs = async () => {
+    try {
+      const response = await fetch(
+        "https://aims-ambassadorship-app.herokuapp.com/api/organizations"
+      );
+      const json = await response.json();
+      setOrgData(json);
     } catch (error) {
       console.error(error);
     }
@@ -69,6 +83,7 @@ function PersonalEventsScreen({ navigation }) {
 
   useEffect(() => {
     getEvents();
+    getOrgs();
   }, []);
 
   // users access status
@@ -109,12 +124,12 @@ function PersonalEventsScreen({ navigation }) {
       <View style={styles.list}>
         <FlatList
           style={styles.flatList}
-          data={data}
+          data={eventData}
           keyExtractor={({ eventId }) => eventId.toString()}
           renderItem={({ item }) => (
             <EventListItem
-              show={item.eventCreator === user.userId}
-              org="aims" // change to item.org
+              show={item.userId === user.userId}
+              org={item.orgId} // change to item.org
               title={item.eventName}
               subTitle={item.location}
               drafted={item.eventDraft}

@@ -37,11 +37,17 @@ import colors from "../assets/config/colors";
 
 const user = {
   officerStatus: 1, // orgID
+  userName: "jdmay2",
+  userOrg: "aims",
   label: "AIMS", // orgAbbr
 };
 const event2 = {
   eventStatus: "Approved", // orgID
-  label: "AIMS", // orgAbbr
+  eventDeets: "aims",
+  eventCreator: "jdmay2",
+  eventDraft: true,
+  eventPending: false,
+  eventApproved: false,
 };
 
 function PersonalEventsScreen({ navigation }) {
@@ -68,7 +74,7 @@ function PersonalEventsScreen({ navigation }) {
   // users access status
   // Change values when data is correct
   var show = false;
-  if (user.officerStatus === 1 && event2.eventStatus === "Approved") {
+  if (user.executive === 1 || user.officerStatus === 1) {
     var show = true;
   }
 
@@ -107,10 +113,14 @@ function PersonalEventsScreen({ navigation }) {
           keyExtractor={({ eventId }) => eventId.toString()}
           renderItem={({ item }) => (
             <EventListItem
+              show={item.eventCreator === user.userId}
               org="aims" // change to item.org
               title={item.eventName}
               subTitle={item.location}
-              status="Approved" // change to item.status
+              drafted={item.eventDraft}
+              pending={item.eventPending}
+              approved={item.eventApproved}
+              // status={status} // change to item.status
               onPress={() => navigation.navigate("Event Details", item)}
             />
           )}

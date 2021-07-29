@@ -26,7 +26,6 @@ export default function App() {
   setTimeout(Splash.hideAsync, 2000);
 
   return (
-
     // <SponsorsScreen />
 
     <NavigationContainer>

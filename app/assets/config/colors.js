@@ -11,4 +11,5 @@ export default {
   charcoal: "#222222",
   danger: "#ff5252",
   green: "#008000",
+  yellow: "#ff8637",
 };

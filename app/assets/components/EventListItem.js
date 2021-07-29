@@ -4,45 +4,79 @@ import AffinityText from "./AffinityText";
 
 import custom from "../config/styles";
 
-function EventListItem({ status, org, title, subTitle, onPress }) {
+function EventListItem({
+  show,
+  drafted,
+  pending,
+  approved,
+  org,
+  title,
+  subTitle,
+  onPress,
+}) {
   if (status === "Approved") {
     var a = custom.colors.green;
   } else if (status === "Denied") {
     var a = custom.colors.danger;
   } else if (status === "Pending") {
     var a = custom.colors.medium;
+  } else if (status === "Draft") {
+    var a = custom.colors.yellow;
+  }
+
+  var status = null;
+  if (drafted) {
+    var status = "Draft";
+  } else {
+    if (pending) {
+      var status = "Pending";
+    } else {
+      if (approved) {
+        var status = "Approved";
+      } else {
+        var status = "Denied";
+      }
+    }
   }
 
   return (
-    <TouchableHighlight
-      underlayColor={custom.colors.medium}
-      onPress={onPress}
-      style={{ borderRadius: 15 }}
-    >
-      <View style={styles.container}>
-        <View style={styles.label}>
-          <AffinityText style={styles.labelText}>{org}</AffinityText>
-        </View>
-        <View style={styles.detailsContainer}>
-          <Text style={styles.title}>{title}</Text>
-          {subTitle && <Text style={styles.subTitle}>{subTitle}</Text>}
-        </View>
-        <View style={styles.statusArea}>
-          <View
-            style={{
-              backgroundColor: a,
-              borderRadius: 7,
-              paddingHorizontal: 10,
-              paddingVertical: 5,
-            }}
-          >
-            <Text adjustsFontSizeToFit numberOfLines={1} style={styles.status}>
-              {status}
-            </Text>
+    <>
+      {show ? (
+        <TouchableHighlight
+          underlayColor={custom.colors.medium}
+          onPress={onPress}
+          style={{ borderRadius: 15 }}
+        >
+          <View style={styles.container}>
+            <View style={styles.label}>
+              <AffinityText style={styles.labelText}>{org}</AffinityText>
+            </View>
+            <View style={styles.detailsContainer}>
+              <Text style={styles.title}>{title}</Text>
+              {subTitle && <Text style={styles.subTitle}>{subTitle}</Text>}
+            </View>
+            <View style={styles.statusArea}>
+              <View
+                style={{
+                  backgroundColor: a,
+                  borderRadius: 7,
+                  paddingHorizontal: 10,
+                  paddingVertical: 5,
+                }}
+              >
+                <Text
+                  adjustsFontSizeToFit
+                  numberOfLines={1}
+                  style={styles.status}
+                >
+                  {status}
+                </Text>
+              </View>
+            </View>
           </View>
-        </View>
-      </View>
-    </TouchableHighlight>
+        </TouchableHighlight>
+      ) : null}
+    </>
   );
 }
 

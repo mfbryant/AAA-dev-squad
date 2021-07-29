@@ -13,11 +13,18 @@ function OrgName({ orgName, orgDeets, insta, facebook, linkedIn, twitter, onPres
           style={{ borderRadius: 15 }}
         >
           <View style={styles.container}>
-            <View style={styles.label}>
-                <AntDesign name="staro" size={60} color="black">
-                    <AffinityText style={styles.labelText}>{orgName}</AffinityText>
-                </AntDesign>
+            <View style={styles.header}>
+              <AntDesign name="staro" size={20} color="black" />
+              <AffinityText style={styles.labelText}>{orgName} </AffinityText>
+
             </View>
+            <View style={styles.deets}>
+                
+              <AffinityText style={styles.deets} >{orgDeets}</AffinityText>
+                    
+                   
+            </View>
+            
             {/* <View style={styles.detailsContainer}>
               <Text style={styles.title}>{title}</Text>
               {subTitle && <Text style={styles.subTitle}>{subTitle}</Text>}
@@ -44,15 +51,21 @@ function OrgName({ orgName, orgDeets, insta, facebook, linkedIn, twitter, onPres
 
 const styles = StyleSheet.create({
   container: {
+    alignItems: "center",
     borderRadius: 15,
+    flex: 1,
     flexDirection: "row",
+    flexWrap: "wrap",
+    // justifyContent: "center",
     padding: 15,
     backgroundColor: custom.colors.white,
   },
-  detailsContainer: {
-    flex: 3,
-    marginLeft: 10,
-    justifyContent: "center",
+  deets: {
+    // height: 100,
+    fontSize: 15,
+  },
+  header: {
+
   },
   label: {
     flex: 1,
@@ -66,7 +79,7 @@ const styles = StyleSheet.create({
     alignItems: "flex-end",
   },
   labelText: {
-    fontSize: 20,
+    fontSize: 30,
   },
   status: {
     color: custom.colors.white,

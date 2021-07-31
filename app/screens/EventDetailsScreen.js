@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Text, SafeAreaView, View, StyleSheet, Dimensions } from "react-native";
 import QRCode from "react-native-qrcode-svg";
 import EventScreen from "../assets/components/EventScreen";
@@ -12,16 +12,17 @@ const user = {
   label: "AIMS", // orgAbbr
   userOrgs: ["aims", "cmiss"],
 };
-const event2 = {
-  eventId: 2021000001,
-  eventStatus: "Approved", // orgID
-  label: "AIMS", // orgAbbr
-  eventOrg: "aims",
-};
+// const event2 = {
+//   eventId: 2021000001,
+//   eventStatus: "Approved", // orgID
+//   label: "AIMS", // orgAbbr
+//   eventOrg: "aims",
+// };
 
 function EventDetailsScreen({ route, navigation }) {
   const qrWidth = 0.8 * Dimensions.get("window").width;
-  const event = route.params;
+  const { item, orgData } = route.params;
+  const event = item;
   // const user = route.params;
 
   // users access status
@@ -29,8 +30,8 @@ function EventDetailsScreen({ route, navigation }) {
   var show = false;
   if (
     (user.executive || user.officerStatus) &&
-    user.userOrgs.includes(event2.eventOrg) &&
-    event2.eventStatus === "Approved"
+    user.userOrgs.includes(orgData[event.orgId].orgName) &&
+    event.eventApproved
   ) {
     var show = true;
   }
@@ -52,7 +53,9 @@ function EventDetailsScreen({ route, navigation }) {
       <SafeAreaView style={styles.screen}>
         <View style={styles.info}>
           <Text style={styles.header}>{event.eventName}</Text>
-          <AffinityText style={styles.subHeader}>aims</AffinityText>
+          <AffinityText style={styles.subHeader}>
+            {orgData[event.orgId].orgName}
+          </AffinityText>
         </View>
         <View style={styles.buttonBox}>
           <View style={styles.button}>
@@ -63,7 +66,7 @@ function EventDetailsScreen({ route, navigation }) {
             >
               <View style={styles.qr}>
                 <View style={styles.qrBack}>
-                  <QRCode value={event2.eventId.toString()} size={qrWidth} />
+                  <QRCode value={event.eventId.toString()} size={qrWidth} />
                 </View>
               </View>
             </ScreenModal>

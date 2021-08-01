@@ -1,5 +1,13 @@
 import React from "react";
-import { Text, SafeAreaView, View, StyleSheet, Dimensions } from "react-native";
+import {
+  Text,
+  SafeAreaView,
+  View,
+  StyleSheet,
+  Dimensions,
+  ScrollView,
+} from "react-native";
+import { format } from "date-fns";
 import QRCode from "react-native-qrcode-svg";
 import EventScreen from "../assets/components/EventScreen";
 import Icon from "../assets/components/IconButton";
@@ -12,12 +20,6 @@ const user = {
   label: "AIMS", // orgAbbr
   userOrgs: ["aims", "cmiss"],
 };
-// const event2 = {
-//   eventId: 2021000001,
-//   eventStatus: "Approved", // orgID
-//   label: "AIMS", // orgAbbr
-//   eventOrg: "aims",
-// };
 
 function EventDetailsScreen({ route, navigation }) {
   const qrWidth = 0.8 * Dimensions.get("window").width;
@@ -30,10 +32,38 @@ function EventDetailsScreen({ route, navigation }) {
   var show = false;
   if (
     (user.executive || user.officerStatus) &&
-    user.userOrgs.includes(orgData[event.orgId].orgName) &&
+    user.userOrgs.includes(orgData[item.orgId - 1].orgName) &&
     event.eventApproved
   ) {
     var show = true;
+  }
+
+  var start = new Date(event.startDate);
+  var end = new Date(event.endDate);
+
+  var status = null;
+  if (item.drafted) {
+    var status = "Draft";
+  } else {
+    if (item.pending) {
+      var status = "Pending";
+    } else {
+      if (item.approved) {
+        var status = "Approved";
+      } else {
+        var status = "Denied";
+      }
+    }
+  }
+
+  if (status === "Approved") {
+    var a = colors.green;
+  } else if (status === "Denied") {
+    var a = colors.danger;
+  } else if (status === "Pending") {
+    var a = colors.medium;
+  } else if (status === "Draft") {
+    var a = colors.yellow;
   }
 
   return (
@@ -52,10 +82,54 @@ function EventDetailsScreen({ route, navigation }) {
     >
       <SafeAreaView style={styles.screen}>
         <View style={styles.info}>
-          <Text style={styles.header}>{event.eventName}</Text>
+          <View style={styles.textBar}>
+            <Text style={styles.header}>{event.eventName}</Text>
+            <View style={styles.statusArea}>
+              <View
+                style={{
+                  backgroundColor: a,
+                  borderRadius: 7,
+                  paddingHorizontal: 10,
+                  paddingVertical: 5,
+                }}
+              >
+                <Text
+                  adjustsFontSizeToFit
+                  numberOfLines={1}
+                  style={styles.status}
+                >
+                  {status}
+                </Text>
+              </View>
+            </View>
+          </View>
           <AffinityText style={styles.subHeader}>
-            {orgData[event.orgId].orgName}
+            {orgData[item.orgId - 1].orgName}
           </AffinityText>
+          <View style={styles.textRow}>
+            <Text style={styles.sideText}>Location: </Text>
+            <Text style={styles.bodyText}>{event.location}</Text>
+          </View>
+          <View style={styles.textRow}>
+            <Text style={styles.sideText}>Date: </Text>
+            <Text style={styles.bodyText}>
+              {format(start, "MM/dd/yy")}
+              {" - "}
+              {format(end, "MM/dd/yy")}
+            </Text>
+          </View>
+          <View style={styles.textRow}>
+            <Text style={styles.sideText}>Time: </Text>
+            <Text style={styles.bodyText}>
+              {format(start, "hh:mm a")}
+              {" - "}
+              {format(end, "hh:mm a")}
+            </Text>
+          </View>
+          <Text style={styles.sideText}>Details: </Text>
+          <ScrollView>
+            <Text style={styles.bodyText}>{event.eventDeets}</Text>
+          </ScrollView>
         </View>
         <View style={styles.buttonBox}>
           <View style={styles.button}>
@@ -86,13 +160,31 @@ const styles = StyleSheet.create({
   info: {
     flex: 1,
   },
+  textBar: {
+    width: "100%",
+    flexDirection: "row",
+  },
   header: {
-    fontSize: 25,
+    fontSize: 30,
     fontWeight: "bold",
     paddingBottom: 1,
   },
   subHeader: {
+    fontSize: 20,
+    marginBottom: 10,
+  },
+  textRow: {
+    flexDirection: "row",
+    alignItems: "baseline",
+  },
+  sideText: {
+    marginTop: 10,
     fontSize: 15,
+    fontWeight: "600",
+  },
+  bodyText: {
+    fontSize: 17,
+    fontWeight: "400",
   },
   button: {
     width: "80%",
@@ -100,7 +192,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   buttonBox: {
-    flex: 1,
     alignItems: "center",
     justifyContent: "flex-end",
   },
@@ -125,6 +216,15 @@ const styles = StyleSheet.create({
   qrBack: {
     backgroundColor: colors.white,
     padding: 10,
+  },
+  statusArea: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "flex-end",
+  },
+  status: {
+    color: colors.white,
+    fontWeight: "500",
   },
 });
 

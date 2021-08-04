@@ -88,9 +88,9 @@ function PersonalEventsScreen({ navigation }) {
 
   // users access status
   // Change values when data is correct
-  var show = false;
+  var showIcon = false;
   if (user.executive === 1 || user.officerStatus === 1) {
-    var show = true;
+    var showIcon = true;
   }
 
   return (
@@ -109,7 +109,7 @@ function PersonalEventsScreen({ navigation }) {
             <Text style={styles.barText}>Your Events</Text>
           </View>
           <View style={[{ justifyContent: "flex-end" }, styles.barItem]}>
-            {show ? (
+            {showIcon ? (
               <Icon
                 name="plus"
                 color={colors.white}
@@ -129,7 +129,7 @@ function PersonalEventsScreen({ navigation }) {
           renderItem={({ item }) => (
             <EventListItem
               show={item.userId === user.userId}
-              org={item.org} // change to item.org
+              org={orgData[item.orgId - 1].orgName}
               title={item.eventName}
               subTitle={item.location}
               drafted={item.eventDraft}

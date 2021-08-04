@@ -34,7 +34,7 @@ export default function OrgScreen() {
                     renderItem={({ item }) => (
                         <OrgName 
                             orgName={item.orgName}
-                            orgDeets={item.orgDeets}
+                            // orgDeets={item.orgDeets}
                             onPress
                         />
                     )}
@@ -47,6 +47,7 @@ export default function OrgScreen() {
 
 const styles = StyleSheet.create({
     container: {
+        
         justifyContent: "center",
         padding: 10,
         width: "100%"

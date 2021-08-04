@@ -129,7 +129,7 @@ function PersonalEventsScreen({ navigation }) {
           renderItem={({ item }) => (
             <EventListItem
               show={item.userId === user.userId}
-              org={orgData[item.orgId - 1].orgName}
+              org={item.orgName}
               title={item.eventName}
               subTitle={item.location}
               drafted={item.eventDraft}

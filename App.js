@@ -26,11 +26,11 @@ export default function App() {
   setTimeout(Splash.hideAsync, 2000);
 
   return (
-    <SponsorsScreen />
+    // <SponsorsScreen />
 
-    // <NavigationContainer>
-    //   <SwipeNavigator />
-    // </NavigationContainer>
+    <NavigationContainer>
+      <SwipeNavigator />
+    </NavigationContainer>
   );
 
   // return <HomeScreen />;

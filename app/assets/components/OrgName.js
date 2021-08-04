@@ -16,14 +16,14 @@ function OrgName({ orgName, orgDeets, insta, facebook, linkedIn, twitter, onPres
             <View style={styles.header}>
               <AntDesign name="staro" size={20} color="black" />
               <AffinityText style={styles.labelText}>{orgName} </AffinityText>
-
+              <AntDesign name="staro" size={20} color="black" />
             </View>
-            <View style={styles.deets}>
+            {/* <View style={styles.deets}>
                 
               <AffinityText style={styles.deets} >{orgDeets}</AffinityText>
                     
                    
-            </View>
+            </View> */}
             
             {/* <View style={styles.detailsContainer}>
               <Text style={styles.title}>{title}</Text>
@@ -65,7 +65,9 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
   header: {
-
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
   label: {
     flex: 1,
@@ -79,7 +81,7 @@ const styles = StyleSheet.create({
     alignItems: "flex-end",
   },
   labelText: {
-    fontSize: 30,
+    fontSize: 28,
   },
   status: {
     color: custom.colors.white,

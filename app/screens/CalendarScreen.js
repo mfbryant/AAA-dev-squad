@@ -1,16 +1,21 @@
-import React, { Component, useEffect, useState } from 'react';
-import { SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React, { Component } from 'react';
+import { Alert, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Agenda } from 'react-native-calendars';
-import { FlatList } from 'react-native-gesture-handler';
 
+import AppButton from '../assets/components/AppButton';
 import Screen from '../assets/components/Screen';
 
-class CalendarScreen extends Component {
-  
+  // return(
+  //   <SafeAreaView>
+  //     <Agenda items={items} renderItem={renderItem}/>
+  //   </SafeAreaView>
+  // );
+
+
+
+export default class CalendarScreen extends Component {
   constructor(props) {
     super(props);
-    populateCalendar();
-
 
     const ambassadors = { key: 'ambassadors', color: 'green' }
 
@@ -19,8 +24,18 @@ class CalendarScreen extends Component {
         '2021-07-01': [{ dots: [ambassadors], name: 'current day testing', selected: true, selectedColor: 'red' }],
         //August
         '2021-08-20': [{ name: 'Welcome Back Event at the UA Rec Fields @5-7:00!!' }],
-        
-      
+        '2021-08-26': [{ name: 'Get On Board Day at the Ferg Promenade @5-9:00' }],
+        //September
+        '2021-09-09': [{ name: 'Mock Mock Interviews with Commonly Asked Interview Questions Workshop' }],
+        '2021-09-11': [{ name: 'Tailgate sponsored by International Paper' }],
+        '2021-09-16': [{ name: 'Mock Interviews' }],
+        '2021-09-17': [{ name: 'Mock Interviews' }],
+        '2021-09-22': [{ name: 'Career Fair' }],
+        //October
+
+        //November
+
+        //December
 
       }
     };
@@ -30,7 +45,7 @@ class CalendarScreen extends Component {
     return (
       <Screen>
         <Agenda
-          items={this.populateCalendar.items}
+          items={this.state.items}
           loadItemsForMonth={this.loadItems.bind(this)}
           renderEmptyData={() => { return null }}
           renderEmptyDate={this.renderEmptyDate.bind(this)}
@@ -44,9 +59,45 @@ class CalendarScreen extends Component {
     );
   }
 
-  
+  // populateCalendar() {
+  //   const [data, setData] = useState([]);
+
+  //   const getEvents = async () => {
+  //     try {
+  //         const response = await fetch('https://aims-ambassadorship-app.herokuapp.com/api/events');
+  //         const json = await response.json();
+  //         setData(json);
+  //     } catch (error) {
+  //         console.error(error);
+  //     }   
+  //   }
+    
+  //   useEffect(() => {
+  //       getEvents();
+  //   }, []);
+    
+  // }
 
   
+
+  loadItems(day) {
+    const newItems = {};
+    Object.keys(this.state.items).forEach(key => { newItems[key] = this.state.items[key]; });
+    this.setState({
+      items: newItems
+    });
+  }
+
+  renderItem(item) {
+    return (
+      <TouchableOpacity
+        style={[styles.item, { height: item.height }]}
+        onPress={() => Alert.alert(item.name)}
+      >
+        <Text>{item.name}</Text>
+      </TouchableOpacity>
+    );
+  }
 
   renderEmptyDate() {
     return (
@@ -65,7 +116,32 @@ class CalendarScreen extends Component {
 
 }
 
-export default CalendarScreen;
+
+const styles = StyleSheet.create({
+  calendar: {
+    borderRadius: 10,
+    padding: 10,
+  },
+  item: {
+    backgroundColor: 'white',
+    flex: 1,
+    borderRadius: 5,
+    padding: 10,
+    marginRight: 10,
+    marginTop: 17
+  },
+  emptyDate: {
+    height: 15,
+    flex: 1,
+    paddingTop: 30
+  },
+  safe: {
+    flex: 1,
+  }
+});
+
+
+// export default CalendarScreen;
 
 
 

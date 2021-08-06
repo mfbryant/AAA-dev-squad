@@ -16,7 +16,15 @@ import defaultStyles from "../config/styles";
 import FormButton from "../components/FormButton";
 import { BlurView } from "expo-blur";
 
-function TextModal({ buttonColor, buttonText, text, icon, secure, input }) {
+function TextModal({
+  buttonColor,
+  buttonText,
+  text,
+  icon,
+  secure,
+  input,
+  onChange,
+}) {
   const [modalVisible, setModalVisible] = useState(false);
   return (
     <>
@@ -41,7 +49,11 @@ function TextModal({ buttonColor, buttonText, text, icon, secure, input }) {
                   )}
                   <Text style={styles.text}>{text}</Text>
                   <View style={styles.box}>
-                    <TextInput secureTextEntry={secure} style={styles.input}>
+                    <TextInput
+                      onChangeText={onChange}
+                      secureTextEntry={secure}
+                      style={styles.input}
+                    >
                       {input}
                     </TextInput>
                   </View>

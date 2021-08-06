@@ -129,7 +129,7 @@ function PersonalEventsScreen({ navigation }) {
           renderItem={({ item }) => (
             <EventListItem
               show={item.userId === user.userId}
-              org={item.orgName}
+              org={item.orgId}
               title={item.eventName}
               subTitle={item.location}
               drafted={item.eventDraft}
@@ -144,7 +144,10 @@ function PersonalEventsScreen({ navigation }) {
           ItemSeparatorComponent={() => <View style={styles.separator} />}
           refreshing={refreshing}
           onRefresh={() => {
-            // setEvents(data);
+            setRefreshing(true);
+            setEventData(eventData);
+            setOrgData(orgData);
+            setRefreshing(false);
           }}
         />
       </View>

@@ -5,6 +5,7 @@ import Icon from "../assets/components/IconButton";
 import AppPicker from "../assets/components/AppPicker";
 import Screen from "../assets/components/Screen";
 import DatePicker from "../assets/components/DatePicker";
+import TimePicker from "../assets/components/TimePicker";
 import FormButton from "../assets/components/FormButton";
 import TextModal from "../assets/components/TextModal";
 import EventScreen from "../assets/components/EventScreen";
@@ -26,20 +27,44 @@ const systemOrgs = [
 
 function AddEventScreen({ navigation }) {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+  const [isStartTimePickerVisible, setStartTimePickerVisibility] = useState(
+    false
+  );
+  const [isEndTimePickerVisible, setEndTimePickerVisibility] = useState(false);
   const [date, setDate] = useState(new Date());
+  const [startTime, setStartTime] = useState(new Date());
+  const [endTime, setEndTime] = useState(new Date());
   const [org, setOrg] = useState();
   const [input, setInput] = useState();
 
-  const showDatePicker = () => {
-    setDatePickerVisibility(true);
-  };
-  const hideDatePicker = () => {
+  const handleDateConfirm = (date) => {
+    setDate(date);
     setDatePickerVisibility(false);
   };
 
-  const handleConfirm = (date) => {
-    setDate(date);
-    hideDatePicker();
+  const handleStartTimeConfirm = (startTime) => {
+    setStartTime(startTime);
+    setStartTimePickerVisibility(false);
+  };
+
+  const handleEndTimeConfirm = (endTime) => {
+    setEndTime(endTime);
+    setEndTimePickerVisibility(false);
+  };
+
+  const handleInput = (input) => {
+    setInput(input);
+  };
+
+  const handleDraft = () => {};
+
+  const handleCancel = () => {
+    // if events.includes(event.eventId) {
+    //   // delete event from sql
+    //   navigation.goBack();
+    // } else {
+    //   navigation.goBack();
+    // }
   };
 
   return (
@@ -73,24 +98,47 @@ function AddEventScreen({ navigation }) {
           icon="school"
           placeholder="aims, cmiss, wit, etc.,"
         />
-        <Text style={styles.title}>Date & Time of Event</Text>
-        <DatePicker
-          showDatePicker={showDatePicker}
-          hideDatePicker={hideDatePicker}
-          isDatePickerVisible={isDatePickerVisible}
-          date={date}
-          handleConfirm={handleConfirm}
-        />
+        <View style={styles.textRow}>
+          <Text style={styles.title}>Date of Event</Text>
+          <Text style={styles.title}>Time</Text>
+        </View>
+        <View style={styles.objectRow}>
+          <DatePicker
+            showDatePicker={() => setDatePickerVisibility(true)}
+            hideDatePicker={() => setDatePickerVisibility(false)}
+            isDatePickerVisible={isDatePickerVisible}
+            date={date}
+            handleConfirm={handleDateConfirm}
+          />
+          <TimePicker
+            showDatePicker={() => setStartTimePickerVisibility(true)}
+            hideDatePicker={() => setStartTimePickerVisibility(false)}
+            isDatePickerVisible={isStartTimePickerVisible}
+            date={startTime}
+            handleConfirm={handleStartTimeConfirm}
+          />
+        </View>
         <Text style={styles.title}>When Does it End?</Text>
-        <DatePicker
-          showDatePicker={showDatePicker}
-          hideDatePicker={hideDatePicker}
-          isDatePickerVisible={isDatePickerVisible}
-          date={date}
-          handleConfirm={handleConfirm}
-        />
-        <Text style={styles.title}>Event Description/Details</Text>
+        <View style={styles.row}>
+          <TimePicker
+            showDatePicker={() => setEndTimePickerVisibility(true)}
+            hideDatePicker={() => setEndTimePickerVisibility(false)}
+            isDatePickerVisible={isEndTimePickerVisible}
+            date={endTime}
+            handleConfirm={handleEndTimeConfirm}
+          />
+        </View>
+        <Text style={styles.title}>Location</Text>
         <View style={styles.descriptionBox}>
+          <TextInput
+            placeholder="Ferguson Student Center, AIME Building, Jeff's Office..."
+            placeholderTextColor={colors.leet}
+            multiline={true}
+            style={styles.descriptionInput}
+          />
+        </View>
+        <Text style={styles.title}>Event Description/Details</Text>
+        <View style={styles.descriptionBox2}>
           <TextInput
             placeholder="Cleaning the wonderful trees around campus..."
             placeholderTextColor={colors.leet}
@@ -106,6 +154,7 @@ function AddEventScreen({ navigation }) {
               buttonColor={colors.medium}
               text="Enter Executive Key"
               input={input}
+              onChange={handleInput}
               secure={true}
             />
           </View>
@@ -115,7 +164,12 @@ function AddEventScreen({ navigation }) {
           <FormButton v={true} text="Save as Draft" color={colors.medium} />
         </View>
         <View style={styles.button}>
-          <FormButton v={true} text="Cancel" color={colors.danger} />
+          <FormButton
+            v={true}
+            text="Cancel"
+            color={colors.danger}
+            onPress={handleCancel}
+          />
         </View>
       </Screen>
     </EventScreen>
@@ -145,6 +199,17 @@ const styles = StyleSheet.create({
     height: 20,
     fontWeight: "600",
   },
+  row: {
+    flexDirection: "row",
+  },
+  textRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  objectRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
   descriptionInput: {
     fontWeight: "600",
     overflow: "scroll",
@@ -165,6 +230,16 @@ const styles = StyleSheet.create({
   },
   descriptionBox: {
     flex: 1,
+    backgroundColor: colors.light,
+    borderWidth: 2,
+    borderColor: colors.black,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    borderRadius: 10,
+    marginBottom: 10,
+  },
+  descriptionBox2: {
+    flex: 4,
     backgroundColor: colors.light,
     borderWidth: 2,
     borderColor: colors.black,

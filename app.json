@@ -3,6 +3,7 @@
     "name": "AAA",
     "slug": "AAA",
     "version": "1.0.0",
+    "scheme": "auth.expo.io",
     "orientation": "portrait",
     "icon": "./app/assets/graphics/icon.png",
     "splash": {

@@ -10,22 +10,22 @@ import FormButton from "../assets/components/FormButton";
 import TextModal from "../assets/components/TextModal";
 import EventScreen from "../assets/components/EventScreen";
 
-const systemOrgs = [
-  {
-    value: 1, // orgID
-    label: "AIMS", // orgAbbr
-  },
-  {
-    value: 2,
-    label: "CMISS",
-  },
-  {
-    value: 3,
-    label: "WIT",
-  },
-];
+// const systemOrgs = [
+//   {
+//     value: 1, // orgID
+//     label: "AIMS", // orgAbbr
+//   },
+//   {
+//     value: 2,
+//     label: "CMISS",
+//   },
+//   {
+//     value: 3,
+//     label: "WIT",
+//   },
+// ];
 
-function AddEventScreen({ navigation }) {
+function AddEventScreen({ item, navigation }) {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [isStartTimePickerVisible, setStartTimePickerVisibility] = useState(
     false
@@ -36,6 +36,8 @@ function AddEventScreen({ navigation }) {
   const [endTime, setEndTime] = useState(new Date());
   const [org, setOrg] = useState();
   const [input, setInput] = useState();
+  const [eventData, setEventData] = useState([]);
+
 
   const handleDateConfirm = (date) => {
     setDate(date);
@@ -55,6 +57,27 @@ function AddEventScreen({ navigation }) {
   const handleInput = (input) => {
     setInput(input);
   };
+
+  const handleOrg = (item) => {
+    setOrg(item);
+    console.log(org.orgName);
+  }
+
+  // const handleAddEvent = () => {
+  //   try {
+  //     const response = await fetch(
+  //       "https://aims-ambassadorship-app.herokuapp.com/api/events"
+  //     );
+  //     const json = await response.json();
+  //     setEventData(json);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+
+  //   useEffect(() => {
+  //     getEvents();
+  //   }, []);
+  // }
 
   const handleDraft = () => {};
 
@@ -92,9 +115,9 @@ function AddEventScreen({ navigation }) {
         </View>
         <Text style={styles.title}>Organization</Text>
         <AppPicker
-          selectedItem={org}
           onSelectItem={(item) => setOrg(item)}
-          items={systemOrgs}
+          selectedItem={org}
+          // items={systemOrgs}
           icon="school"
           placeholder="aims, cmiss, wit, etc.,"
         />
@@ -161,7 +184,12 @@ function AddEventScreen({ navigation }) {
           <FormButton v={true} text="Submit for Review" color={colors.green} />
         </View>
         <View style={styles.buttonRow}>
-          <FormButton v={true} text="Save as Draft" color={colors.medium} />
+          <FormButton 
+            v={true} 
+            text="Save as Draft" 
+            color={colors.medium}
+            // onPress={handleAddEvent} 
+          />
         </View>
         <View style={styles.button}>
           <FormButton
@@ -229,7 +257,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   descriptionBox: {
-    flex: 1,
+    flex: 3,
     backgroundColor: colors.light,
     borderWidth: 2,
     borderColor: colors.black,

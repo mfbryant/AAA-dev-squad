@@ -64,11 +64,6 @@ function AddEventScreen({ navigation }) {
     setInput(input);
   };
 
-  const handleOrg = (item) => {
-    setOrg(item);
-    console.log(org.orgName);
-  }
-
   // const handleAddEvent = () => {
   //   try {
   //     const response = await fetch(
@@ -138,9 +133,7 @@ function AddEventScreen({ navigation }) {
         <Text style={styles.title}>Organization</Text>
         <AppPicker
           onSelectItem={(item) => setOrg(item)}
-          
           selectedItem={org}
-          // items={systemOrgs}
           icon="school"
           placeholder="aims, cmiss, wit, etc.,"
         />

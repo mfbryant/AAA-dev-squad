@@ -57,7 +57,7 @@ function AppPicker({ icon, onSelectItem, placeholder, selectedItem }) {
                 : [styles.text, styles.text2]
             }
           >
-            {selectedItem ? selectedItem.label : placeholder}
+            {selectedItem ? selectedItem.orgName : placeholder}
             
             
           </Text>
@@ -82,9 +82,6 @@ function AppPicker({ icon, onSelectItem, placeholder, selectedItem }) {
                     onPress={() => {
                       setModalVisible(false);
                       onSelectItem(item);
-                      selectedItem.label=item.orgName; 
-                      console.log(selectedItem.label);
-                      console.log(item);
                       console.log(item.orgName + item.orgId + " picked");
                     }}
                   />

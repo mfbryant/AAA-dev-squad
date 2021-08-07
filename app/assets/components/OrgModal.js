@@ -7,34 +7,15 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from "react-native";
-import { MaterialIcons } from "@expo/vector-icons";
-import FormButton from "./FormButton";
+import OrgName from "./OrgName";
 import colors from "../config/colors";
 
-function ScreenModal({
-  buttonShow,
-  buttonText,
-  buttonColor,
-  onShow,
-  onDismiss,
-  children,
-}) {
+function OrgModal({ item, children }) {
   const [modalVisible, setModalVisible] = useState(false);
   return (
     <>
-      <FormButton
-        v={buttonShow}
-        text={buttonText}
-        color={buttonColor}
-        onPress={() => setModalVisible(true)}
-      />
-      <Modal
-        onShow={onShow}
-        onDismiss={onDismiss}
-        visible={modalVisible}
-        animationType="slide"
-        transparent={true}
-      >
+      <OrgName orgName={item.orgName} onPress={() => setModalVisible(true)} />
+      <Modal visible={modalVisible} animationType="slide" transparent={true}>
         <View style={styles.screen}>
           <SafeAreaView style={styles.topArea}>
             <View style={styles.topButton}>
@@ -44,11 +25,6 @@ function ScreenModal({
                 }}
               >
                 <View style={styles.top}>
-                  {/* <MaterialIcons
-                  name="keyboard-arrow-down"
-                  size={40}
-                  color={colors.white}
-                /> */}
                   <Text style={styles.text}>Close</Text>
                 </View>
               </TouchableOpacity>
@@ -72,7 +48,7 @@ const styles = StyleSheet.create({
   modal: {
     flex: 1,
     width: "100%",
-    backgroundColor: colors.black,
+    backgroundColor: colors.light,
   },
   top: {
     backgroundColor: colors.grey,
@@ -100,4 +76,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ScreenModal;
+export default OrgModal;

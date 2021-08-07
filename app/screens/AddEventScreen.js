@@ -26,7 +26,7 @@ import EventScreen from "../assets/components/EventScreen";
 // ];
 
 function AddEventScreen({ route, navigation }) {
-  const { orgData, eventData } = route.params;
+  const { orgData } = route.params;
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [isStartTimePickerVisible, setStartTimePickerVisibility] = useState(
     false

@@ -13,24 +13,22 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import PickerItem from "./PickerItem";
 import defaultStyles from "../config/styles";
 
-function AppPicker({ icon, onSelectItem, placeholder, selectedItem }) {
-  const [orgData, setOrgData] = useState([]);
+function AppPicker({ data, icon, onSelectItem, placeholder, selectedItem }) {
+  // const [orgData, setOrgData] = useState([]);
 
-  const getOrgs = async () => {
-      try {
-          const response = await fetch('https://aims-ambassadorship-app.herokuapp.com/api/organizations');
-          const json = await response.json();
-          setOrgData(json);
-          // console.log(json);
-      } catch (error) {
-          console.error(error);
-      }
-  }
+  // const getOrgs = async () => {
+  //     try {
+  //         const response = await fetch('https://aims-ambassadorship-app.herokuapp.com/api/organizations');
+  //         const json = await response.json();
+  //         setOrgData(json);
+  //     } catch (error) {
+  //         console.error(error);
+  //     }
+  // }
 
-  useEffect(() => {
-      getOrgs();
-  }, []);
-
+  // useEffect(() => {
+  //     getOrgs();
+  // }, []);
   const [modalVisible, setModalVisible] = useState(false);
   return (
     <>
@@ -58,8 +56,6 @@ function AppPicker({ icon, onSelectItem, placeholder, selectedItem }) {
             }
           >
             {selectedItem ? selectedItem.orgName : placeholder}
-            
-            
           </Text>
           <MaterialCommunityIcons
             name="chevron-down"
@@ -73,16 +69,14 @@ function AppPicker({ icon, onSelectItem, placeholder, selectedItem }) {
           <View style={styles.modalBox}>
             <View style={styles.modal}>
               <FlatList
-                data={orgData}
+                data={data} // was orgData
                 keyExtractor={({ orgId }) => orgId.toString()}
                 renderItem={({ item }) => (
                   <PickerItem
                     label={item.orgName}
-                    value={item.orgId}
                     onPress={() => {
                       setModalVisible(false);
                       onSelectItem(item);
-                      console.log(item.orgName + item.orgId + " picked");
                     }}
                   />
                 )}

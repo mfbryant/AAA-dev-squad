@@ -113,7 +113,9 @@ function PersonalEventsScreen({ navigation }) {
               <Icon
                 name="plus"
                 color={colors.white}
-                onPress={() => navigation.navigate("Add Event")}
+                onPress={() =>
+                  navigation.navigate("Add Event", { orgData, eventData })
+                }
                 size={25}
               />
             ) : null}

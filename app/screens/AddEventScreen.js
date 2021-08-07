@@ -25,7 +25,8 @@ import EventScreen from "../assets/components/EventScreen";
 //   },
 // ];
 
-function AddEventScreen({ item, navigation }) {
+function AddEventScreen({ route, navigation }) {
+  const { orgData, eventData } = route.params;
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [isStartTimePickerVisible, setStartTimePickerVisibility] = useState(
     false
@@ -36,8 +37,6 @@ function AddEventScreen({ item, navigation }) {
   const [endTime, setEndTime] = useState(new Date());
   const [org, setOrg] = useState();
   const [input, setInput] = useState();
-  const [eventData, setEventData] = useState([]);
-
 
   const handleDateConfirm = (date) => {
     setDate(date);
@@ -57,11 +56,6 @@ function AddEventScreen({ item, navigation }) {
   const handleInput = (input) => {
     setInput(input);
   };
-
-  const handleOrg = (item) => {
-    setOrg(item);
-    console.log(org.orgName);
-  }
 
   // const handleAddEvent = () => {
   //   try {
@@ -115,9 +109,9 @@ function AddEventScreen({ item, navigation }) {
         </View>
         <Text style={styles.title}>Organization</Text>
         <AppPicker
-          onSelectItem={(item) => setOrg(item)}
           selectedItem={org}
-          // items={systemOrgs}
+          onSelectItem={(item) => setOrg(item)}
+          data={orgData}
           icon="school"
           placeholder="aims, cmiss, wit, etc.,"
         />
@@ -184,11 +178,11 @@ function AddEventScreen({ item, navigation }) {
           <FormButton v={true} text="Submit for Review" color={colors.green} />
         </View>
         <View style={styles.buttonRow}>
-          <FormButton 
-            v={true} 
-            text="Save as Draft" 
+          <FormButton
+            v={true}
+            text="Save as Draft"
             color={colors.medium}
-            // onPress={handleAddEvent} 
+            // onPress={handleAddEvent}
           />
         </View>
         <View style={styles.button}>

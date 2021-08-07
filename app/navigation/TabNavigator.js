@@ -19,7 +19,7 @@ const TabNavigator = () => (
             options={{ tabBarIcon: ({ color, size }) => <MaterialCommunityIcons name='hammer' size={size} color={color} /> }} />
         <Tab.Screen name='Organizations' component={OrgScreen}
             options={{ tabBarIcon: ({ color, size }) => <MaterialCommunityIcons name='group' size={size} color={color} /> }} />
-        <Tab.Screen name='Involvement' component={InvolvementScreen}
+        <Tab.Screen name='Involvement' component={FeedNavigator}
             options={{ tabBarIcon: ({ color, size }) => <MaterialCommunityIcons name='door-open' size={size} color={color} /> }} />
     </Tab.Navigator>
 );

@@ -21,6 +21,7 @@ function AppPicker({ icon, onSelectItem, placeholder, selectedItem }) {
           const response = await fetch('https://aims-ambassadorship-app.herokuapp.com/api/organizations');
           const json = await response.json();
           setOrgData(json);
+          // console.log(json);
       } catch (error) {
           console.error(error);
       }
@@ -58,6 +59,7 @@ function AppPicker({ icon, onSelectItem, placeholder, selectedItem }) {
           >
             {selectedItem ? selectedItem.label : placeholder}
             
+            
           </Text>
           <MaterialCommunityIcons
             name="chevron-down"
@@ -80,6 +82,9 @@ function AppPicker({ icon, onSelectItem, placeholder, selectedItem }) {
                     onPress={() => {
                       setModalVisible(false);
                       onSelectItem(item);
+                      selectedItem.label=item.orgName; 
+                      console.log(selectedItem.label);
+                      console.log(item);
                       console.log(item.orgName + item.orgId + " picked");
                     }}
                   />

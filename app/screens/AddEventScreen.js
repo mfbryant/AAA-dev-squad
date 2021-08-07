@@ -25,11 +25,12 @@ import EventScreen from "../assets/components/EventScreen";
 //   },
 // ];
 
-function AddEventScreen({ item, navigation }) {
+function AddEventScreen({ navigation }) {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [isStartTimePickerVisible, setStartTimePickerVisibility] = useState(
     false
   );
+  const [name, setName] = useState();
   const [isEndTimePickerVisible, setEndTimePickerVisibility] = useState(false);
   const [date, setDate] = useState(new Date());
   const [startTime, setStartTime] = useState(new Date());
@@ -39,6 +40,11 @@ function AddEventScreen({ item, navigation }) {
   const [eventData, setEventData] = useState([]);
 
 
+  const handleEventName = (text) => {
+    setName(text);
+    console.log(name);
+  }
+  
   const handleDateConfirm = (date) => {
     setDate(date);
     setDatePickerVisibility(false);
@@ -79,6 +85,21 @@ function AddEventScreen({ item, navigation }) {
   //   }, []);
   // }
 
+  // const handleAddEvent = () => {
+  //   let newEvent = {
+
+  //   }
+    
+  //   fetch("https://aims-ambassadorship-app.herokuapp.com/api/events", {
+  //     method: 'POST',
+  //     headers: {
+  //       'Accept': 'application/json',
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify(newEvent)
+  //   })
+  // }
+
   const handleDraft = () => {};
 
   const handleCancel = () => {
@@ -108,6 +129,7 @@ function AddEventScreen({ item, navigation }) {
         <Text style={styles.header}>Name of Event</Text>
         <View style={styles.textBox}>
           <TextInput
+            // onChangeText={handleEventName}
             placeholder="GOBD, Tree-Cleaning, etc.,"
             placeholderTextColor={colors.leet}
             style={styles.textInput}
@@ -116,6 +138,7 @@ function AddEventScreen({ item, navigation }) {
         <Text style={styles.title}>Organization</Text>
         <AppPicker
           onSelectItem={(item) => setOrg(item)}
+          
           selectedItem={org}
           // items={systemOrgs}
           icon="school"

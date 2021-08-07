@@ -4,28 +4,44 @@ import AffinityText from "./AffinityText";
 
 import custom from "../config/styles";
 import { AntDesign } from "@expo/vector-icons";
+import { LinearGradient } from "expo-linear-gradient";
 
-function OrgName({ orgName, orgDeets, insta, facebook, linkedIn, twitter, onPress }) {
-    return (
-        <TouchableHighlight
-          underlayColor={custom.colors.medium}
-          onPress={onPress}
-          style={{ borderRadius: 15 }}
+function OrgName({
+  orgName,
+  orgDeets,
+  insta,
+  facebook,
+  linkedIn,
+  twitter,
+  onPress,
+}) {
+  return (
+    <TouchableHighlight
+      underlayColor={custom.colors.medium}
+      onPress={onPress}
+      style={{ borderRadius: 15 }}
+    >
+      <View style={styles.container}>
+        <LinearGradient
+          colors={[custom.colors.charcoal, custom.colors.medium]}
+          start={[0, 0]}
+          end={[1, 0]}
+          style={styles.gradient}
         >
-          <View style={styles.container}>
-            <View style={styles.header}>
-              <AntDesign name="staro" size={20} color="black" />
-              <AffinityText style={styles.labelText}>{orgName} </AffinityText>
-              <AntDesign name="staro" size={20} color="black" />
-            </View>
-            {/* <View style={styles.deets}>
+          <View style={styles.header}>
+            {/* <AntDesign name="staro" size={20} color="black" /> */}
+            <AffinityText style={styles.labelText}>{orgName} </AffinityText>
+            {/* <AntDesign name="staro" size={20} color="black" /> */}
+          </View>
+        </LinearGradient>
+        {/* <View style={styles.deets}>
                 
               <AffinityText style={styles.deets} >{orgDeets}</AffinityText>
                     
                    
             </View> */}
-            
-            {/* <View style={styles.detailsContainer}>
+
+        {/* <View style={styles.detailsContainer}>
               <Text style={styles.title}>{title}</Text>
               {subTitle && <Text style={styles.subTitle}>{subTitle}</Text>}
             </View>
@@ -43,22 +59,25 @@ function OrgName({ orgName, orgDeets, insta, facebook, linkedIn, twitter, onPres
                 </Text>
               </View>
             </View> */}
-          </View>
-        </TouchableHighlight>
-    );
+      </View>
+    </TouchableHighlight>
+  );
 }
-
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     alignItems: "center",
     borderRadius: 15,
-    flex: 1,
-    flexDirection: "row",
     flexWrap: "wrap",
-    // justifyContent: "center",
-    padding: 15,
-    backgroundColor: custom.colors.white,
+    backgroundColor: custom.colors.grey,
+  },
+  gradient: {
+    flex: 1,
+    width: "100%",
+    paddingHorizontal: 12,
+    paddingVertical: 15,
+    borderRadius: 15,
   },
   deets: {
     // height: 100,
@@ -66,6 +85,8 @@ const styles = StyleSheet.create({
   },
   header: {
     flex: 1,
+    width: "100%",
+    flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
   },
@@ -81,7 +102,8 @@ const styles = StyleSheet.create({
     alignItems: "flex-end",
   },
   labelText: {
-    fontSize: 28,
+    fontSize: 25,
+    color: custom.colors.light,
   },
   status: {
     color: custom.colors.white,

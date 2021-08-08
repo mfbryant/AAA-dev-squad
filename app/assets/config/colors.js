@@ -12,4 +12,5 @@ export default {
   danger: "#ff5252",
   green: "#008000",
   yellow: "#ff8637",
+  crimson: "#b01030",
 };

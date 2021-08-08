@@ -1,64 +1,28 @@
 import React from "react";
-import { View, Text, StyleSheet, TouchableHighlight } from "react-native";
+import { View, StyleSheet, TouchableHighlight } from "react-native";
 import AffinityText from "./AffinityText";
 
-import custom from "../config/styles";
-import { AntDesign } from "@expo/vector-icons";
+import colors from "../config/colors";
 import { LinearGradient } from "expo-linear-gradient";
 
-function OrgName({
-  orgName,
-  orgDeets,
-  insta,
-  facebook,
-  linkedIn,
-  twitter,
-  onPress,
-}) {
+function OrgName({ orgName, onPress }) {
   return (
     <TouchableHighlight
-      underlayColor={custom.colors.medium}
+      underlayColor={colors.medium}
       onPress={onPress}
       style={{ borderRadius: 15 }}
     >
       <View style={styles.container}>
         <LinearGradient
-          colors={[custom.colors.charcoal, custom.colors.medium]}
+          colors={[colors.black, colors.crimson]} // colors.medium
           start={[0, 0]}
           end={[1, 0]}
           style={styles.gradient}
         >
           <View style={styles.header}>
-            {/* <AntDesign name="staro" size={20} color="black" /> */}
             <AffinityText style={styles.labelText}>{orgName} </AffinityText>
-            {/* <AntDesign name="staro" size={20} color="black" /> */}
           </View>
         </LinearGradient>
-        {/* <View style={styles.deets}>
-                
-              <AffinityText style={styles.deets} >{orgDeets}</AffinityText>
-                    
-                   
-            </View> */}
-
-        {/* <View style={styles.detailsContainer}>
-              <Text style={styles.title}>{title}</Text>
-              {subTitle && <Text style={styles.subTitle}>{subTitle}</Text>}
-            </View>
-            <View style={styles.statusArea}>
-              <View
-                style={{
-                  backgroundColor: a,
-                  borderRadius: 7,
-                  paddingHorizontal: 10,
-                  paddingVertical: 5,
-                }}
-              >
-                <Text adjustsFontSizeToFit numberOfLines={1} style={styles.status}>
-                  {status}
-                </Text>
-              </View>
-            </View> */}
       </View>
     </TouchableHighlight>
   );
@@ -70,7 +34,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderRadius: 15,
     flexWrap: "wrap",
-    backgroundColor: custom.colors.grey,
+    backgroundColor: colors.grey,
   },
   gradient: {
     flex: 1,
@@ -79,10 +43,6 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     borderRadius: 15,
   },
-  deets: {
-    // height: 100,
-    fontSize: 15,
-  },
   header: {
     flex: 1,
     width: "100%",
@@ -90,30 +50,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  label: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    flexDirection: "row",
-  },
-  statusArea: {
-    flex: 1.5,
-    justifyContent: "center",
-    alignItems: "flex-end",
-  },
   labelText: {
     fontSize: 25,
-    color: custom.colors.light,
-  },
-  status: {
-    color: custom.colors.white,
-    fontWeight: "500",
-  },
-  subTitle: {
-    color: custom.colors.medium,
-  },
-  title: {
-    fontWeight: "500",
+    color: colors.light,
   },
 });
 

@@ -8,12 +8,12 @@ import {
   View,
 } from "react-native";
 
-import Foundation from "@expo/vector-icons";
-import colors from "../assets/config/colors";
 import OrgModal from "../assets/components/OrgModal";
 import AffinityText from "../assets/components/AffinityText";
 import Screen from "../assets/components/Screen";
 import SocialTag from "../assets/components/SocialTag";
+import colors from "../assets/config/colors";
+import Constants from "expo-constants";
 
 export default function OrgScreen() {
   const [refreshing, setRefreshing] = useState(false);
@@ -36,9 +36,9 @@ export default function OrgScreen() {
   }, []);
 
   return (
-    <Screen>
-      <SafeAreaView style={styles.list}>
-        <View style={styles.container}>
+    <SafeAreaView style={styles.screen}>
+      <View style={styles.container}>
+        <View style={styles.list}>
           <FlatList
             data={data}
             keyExtractor={({ orgId }) => orgId.toString()}
@@ -65,24 +65,28 @@ export default function OrgScreen() {
                       <View style={styles.socialBox}>
                         {item.insta != "" ? (
                           <SocialTag
+                            site="instagram"
                             name="social-instagram"
                             children={item.insta}
                           />
                         ) : null}
                         {item.twitter != "" ? (
                           <SocialTag
+                            site="twitter"
                             name="social-twitter"
                             children={item.twitter}
                           />
                         ) : null}
                         {item.linkedIn != "" ? (
                           <SocialTag
+                            site="linkedin"
                             name="social-linkedin"
                             children={item.linkedIn}
                           />
                         ) : null}
                         {item.facebook != "" ? (
                           <SocialTag
+                            site="facebook"
                             name="social-facebook"
                             children={item.facebook}
                           />
@@ -102,19 +106,22 @@ export default function OrgScreen() {
             }}
           />
         </View>
-      </SafeAreaView>
-    </Screen>
+      </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
+  screen: {
+    paddingTop: Constants.statusBarHeight,
+    flex: 1,
+  },
   list: {
     flex: 1,
+    height: "100%",
   },
   container: {
     flex: 1,
-    height: "100%",
-    justifyContent: "center",
     padding: 10,
   },
   separator: {

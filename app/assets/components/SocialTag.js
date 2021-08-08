@@ -1,19 +1,26 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { Foundation } from "@expo/vector-icons";
+import * as Linking from "expo-linking";
 
-function SocialTag({ children, name, textColor, iconColor }) {
+function SocialTag({ children, site, name, textColor, iconColor }) {
   return (
-    <View style={styles.textRow}>
-      <Foundation name={name} color={iconColor} size={35} />
-      <Text
-        adjustsFontSizeToFit
-        numberOfLines={1}
-        style={[styles.socialText, { color: textColor }]}
-      >
-        {children}
-      </Text>
-    </View>
+    <TouchableOpacity
+      onPress={() =>
+        Linking.openURL(`https://${site}.com/${children.substr(1)}/`)
+      }
+    >
+      <View style={styles.textRow}>
+        <Foundation name={name} color={iconColor} size={35} />
+        <Text
+          adjustsFontSizeToFit
+          numberOfLines={1}
+          style={[styles.socialText, { color: textColor }]}
+        >
+          {children}
+        </Text>
+      </View>
+    </TouchableOpacity>
   );
 }
 

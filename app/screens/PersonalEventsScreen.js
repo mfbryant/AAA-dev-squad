@@ -78,6 +78,14 @@ function PersonalEventsScreen({ navigation }) {
     getOrgs();
   }, []);
 
+  const press = (item) => {
+    if (item.eventDraft) {
+      navigation.navigate("Add Event", { item, orgData });
+    } else {
+      navigation.navigate("Event Details", { item, orgData });
+    }
+  };
+
   // users access status
   // Change values when data is correct
   var showIcon = false;
@@ -130,9 +138,7 @@ function PersonalEventsScreen({ navigation }) {
               drafted={item.eventDraft}
               pending={item.eventPending}
               approved={item.eventApproved}
-              onPress={() =>
-                navigation.navigate("Event Details", { item, orgData })
-              }
+              onPress={() => press(item)}
             />
           )}
           ItemSeparatorComponent={() => <View style={styles.separator} />}

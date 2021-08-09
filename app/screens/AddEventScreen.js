@@ -26,12 +26,11 @@ import EventScreen from "../assets/components/EventScreen";
 // ];
 
 function AddEventScreen({ route, navigation }) {
-  const { orgData } = route.params;
+  const { item, orgData } = route.params;
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [isStartTimePickerVisible, setStartTimePickerVisibility] = useState(
     false
   );
-  const [name, setName] = useState();
   const [isEndTimePickerVisible, setEndTimePickerVisibility] = useState(false);
   const [date, setDate] = useState(new Date());
   const [startTime, setStartTime] = useState(new Date());
@@ -42,8 +41,8 @@ function AddEventScreen({ route, navigation }) {
   const handleEventName = (text) => {
     setName(text);
     console.log(name);
-  }
-  
+  };
+
   const handleDateConfirm = (date) => {
     setDate(date);
     setDatePickerVisibility(false);
@@ -83,7 +82,7 @@ function AddEventScreen({ route, navigation }) {
   //   let newEvent = {
 
   //   }
-    
+
   //   fetch("https://aims-ambassadorship-app.herokuapp.com/api/events", {
   //     method: 'POST',
   //     headers: {

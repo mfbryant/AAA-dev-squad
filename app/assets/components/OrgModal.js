@@ -64,13 +64,9 @@ const styles = StyleSheet.create({
     backgroundColor: colors.grey,
     justifyContent: "center",
     alignItems: "center",
-    borderTopLeftRadius: 25,
-    borderTopRightRadius: 25,
   },
   topButton: {
     backgroundColor: colors.grey,
-    borderTopLeftRadius: 25,
-    borderTopRightRadius: 25,
   },
   topArea: {
     width: "100%",

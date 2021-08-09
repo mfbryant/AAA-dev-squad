@@ -42,14 +42,6 @@ const user = {
   userOrg: "aims",
   label: "AIMS", // orgAbbr
 };
-const event2 = {
-  eventStatus: "Approved", // orgID
-  eventDeets: "aims",
-  eventCreator: "jdmay2",
-  eventDraft: true,
-  eventPending: false,
-  eventApproved: false,
-};
 
 function PersonalEventsScreen({ navigation }) {
   // const [events, setEvents] = useState(userEvents);
@@ -138,7 +130,6 @@ function PersonalEventsScreen({ navigation }) {
               drafted={item.eventDraft}
               pending={item.eventPending}
               approved={item.eventApproved}
-              // status={status} // change to item.status
               onPress={() =>
                 navigation.navigate("Event Details", { item, orgData })
               }
@@ -162,10 +153,6 @@ const styles = StyleSheet.create({
   list: {
     flex: 1,
   },
-  flatList: {
-    paddingVertical: 10,
-    paddingHorizontal: 15,
-  },
   barItem: {
     flex: 1,
     alignItems: "center",
@@ -173,7 +160,7 @@ const styles = StyleSheet.create({
   },
   separator: {
     width: "100%",
-    height: 10,
+    height: 1,
   },
   barText: {
     fontSize: 17,

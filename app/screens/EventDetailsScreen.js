@@ -112,11 +112,7 @@ function EventDetailsScreen({ route, navigation }) {
           </View>
           <View style={styles.textRow}>
             <Text style={styles.sideText}>Date: </Text>
-            <Text style={styles.bodyText}>
-              {format(start, "MM/dd/yy")}
-              {" - "}
-              {format(end, "MM/dd/yy")}
-            </Text>
+            <Text style={styles.bodyText}>{format(start, "MMMM do yyyy")}</Text>
           </View>
           <View style={styles.textRow}>
             <Text style={styles.sideText}>Time: </Text>
@@ -165,13 +161,14 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   header: {
-    fontSize: 30,
+    fontSize: 27,
     fontWeight: "bold",
     paddingBottom: 1,
   },
   subHeader: {
     fontSize: 20,
     marginBottom: 10,
+    color: colors.crimson,
   },
   textRow: {
     flexDirection: "row",

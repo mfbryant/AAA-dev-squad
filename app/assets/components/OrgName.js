@@ -14,7 +14,7 @@ function OrgName({ orgName, onPress }) {
     >
       <View style={styles.container}>
         <LinearGradient
-          colors={[colors.black, colors.crimson]} // colors.medium
+          colors={[colors.charcoal, colors.crimson]} // colors.medium
           start={[0, 0]}
           end={[1, 0]}
           style={styles.gradient}

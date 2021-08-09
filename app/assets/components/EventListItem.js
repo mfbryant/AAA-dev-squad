@@ -45,14 +45,14 @@ function EventListItem({
         <TouchableHighlight
           underlayColor={custom.colors.medium}
           onPress={onPress}
-          style={{ borderRadius: 15 }}
         >
           <View style={styles.container}>
-            <View style={styles.label}>
+            {/* <View style={styles.label}>
               <AffinityText style={styles.labelText}>{org}</AffinityText>
-            </View>
+            </View> */}
             <View style={styles.detailsContainer}>
               <Text style={styles.title}>{title}</Text>
+              <AffinityText style={styles.labelText}>{org}</AffinityText>
               {subTitle && <Text style={styles.subTitle}>{subTitle}</Text>}
             </View>
             <View style={styles.statusArea}>
@@ -82,13 +82,13 @@ function EventListItem({
 
 const styles = StyleSheet.create({
   container: {
-    borderRadius: 15,
     flexDirection: "row",
-    padding: 15,
+    paddingHorizontal: 15,
+    paddingVertical: 10,
     backgroundColor: custom.colors.white,
   },
   detailsContainer: {
-    flex: 3,
+    flex: 4,
     marginLeft: 10,
     justifyContent: "center",
   },
@@ -104,7 +104,8 @@ const styles = StyleSheet.create({
     alignItems: "flex-end",
   },
   labelText: {
-    fontSize: 20,
+    fontSize: 12,
+    color: custom.colors.crimson,
   },
   status: {
     color: custom.colors.white,
@@ -114,7 +115,8 @@ const styles = StyleSheet.create({
     color: custom.colors.medium,
   },
   title: {
-    fontWeight: "500",
+    fontSize: 17,
+    fontWeight: "600",
   },
 });
 

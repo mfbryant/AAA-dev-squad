@@ -64,32 +64,16 @@ export default function OrgScreen() {
                       </Text>
                       <View style={styles.socialBox}>
                         {item.insta != "" ? (
-                          <SocialTag
-                            site="instagram"
-                            name="social-instagram"
-                            children={item.insta}
-                          />
+                          <SocialTag site="instagram" children={item.insta} />
                         ) : null}
                         {item.twitter != "" ? (
-                          <SocialTag
-                            site="twitter"
-                            name="social-twitter"
-                            children={item.twitter}
-                          />
+                          <SocialTag site="twitter" children={item.twitter} />
                         ) : null}
                         {item.linkedIn != "" ? (
-                          <SocialTag
-                            site="linkedin"
-                            name="social-linkedin"
-                            children={item.linkedIn}
-                          />
+                          <SocialTag site="linkedin" children={item.linkedIn} />
                         ) : null}
                         {item.facebook != "" ? (
-                          <SocialTag
-                            site="facebook"
-                            name="social-facebook"
-                            children={item.facebook}
-                          />
+                          <SocialTag site="facebook" children={item.facebook} />
                         ) : null}
                       </View>
                     </View>
@@ -135,6 +119,7 @@ const styles = StyleSheet.create({
   },
   modalBoxText: {
     fontSize: 40,
+    color: colors.crimson,
   },
   deets: {
     fontSize: 20,

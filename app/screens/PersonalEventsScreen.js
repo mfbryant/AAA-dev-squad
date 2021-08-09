@@ -78,20 +78,15 @@ function PersonalEventsScreen({ navigation }) {
     getOrgs();
   }, []);
 
-  const press = (item) => {
-    if (item.eventDraft) {
-      navigation.navigate("Add Event", { item, orgData });
-    } else {
-      navigation.navigate("Event Details", { item, orgData });
-    }
-  };
-
   // users access status
   // Change values when data is correct
   var showIcon = false;
   if (user.executive === 1 || user.officerStatus === 1) {
     var showIcon = true;
   }
+
+  //Necessary for no errors when filling in data on add page
+  var item = [null];
 
   return (
     <EventScreen
@@ -114,7 +109,7 @@ function PersonalEventsScreen({ navigation }) {
                 name="plus"
                 color={colors.white}
                 onPress={() =>
-                  navigation.navigate("Add Event", { orgData, eventData })
+                  navigation.navigate("Add Event", { item, orgData })
                 }
                 size={25}
               />
@@ -138,7 +133,13 @@ function PersonalEventsScreen({ navigation }) {
               drafted={item.eventDraft}
               pending={item.eventPending}
               approved={item.eventApproved}
-              onPress={() => press(item)}
+              onPress={() => {
+                if (item.eventDraft) {
+                  navigation.navigate("Add Event", { item, orgData });
+                } else {
+                  navigation.navigate("Event Details", { item, orgData });
+                }
+              }}
             />
           )}
           ItemSeparatorComponent={() => <View style={styles.separator} />}

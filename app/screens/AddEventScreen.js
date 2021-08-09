@@ -10,21 +10,6 @@ import FormButton from "../assets/components/FormButton";
 import TextModal from "../assets/components/TextModal";
 import EventScreen from "../assets/components/EventScreen";
 
-// const systemOrgs = [
-//   {
-//     value: 1, // orgID
-//     label: "AIMS", // orgAbbr
-//   },
-//   {
-//     value: 2,
-//     label: "CMISS",
-//   },
-//   {
-//     value: 3,
-//     label: "WIT",
-//   },
-// ];
-
 function AddEventScreen({ route, navigation }) {
   const { item, orgData } = route.params;
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
@@ -32,10 +17,20 @@ function AddEventScreen({ route, navigation }) {
     false
   );
   const [isEndTimePickerVisible, setEndTimePickerVisibility] = useState(false);
-  const [date, setDate] = useState(new Date());
-  const [startTime, setStartTime] = useState(new Date());
-  const [endTime, setEndTime] = useState(new Date());
-  const [org, setOrg] = useState();
+
+  // Just added, feeds data from previous navigator page if user selects an event that is in draft mode.
+  const [date, setDate] = useState(
+    item.startDate != null ? new Date(item.startDate) : new Date()
+  );
+  const [startTime, setStartTime] = useState(
+    item.startDate != null ? new Date(item.startDate) : new Date()
+  );
+  const [endTime, setEndTime] = useState(
+    item.endDate != null ? new Date(item.endDate) : new Date()
+  );
+  const [org, setOrg] = useState(item.orgId != null ? item.orgId : null);
+  // End of changes
+
   const [input, setInput] = useState();
 
   const handleEventName = (text) => {

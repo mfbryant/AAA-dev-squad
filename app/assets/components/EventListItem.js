@@ -47,9 +47,6 @@ function EventListItem({
           onPress={onPress}
         >
           <View style={styles.container}>
-            {/* <View style={styles.label}>
-              <AffinityText style={styles.labelText}>{org}</AffinityText>
-            </View> */}
             <View style={styles.detailsContainer}>
               <Text style={styles.title}>{title}</Text>
               <AffinityText style={styles.labelText}>{org}</AffinityText>

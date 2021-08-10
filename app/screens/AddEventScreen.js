@@ -11,7 +11,7 @@ import TextModal from "../assets/components/TextModal";
 import EventScreen from "../assets/components/EventScreen";
 
 function AddEventScreen({ route, navigation }) {
-  const { item, orgData } = route.params;
+  const { orgData, item } = route.params;
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [isStartTimePickerVisible, setStartTimePickerVisibility] = useState(
     false
@@ -28,15 +28,12 @@ function AddEventScreen({ route, navigation }) {
   const [endTime, setEndTime] = useState(
     item.endDate != null ? new Date(item.endDate) : new Date()
   );
-  const [org, setOrg] = useState(item.orgId != null ? item.orgId : null);
+  const [location, setLocation] = useState();
+  const [description, setDescription] = useState();
   // End of changes
-
+  const [name, setName] = useState();
+  const [org, setOrg] = useState();
   const [input, setInput] = useState();
-
-  const handleEventName = (text) => {
-    setName(text);
-    console.log(name);
-  };
 
   const handleDateConfirm = (date) => {
     setDate(date);
@@ -116,12 +113,16 @@ function AddEventScreen({ route, navigation }) {
       <Screen style={styles.screen}>
         <Text style={styles.header}>Name of Event</Text>
         <View style={styles.textBox}>
-          <TextInput
-            // onChangeText={handleEventName}
-            placeholder="GOBD, Tree-Cleaning, etc.,"
-            placeholderTextColor={colors.leet}
-            style={styles.textInput}
-          />
+          {item.eventName != null ? (
+            <Text style={styles.textInput}>{item.eventName}</Text>
+          ) : (
+            <TextInput
+              onChangeText={setName}
+              placeholder="GOBD, Tree-Cleaning, etc.,"
+              placeholderTextColor={colors.leet}
+              style={styles.textInput}
+            />
+          )}
         </View>
         <Text style={styles.title}>Organization</Text>
         <AppPicker
@@ -129,7 +130,11 @@ function AddEventScreen({ route, navigation }) {
           onSelectItem={(item) => setOrg(item)}
           data={orgData}
           icon="school"
-          placeholder="aims, cmiss, wit, etc.,"
+          placeholder={
+            item.orgId != null
+              ? orgData[item.orgId - 1].orgName
+              : "aims, cmiss, wit, etc.,"
+          }
         />
         <View style={styles.textRow}>
           <Text style={styles.title}>Date of Event</Text>
@@ -163,21 +168,31 @@ function AddEventScreen({ route, navigation }) {
         </View>
         <Text style={styles.title}>Location</Text>
         <View style={styles.descriptionBox}>
-          <TextInput
-            placeholder="Ferguson Student Center, AIME Building, Jeff's Office..."
-            placeholderTextColor={colors.leet}
-            multiline={true}
-            style={styles.descriptionInput}
-          />
+          {item.location != null ? (
+            <Text style={styles.descriptionInput}>{item.location}</Text>
+          ) : (
+            <TextInput
+              placeholder="Ferguson Student Center, AIME Building, Jeff's Office..."
+              placeholderTextColor={colors.leet}
+              multiline={true}
+              onChangeText={setLocation}
+              style={styles.descriptionInput}
+            />
+          )}
         </View>
         <Text style={styles.title}>Event Description/Details</Text>
         <View style={styles.descriptionBox2}>
-          <TextInput
-            placeholder="Cleaning the wonderful trees around campus..."
-            placeholderTextColor={colors.leet}
-            multiline={true}
-            style={styles.descriptionInput}
-          />
+          {item.eventDeets != null ? (
+            <Text style={styles.descriptionInput}>{item.eventDeets}</Text>
+          ) : (
+            <TextInput
+              placeholder="Cleaning the wonderful trees around campus..."
+              placeholderTextColor={colors.leet}
+              multiline={true}
+              onChangeText={setDescription}
+              style={styles.descriptionInput}
+            />
+          )}
         </View>
         <View style={styles.buttonRow}>
           <View style={styles.spacing}>

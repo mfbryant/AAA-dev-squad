@@ -127,9 +127,9 @@ function PersonalEventsScreen({ navigation }) {
               approved={item.eventApproved}
               onPress={() => {
                 if (item.eventDraft) {
-                  navigation.navigate("Add Event", { item, orgData });
+                  navigation.navigate("Add Event", { orgData, item });
                 } else {
-                  navigation.navigate("Event Details", { item, orgData });
+                  navigation.navigate("Event Details", { orgData, item });
                 }
               }}
             />

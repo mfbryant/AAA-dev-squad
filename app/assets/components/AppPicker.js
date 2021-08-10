@@ -14,21 +14,6 @@ import PickerItem from "./PickerItem";
 import defaultStyles from "../config/styles";
 
 function AppPicker({ data, icon, onSelectItem, placeholder, selectedItem }) {
-  // const [orgData, setOrgData] = useState([]);
-
-  // const getOrgs = async () => {
-  //     try {
-  //         const response = await fetch('https://aims-ambassadorship-app.herokuapp.com/api/organizations');
-  //         const json = await response.json();
-  //         setOrgData(json);
-  //     } catch (error) {
-  //         console.error(error);
-  //     }
-  // }
-
-  // useEffect(() => {
-  //     getOrgs();
-  // }, []);
   const [modalVisible, setModalVisible] = useState(false);
   return (
     <>

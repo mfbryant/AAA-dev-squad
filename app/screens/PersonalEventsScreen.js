@@ -122,6 +122,7 @@ function PersonalEventsScreen({ navigation }) {
         <FlatList
           style={styles.flatList}
           data={eventData}
+          // extraData={orgData}
           keyExtractor={({ eventId }) => eventId.toString()}
           renderItem={({ item }) => (
             <EventListItem

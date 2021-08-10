@@ -6,14 +6,15 @@ import {
   StyleSheet,
   Text,
   View,
+  Button,
 } from "react-native";
 
 import OrgModal from "../assets/components/OrgModal";
 import AffinityText from "../assets/components/AffinityText";
-import Screen from "../assets/components/Screen";
 import SocialTag from "../assets/components/SocialTag";
 import colors from "../assets/config/colors";
 import Constants from "expo-constants";
+import * as Linking from "expo-linking";
 
 export default function OrgScreen() {
   const [refreshing, setRefreshing] = useState(false);
@@ -55,13 +56,49 @@ export default function OrgScreen() {
                       >
                         {item.orgName}
                       </AffinityText>
-                      <Text
-                        adjustsFontSizeToFit
-                        numberOfLines={1}
-                        style={styles.deets}
-                      >
-                        {item.orgDeets}
-                      </Text>
+                      {item.orgDeets != "" ? (
+                        <Text
+                          adjustsFontSizeToFit
+                          numberOfLines={1}
+                          style={styles.deets}
+                        >
+                          {item.orgDeets}
+                        </Text>
+                      ) : null}
+                      {item.president != "" ? (
+                        <View style={styles.mHeader}>
+                          <Text style={styles.missionHeader}>President</Text>
+                          <Text style={styles.mission}>{item.president}</Text>
+                        </View>
+                      ) : null}
+                      {item.missionStatement != "" ? (
+                        <View style={styles.mHeader}>
+                          <Text style={styles.missionHeader}>Mission</Text>
+                          <Text style={styles.mission}>
+                            {item.missionStatement}
+                          </Text>
+                        </View>
+                      ) : null}
+                      {item.email != "" ? (
+                        <View style={styles.mHeader}>
+                          <Text style={styles.missionHeader}>Email</Text>
+                          <Button
+                            onPress={() =>
+                              Linking.openURL(`mailto:${item.email}`)
+                            }
+                            title={item.email}
+                          />
+                        </View>
+                      ) : null}
+                      {item.phone != "" ? (
+                        <View style={styles.mHeader}>
+                          <Text style={styles.missionHeader}>Phone</Text>
+                          <Button
+                            onPress={() => Linking.openURL(`tel:${item.phone}`)}
+                            title={item.phone}
+                          />
+                        </View>
+                      ) : null}
                       <View style={styles.socialBox}>
                         {item.insta != "" ? (
                           <SocialTag site="instagram" children={item.insta} />
@@ -124,6 +161,21 @@ const styles = StyleSheet.create({
   deets: {
     fontSize: 20,
     fontWeight: "500",
+    flexWrap: "wrap",
+  },
+  mHeader: {
+    width: "100%",
+    alignItems: "flex-start",
+  },
+  missionHeader: {
+    marginTop: 10,
+    fontSize: 20,
+    fontWeight: "500",
+    flexWrap: "wrap",
+  },
+  mission: {
+    fontSize: 20,
+    fontWeight: "400",
     flexWrap: "wrap",
   },
   textRow: {

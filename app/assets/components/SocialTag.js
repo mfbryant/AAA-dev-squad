@@ -18,7 +18,11 @@ function SocialTag({ children, site }) {
   return (
     <TouchableOpacity
       onPress={() =>
-        Linking.openURL(`https://${site}.com/${children.substr(1)}/`)
+        site === "facebook"
+          ? Linking.openURL(
+              `https://${site}.com/${children.replace(/ /g, "")}/`
+            )
+          : Linking.openURL(`https://${site}.com/${children.substr(1)}/`)
       }
       style={styles.button}
     >
@@ -40,6 +44,7 @@ function SocialTag({ children, site }) {
 const styles = StyleSheet.create({
   button: {
     borderRadius: 10,
+    marginVertical: 5,
   },
   body: {
     paddingVertical: 10,

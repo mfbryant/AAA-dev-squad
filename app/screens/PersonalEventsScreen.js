@@ -49,33 +49,25 @@ function PersonalEventsScreen({ navigation }) {
   const [eventData, setEventData] = useState([]);
   const [orgData, setOrgData] = useState([]);
 
-  const getEvents = async () => {
+  const getData = async () => {
     try {
-      const response = await fetch(
+      const response1 = await fetch(
         "https://aims-ambassadorship-app.herokuapp.com/api/events"
       );
-      const json = await response.json();
-      setEventData(json);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const getOrgs = async () => {
-    try {
-      const response = await fetch(
+      const json1 = await response1.json();
+      const response2 = await fetch(
         "https://aims-ambassadorship-app.herokuapp.com/api/organizations"
       );
-      const json = await response.json();
-      setOrgData(json);
+      const json2 = await response2.json();
+      setOrgData(json2);
+      setEventData(json1);
     } catch (error) {
       console.error(error);
     }
   };
 
   useEffect(() => {
-    getEvents();
-    getOrgs();
+    getData();
   }, []);
 
   // users access status
@@ -122,13 +114,12 @@ function PersonalEventsScreen({ navigation }) {
         <FlatList
           style={styles.flatList}
           data={eventData}
-          // extraData={orgData}
+          extraData={orgData}
           keyExtractor={({ eventId }) => eventId.toString()}
           renderItem={({ item }) => (
             <EventListItem
               show={item.userId === user.userId}
-              org={item.orgId}
-              // {orgData[item.orgId -1].orgName}
+              org={orgData[item.orgId - 1].orgName}
               title={item.eventName}
               subTitle={item.location}
               drafted={item.eventDraft}

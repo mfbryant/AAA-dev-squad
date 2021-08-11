@@ -142,7 +142,11 @@ function PersonalEventsScreen({ navigation }) {
               onPress={() => {
                 item.eventDraft
                   ? navigation.navigate("Add Event", { orgData, item })
-                  : navigation.navigate("Event Details", { orgData, item });
+                  : navigation.navigate("Event Details", {
+                      personal,
+                      orgData,
+                      item,
+                    });
               }}
             />
           )}

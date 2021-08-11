@@ -16,30 +16,28 @@ import AffinityText from "../assets/components/AffinityText";
 import ScreenModal from "../assets/components/ScreenModal";
 
 const user = {
-  officerStatus: 1, // orgID
+  officer: true, // orgID
   label: "AIMS", // orgAbbr
-  userOrgs: ["aims", "cmiss"],
+  orgId: 4,
 };
 
 function EventDetailsScreen({ route, navigation }) {
   const qrWidth = 0.8 * Dimensions.get("window").width;
-  const { item, orgData } = route.params;
+  const { personal, item, orgData } = route.params;
   const event = item;
   // const user = route.params;
 
   // users access status
   // Change values when data is correct
-  var show = false;
-  if (
-    (user.executive || user.officerStatus) &&
-    user.userOrgs.includes(orgData[item.orgId - 1].orgName) &&
-    event.eventApproved
-  ) {
-    var show = true;
-  }
-
   var start = new Date(event.startDate);
   var end = new Date(event.endDate);
+  var show = false;
+  if (
+    (user.executive || (user.officer && user.orgId === item.orgId)) &&
+    event.eventApproved
+  ) {
+    start >= new Date() ? (show = true) : (roster = true);
+  }
 
   var status = null;
   if (item.drafted) {
@@ -76,7 +74,7 @@ function EventDetailsScreen({ route, navigation }) {
             onPress={() => navigation.goBack()}
             size={25}
           />
-          <Text style={styles.barText}>Your Events</Text>
+          <Text style={styles.barText}>Events</Text>
         </View>
       }
     >
@@ -84,24 +82,26 @@ function EventDetailsScreen({ route, navigation }) {
         <View style={styles.info}>
           <View style={styles.textBar}>
             <Text style={styles.header}>{event.eventName}</Text>
-            <View style={styles.statusArea}>
-              <View
-                style={{
-                  backgroundColor: a,
-                  borderRadius: 7,
-                  paddingHorizontal: 10,
-                  paddingVertical: 5,
-                }}
-              >
-                <Text
-                  adjustsFontSizeToFit
-                  numberOfLines={1}
-                  style={styles.status}
+            {personal ? (
+              <View style={styles.statusArea}>
+                <View
+                  style={{
+                    backgroundColor: a,
+                    borderRadius: 7,
+                    paddingHorizontal: 10,
+                    paddingVertical: 5,
+                  }}
                 >
-                  {status}
-                </Text>
+                  <Text
+                    adjustsFontSizeToFit
+                    numberOfLines={1}
+                    style={styles.status}
+                  >
+                    {status}
+                  </Text>
+                </View>
               </View>
-            </View>
+            ) : null}
           </View>
           <AffinityText style={styles.subHeader}>
             {orgData[item.orgId - 1].orgName}
@@ -127,6 +127,11 @@ function EventDetailsScreen({ route, navigation }) {
             <Text style={styles.bodyText}>{event.eventDeets}</Text>
           </ScrollView>
         </View>
+        {(user.executive || (user.officer && user.orgId === item.orgId)) &&
+        event.eventApproved &&
+        roster ? (
+          <View></View>
+        ) : null}
         <View style={styles.buttonBox}>
           <View style={styles.button}>
             <ScreenModal

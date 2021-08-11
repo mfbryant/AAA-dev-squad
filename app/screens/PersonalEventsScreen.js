@@ -126,7 +126,7 @@ function PersonalEventsScreen({ navigation }) {
               pending={item.eventPending}
               approved={item.eventApproved}
               onPress={() => {
-                if (item.eventDraft) {
+                if (!item.eventDraft) {
                   navigation.navigate("Add Event", { orgData, item });
                 } else {
                   navigation.navigate("Event Details", { orgData, item });

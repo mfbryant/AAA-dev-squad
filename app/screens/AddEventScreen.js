@@ -114,7 +114,9 @@ function AddEventScreen({ route, navigation }) {
         <Text style={styles.header}>Name of Event</Text>
         <View style={styles.textBox}>
           {item.eventName != null ? (
-            <Text style={styles.textInput}>{item.eventName}</Text>
+            <TextInput onChangeText={setName} style={styles.textInput}>
+              {item.eventName}
+            </TextInput>
           ) : (
             <TextInput
               onChangeText={setName}
@@ -169,7 +171,13 @@ function AddEventScreen({ route, navigation }) {
         <Text style={styles.title}>Location</Text>
         <View style={styles.descriptionBox}>
           {item.location != null ? (
-            <Text style={styles.descriptionInput}>{item.location}</Text>
+            <TextInput
+              onChangeText={setLocation}
+              multiline={true}
+              style={styles.descriptionInput}
+            >
+              {item.location}
+            </TextInput>
           ) : (
             <TextInput
               placeholder="Ferguson Student Center, AIME Building, Jeff's Office..."
@@ -183,7 +191,13 @@ function AddEventScreen({ route, navigation }) {
         <Text style={styles.title}>Event Description/Details</Text>
         <View style={styles.descriptionBox2}>
           {item.eventDeets != null ? (
-            <Text style={styles.descriptionInput}>{item.eventDeets}</Text>
+            <TextInput
+              onChangeText={setDescription}
+              multiline={true}
+              style={styles.descriptionInput}
+            >
+              {item.eventDeets}
+            </TextInput>
           ) : (
             <TextInput
               placeholder="Cleaning the wonderful trees around campus..."

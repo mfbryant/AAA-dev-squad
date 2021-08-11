@@ -72,19 +72,8 @@ function PersonalEventsScreen({ navigation }) {
   }, []);
 
   const handlePersonal = () => {
-    if (!personal) {
-      setPersonal(true);
-    } else {
-      setPersonal(false);
-    }
+    !personal ? setPersonal(true) : setPersonal(false);
   };
-
-  // users access status
-  // Change values when data is correct
-  var showIcon = false;
-  if (user.executive === 1 || user.officerStatus === 1) {
-    var showIcon = true;
-  }
 
   //Necessary for no errors when filling in data on add page
   var item = [null];
@@ -107,7 +96,7 @@ function PersonalEventsScreen({ navigation }) {
             </Text>
           </View>
           <View style={[{ justifyContent: "flex-end" }, styles.barItem]}>
-            {showIcon ? (
+            {user.executive === 1 || user.officerStatus === 1 ? (
               <View style={styles.iconRow}>
                 <Icon
                   name="school"
@@ -151,11 +140,9 @@ function PersonalEventsScreen({ navigation }) {
               approved={item.eventApproved}
               statusShow={personal}
               onPress={() => {
-                if (item.eventDraft) {
-                  navigation.navigate("Add Event", { orgData, item });
-                } else {
-                  navigation.navigate("Event Details", { orgData, item });
-                }
+                item.eventDraft
+                  ? navigation.navigate("Add Event", { orgData, item })
+                  : navigation.navigate("Event Details", { orgData, item });
               }}
             />
           )}

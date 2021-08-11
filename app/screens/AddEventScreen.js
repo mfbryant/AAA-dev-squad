@@ -106,25 +106,21 @@ function AddEventScreen({ route, navigation }) {
             onPress={() => navigation.goBack()}
             size={25}
           />
-          <Text style={styles.barText}>Your Events</Text>
+          <Text style={styles.barText}>Events</Text>
         </View>
       }
     >
       <Screen style={styles.screen}>
         <Text style={styles.header}>Name of Event</Text>
         <View style={styles.textBox}>
-          {item.eventName != null ? (
-            <TextInput onChangeText={setName} style={styles.textInput}>
-              {item.eventName}
-            </TextInput>
-          ) : (
-            <TextInput
-              onChangeText={setName}
-              placeholder="GOBD, Tree-Cleaning, etc.,"
-              placeholderTextColor={colors.leet}
-              style={styles.textInput}
-            />
-          )}
+          <TextInput
+            onChangeText={setName}
+            placeholder="GOBD, Tree-Cleaning, etc.,"
+            placeholderTextColor={colors.leet}
+            style={styles.textInput}
+          >
+            {item.eventName}
+          </TextInput>
         </View>
         <Text style={styles.title}>Organization</Text>
         <AppPicker
@@ -170,43 +166,27 @@ function AddEventScreen({ route, navigation }) {
         </View>
         <Text style={styles.title}>Location</Text>
         <View style={styles.descriptionBox}>
-          {item.location != null ? (
-            <TextInput
-              onChangeText={setLocation}
-              multiline={true}
-              style={styles.descriptionInput}
-            >
-              {item.location}
-            </TextInput>
-          ) : (
-            <TextInput
-              placeholder="Ferguson Student Center, AIME Building, Jeff's Office..."
-              placeholderTextColor={colors.leet}
-              multiline={true}
-              onChangeText={setLocation}
-              style={styles.descriptionInput}
-            />
-          )}
+          <TextInput
+            placeholder="Ferguson Student Center, AIME Building, Jeff's Office..."
+            placeholderTextColor={colors.leet}
+            multiline={true}
+            onChangeText={setLocation}
+            style={styles.descriptionInput}
+          >
+            {item.location}
+          </TextInput>
         </View>
         <Text style={styles.title}>Event Description/Details</Text>
         <View style={styles.descriptionBox2}>
-          {item.eventDeets != null ? (
-            <TextInput
-              onChangeText={setDescription}
-              multiline={true}
-              style={styles.descriptionInput}
-            >
-              {item.eventDeets}
-            </TextInput>
-          ) : (
-            <TextInput
-              placeholder="Cleaning the wonderful trees around campus..."
-              placeholderTextColor={colors.leet}
-              multiline={true}
-              onChangeText={setDescription}
-              style={styles.descriptionInput}
-            />
-          )}
+          <TextInput
+            placeholder="Cleaning the wonderful trees around campus..."
+            placeholderTextColor={colors.leet}
+            multiline={true}
+            onChangeText={setDescription}
+            style={styles.descriptionInput}
+          >
+            {item.eventDeets}
+          </TextInput>
         </View>
         <View style={styles.buttonRow}>
           <View style={styles.spacing}>

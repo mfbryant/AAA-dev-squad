@@ -17,27 +17,28 @@ function EventListItem({
 }) {
   var status = null;
   if (drafted) {
-    var status = "Draft";
+    status = "Draft";
   } else {
     if (pending) {
-      var status = "Pending";
+      status = "Pending";
     } else {
       if (approved) {
-        var status = "Approved";
+        status = "Approved";
       } else {
-        var status = "Denied";
+        status = "Denied";
       }
     }
   }
 
+  var a = custom.colors.black;
   if (status === "Approved") {
-    var a = custom.colors.green;
+    a = custom.colors.green;
   } else if (status === "Denied") {
-    var a = custom.colors.danger;
+    a = custom.colors.danger;
   } else if (status === "Pending") {
-    var a = custom.colors.medium;
+    a = custom.colors.medium;
   } else if (status === "Draft") {
-    var a = custom.colors.yellow;
+    a = custom.colors.yellow;
   }
 
   return (

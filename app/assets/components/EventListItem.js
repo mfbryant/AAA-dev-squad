@@ -13,6 +13,7 @@ function EventListItem({
   title,
   subTitle,
   onPress,
+  statusShow,
 }) {
   var status = null;
   if (drafted) {
@@ -52,24 +53,26 @@ function EventListItem({
               <AffinityText style={styles.labelText}>{org}</AffinityText>
               {subTitle && <Text style={styles.subTitle}>{subTitle}</Text>}
             </View>
-            <View style={styles.statusArea}>
-              <View
-                style={{
-                  backgroundColor: a,
-                  borderRadius: 7,
-                  paddingHorizontal: 10,
-                  paddingVertical: 5,
-                }}
-              >
-                <Text
-                  adjustsFontSizeToFit
-                  numberOfLines={1}
-                  style={styles.status}
+            {statusShow ? (
+              <View style={styles.statusArea}>
+                <View
+                  style={{
+                    backgroundColor: a,
+                    borderRadius: 7,
+                    paddingHorizontal: 10,
+                    paddingVertical: 5,
+                  }}
                 >
-                  {status}
-                </Text>
+                  <Text
+                    adjustsFontSizeToFit
+                    numberOfLines={1}
+                    style={styles.status}
+                  >
+                    {status}
+                  </Text>
+                </View>
               </View>
-            </View>
+            ) : null}
           </View>
         </TouchableHighlight>
       ) : null}

@@ -13,30 +13,32 @@ function EventListItem({
   title,
   subTitle,
   onPress,
+  statusShow,
 }) {
   var status = null;
   if (drafted) {
-    var status = "Draft";
+    status = "Draft";
   } else {
     if (pending) {
-      var status = "Pending";
+      status = "Pending";
     } else {
       if (approved) {
-        var status = "Approved";
+        status = "Approved";
       } else {
-        var status = "Denied";
+        status = "Denied";
       }
     }
   }
 
+  var a = custom.colors.black;
   if (status === "Approved") {
-    var a = custom.colors.green;
+    a = custom.colors.green;
   } else if (status === "Denied") {
-    var a = custom.colors.danger;
+    a = custom.colors.danger;
   } else if (status === "Pending") {
-    var a = custom.colors.medium;
+    a = custom.colors.medium;
   } else if (status === "Draft") {
-    var a = custom.colors.yellow;
+    a = custom.colors.yellow;
   }
 
   return (
@@ -52,24 +54,26 @@ function EventListItem({
               <AffinityText style={styles.labelText}>{org}</AffinityText>
               {subTitle && <Text style={styles.subTitle}>{subTitle}</Text>}
             </View>
-            <View style={styles.statusArea}>
-              <View
-                style={{
-                  backgroundColor: a,
-                  borderRadius: 7,
-                  paddingHorizontal: 10,
-                  paddingVertical: 5,
-                }}
-              >
-                <Text
-                  adjustsFontSizeToFit
-                  numberOfLines={1}
-                  style={styles.status}
+            {statusShow ? (
+              <View style={styles.statusArea}>
+                <View
+                  style={{
+                    backgroundColor: a,
+                    borderRadius: 7,
+                    paddingHorizontal: 10,
+                    paddingVertical: 5,
+                  }}
                 >
-                  {status}
-                </Text>
+                  <Text
+                    adjustsFontSizeToFit
+                    numberOfLines={1}
+                    style={styles.status}
+                  >
+                    {status}
+                  </Text>
+                </View>
               </View>
-            </View>
+            ) : null}
           </View>
         </TouchableHighlight>
       ) : null}

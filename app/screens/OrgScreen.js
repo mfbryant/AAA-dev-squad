@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import {
-  TouchableOpacity,
   FlatList,
   SafeAreaView,
   StyleSheet,

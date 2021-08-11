@@ -45,6 +45,7 @@ const user = {
 
 function PersonalEventsScreen({ navigation }) {
   // const [events, setEvents] = useState(userEvents);
+  const [personal, setPersonal] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [eventData, setEventData] = useState([]);
   const [orgData, setOrgData] = useState([]);
@@ -70,12 +71,9 @@ function PersonalEventsScreen({ navigation }) {
     getData();
   }, []);
 
-  // users access status
-  // Change values when data is correct
-  var showIcon = false;
-  if (user.executive === 1 || user.officerStatus === 1) {
-    var showIcon = true;
-  }
+  const handlePersonal = () => {
+    !personal ? setPersonal(true) : setPersonal(false);
+  };
 
   //Necessary for no errors when filling in data on add page
   var item = [null];
@@ -93,18 +91,29 @@ function PersonalEventsScreen({ navigation }) {
             />
           </View>
           <View style={[{ justifyContent: "center" }, styles.barItem]}>
-            <Text style={styles.barText}>Your Events</Text>
+            <Text style={styles.barText}>
+              {personal ? "Your Events" : "Events"}
+            </Text>
           </View>
           <View style={[{ justifyContent: "flex-end" }, styles.barItem]}>
-            {showIcon ? (
-              <Icon
-                name="plus"
-                color={colors.white}
-                onPress={() =>
-                  navigation.navigate("Add Event", { item, orgData })
-                }
-                size={25}
-              />
+            {user.executive === 1 || user.officerStatus === 1 ? (
+              <View style={styles.iconRow}>
+                <Icon
+                  name="school"
+                  color={colors.white}
+                  onPress={handlePersonal}
+                  size={25}
+                  style={{ marginRight: 10 }}
+                />
+                <Icon
+                  name="plus"
+                  color={colors.white}
+                  onPress={() =>
+                    navigation.navigate("Add Event", { item, orgData })
+                  }
+                  size={25}
+                />
+              </View>
             ) : null}
           </View>
         </View>
@@ -118,19 +127,22 @@ function PersonalEventsScreen({ navigation }) {
           keyExtractor={({ eventId }) => eventId.toString()}
           renderItem={({ item }) => (
             <EventListItem
-              show={item.userId === user.userId}
+              show={
+                personal
+                  ? item.userId === user.userId
+                  : new Date(item.startDate) >= new Date()
+              }
               org={orgData[item.orgId - 1].orgName}
               title={item.eventName}
               subTitle={item.location}
               drafted={item.eventDraft}
               pending={item.eventPending}
               approved={item.eventApproved}
+              statusShow={personal}
               onPress={() => {
-                if (item.eventDraft) {
-                  navigation.navigate("Add Event", { orgData, item });
-                } else {
-                  navigation.navigate("Event Details", { orgData, item });
-                }
+                item.eventDraft
+                  ? navigation.navigate("Add Event", { orgData, item })
+                  : navigation.navigate("Event Details", { orgData, item });
               }}
             />
           )}
@@ -172,6 +184,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingHorizontal: 25,
     paddingBottom: 7,
+  },
+  iconRow: {
+    flexDirection: "row",
   },
 });
 

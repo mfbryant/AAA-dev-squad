@@ -135,6 +135,7 @@ function PersonalEventsScreen({ navigation }) {
               org={orgData[item.orgId - 1].orgName}
               title={item.eventName}
               subTitle={item.location}
+              date={item.startDate}
               drafted={item.eventDraft}
               pending={item.eventPending}
               approved={item.eventApproved}
@@ -186,7 +187,7 @@ const styles = StyleSheet.create({
     width: "100%",
     flexDirection: "row",
     alignItems: "center",
-    paddingHorizontal: 25,
+    paddingHorizontal: 20,
     paddingBottom: 7,
   },
   iconRow: {

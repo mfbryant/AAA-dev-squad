@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableHighlight } from "react-native";
+import { format } from "date-fns";
 import AffinityText from "./AffinityText";
-
 import custom from "../config/styles";
 
 function EventListItem({
@@ -12,6 +12,7 @@ function EventListItem({
   org,
   title,
   subTitle,
+  date,
   onPress,
   statusShow,
 }) {
@@ -54,26 +55,24 @@ function EventListItem({
               <AffinityText style={styles.labelText}>{org}</AffinityText>
               {subTitle && <Text style={styles.subTitle}>{subTitle}</Text>}
             </View>
-            {statusShow ? (
-              <View style={styles.statusArea}>
-                <View
-                  style={{
-                    backgroundColor: a,
-                    borderRadius: 7,
-                    paddingHorizontal: 10,
-                    paddingVertical: 5,
-                  }}
+            <View style={styles.statusArea}>
+              <View
+                style={[
+                  styles.statusBox,
+                  {
+                    backgroundColor: statusShow ? a : custom.colors.medium,
+                  },
+                ]}
+              >
+                <Text
+                  adjustsFontSizeToFit
+                  numberOfLines={1}
+                  style={statusShow ? styles.status : styles.date}
                 >
-                  <Text
-                    adjustsFontSizeToFit
-                    numberOfLines={1}
-                    style={styles.status}
-                  >
-                    {status}
-                  </Text>
-                </View>
+                  {statusShow ? status : format(new Date(date), "MMM dd")}
+                </Text>
               </View>
-            ) : null}
+            </View>
           </View>
         </TouchableHighlight>
       ) : null}
@@ -90,7 +89,7 @@ const styles = StyleSheet.create({
   },
   detailsContainer: {
     flex: 4,
-    marginLeft: 10,
+    marginLeft: 5,
     justifyContent: "center",
   },
   label: {
@@ -104,19 +103,29 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "flex-end",
   },
+  statusBox: {
+    borderRadius: 7,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+  },
   labelText: {
-    fontSize: 12,
+    fontSize: 15,
     color: custom.colors.crimson,
   },
   status: {
     color: custom.colors.white,
-    fontWeight: "500",
+    fontWeight: "600",
+  },
+  date: {
+    color: custom.colors.white,
+    fontWeight: "600",
   },
   subTitle: {
     color: custom.colors.medium,
+    fontWeight: "500",
   },
   title: {
-    fontSize: 17,
+    fontSize: 20,
     fontWeight: "600",
   },
 });

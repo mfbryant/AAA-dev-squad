@@ -226,7 +226,7 @@ const styles = StyleSheet.create({
   },
   status: {
     color: colors.white,
-    fontWeight: "500",
+    fontWeight: "600",
   },
 });
 

@@ -14,39 +14,33 @@ import Icon from "../assets/components/IconButton";
 import colors from "../assets/config/colors";
 import AffinityText from "../assets/components/AffinityText";
 import ScreenModal from "../assets/components/ScreenModal";
-
-const user = {
-  officer: true, // orgID
-  label: "AIMS", // orgAbbr
-  orgId: 4,
-};
+import FormButton from "../assets/components/FormButton";
 
 function EventDetailsScreen({ route, navigation }) {
   const qrWidth = 0.8 * Dimensions.get("window").width;
-  const { personal, item, orgData } = route.params;
-  const event = item;
-  // const user = route.params;
+  const { personal, userData, user, item, orgData } = route.params;
 
   // users access status
   // Change values when data is correct
-  var start = new Date(event.startDate);
-  var end = new Date(event.endDate);
+  var start = new Date(item.startDate);
+  var end = new Date(item.endDate);
   var show = false;
+  var roster = false;
   if (
     (user.executive || (user.officer && user.orgId === item.orgId)) &&
-    event.eventApproved
+    item.eventApproved
   ) {
     start >= new Date() ? (show = true) : (roster = true);
   }
 
   var status = null;
-  if (item.drafted) {
+  if (item.eventDraft) {
     var status = "Draft";
   } else {
-    if (item.pending) {
+    if (item.eventPending) {
       var status = "Pending";
     } else {
-      if (item.approved) {
+      if (item.eventApproved) {
         var status = "Approved";
       } else {
         var status = "Denied";
@@ -63,6 +57,17 @@ function EventDetailsScreen({ route, navigation }) {
   } else if (status === "Draft") {
     var a = colors.yellow;
   }
+
+  const handleApprove = () => {
+    //Navigate back to previous screen
+    //Set pending to false
+    //Set Approve to true
+  };
+
+  const handleDeny = () => {
+    //Navigate back to previous screen
+    //Set pending to false
+  };
 
   return (
     <EventScreen
@@ -81,7 +86,7 @@ function EventDetailsScreen({ route, navigation }) {
       <SafeAreaView style={styles.screen}>
         <View style={styles.info}>
           <View style={styles.textBar}>
-            <Text style={styles.header}>{event.eventName}</Text>
+            <Text style={styles.header}>{item.eventName}</Text>
             {personal ? (
               <View style={styles.statusArea}>
                 <View
@@ -106,9 +111,14 @@ function EventDetailsScreen({ route, navigation }) {
           <AffinityText style={styles.subHeader}>
             {orgData[item.orgId - 1].orgName}
           </AffinityText>
+          {personal ? (
+            <Text style={styles.creator}>
+              Created by {userData[item.userId - 1].userName}
+            </Text>
+          ) : null}
           <View style={styles.textRow}>
             <Text style={styles.sideText}>Location: </Text>
-            <Text style={styles.bodyText}>{event.location}</Text>
+            <Text style={styles.bodyText}>{item.location}</Text>
           </View>
           <View style={styles.textRow}>
             <Text style={styles.sideText}>Date: </Text>
@@ -124,16 +134,29 @@ function EventDetailsScreen({ route, navigation }) {
           </View>
           <Text style={styles.sideText}>Details: </Text>
           <ScrollView>
-            <Text style={styles.bodyText}>{event.eventDeets}</Text>
+            <Text style={styles.bodyText}>{item.eventDeets}</Text>
           </ScrollView>
         </View>
-        {(user.executive || (user.officer && user.orgId === item.orgId)) &&
-        event.eventApproved &&
-        roster ? (
-          <View></View>
+        {roster ? (
+          <View style={{ flex: 1 }}>
+            <Text>Hello</Text>
+          </View>
         ) : null}
         <View style={styles.buttonBox}>
           <View style={styles.button}>
+            <FormButton
+              v={personal && user.executive}
+              text="Approve"
+              color={colors.green}
+              style={{ marginRight: 15 }}
+              onPress={() => setModalVisible(true)}
+            />
+            <FormButton
+              v={personal && user.executive}
+              text="Deny"
+              color={colors.danger}
+              onPress={() => setModalVisible(true)}
+            />
             <ScreenModal
               buttonShow={show}
               buttonText="Get Event QR"
@@ -141,7 +164,7 @@ function EventDetailsScreen({ route, navigation }) {
             >
               <View style={styles.qr}>
                 <View style={styles.qrBack}>
-                  <QRCode value={event.eventId.toString()} size={qrWidth} />
+                  <QRCode value={item.eventId.toString()} size={qrWidth} />
                 </View>
               </View>
             </ScreenModal>
@@ -172,8 +195,12 @@ const styles = StyleSheet.create({
   },
   subHeader: {
     fontSize: 20,
-    marginBottom: 10,
+    marginBottom: 5,
     color: colors.crimson,
+  },
+  creator: {
+    fontSize: 15,
+    fontWeight: "700",
   },
   textRow: {
     flexDirection: "row",
@@ -189,7 +216,7 @@ const styles = StyleSheet.create({
     fontWeight: "400",
   },
   button: {
-    width: "80%",
+    width: "90%",
     alignItems: "center",
     flexDirection: "row",
   },
@@ -227,6 +254,7 @@ const styles = StyleSheet.create({
   status: {
     color: colors.white,
     fontWeight: "600",
+    fontSize: 17,
   },
 });
 

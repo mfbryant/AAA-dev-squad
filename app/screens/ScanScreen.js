@@ -1,35 +1,74 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
+import { useIsFocused } from "@react-navigation/native";
+import { Camera } from "expo-camera";
 
 function ScanScreen({ navigation }) {
   const [hasPermission, setHasPermission] = useState(null);
+  const [scanned, setScanned] = useState(false);
+  const [eventData, setEventData] = useState([]);
+  const isFocused = useIsFocused();
+
+  const getData = async () => {
+    try {
+      const response = await fetch(
+        "https://aims-ambassadorship-app.herokuapp.com/api/events"
+      );
+      const json = await response.json();
+      setEventData(json);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
 
   useEffect(() => {
     (async () => {
-      const { status } = await BarCodeScanner.requestPermissionsAsync();
+      const { status } = await Camera.requestPermissionsAsync();
       setHasPermission(status === "granted");
     })();
   }, []);
 
   const handleBarCodeScanned = ({ data }) => {
+    setScanned(true);
     console.log(data); // Will change to prop to analyze whether or not the data read is present in database
-    navigation.navigate("Home");
+    navigation.goBack();
+    eventData[data - 1].eventApproved
+      ? console.log("Oh yeah")
+      : console.log("Oof");
+    setScanned(false);
   };
 
   if (hasPermission === null) {
-    return <Text>Requesting for camera permission...</Text>;
+    return (
+      <View style={styles.error}>
+        <Text>Requesting for camera permission...</Text>
+      </View>
+    );
   }
   if (hasPermission === false) {
-    return <Text>Error! No access to camera.</Text>;
+    return (
+      <View style={styles.error}>
+        <Text style={styles.errorText}>Error! No access to camera.</Text>
+      </View>
+    );
   }
 
   return (
     <View style={styles.container}>
-      <BarCodeScanner
-        onBarCodeScanned={handleBarCodeScanned}
-        style={styles.camera}
-      />
+      {isFocused && (
+        <Camera
+          style={styles.camera}
+          onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
+          barCodeScannerSettings={{
+            barCodeTypes: [BarCodeScanner.Constants.BarCodeType.qr],
+          }}
+        />
+      )}
     </View>
   );
 }
@@ -41,6 +80,15 @@ const styles = StyleSheet.create({
   },
   camera: {
     flex: 3,
+  },
+  error: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  errorText: {
+    fontSize: 17,
+    fontWeight: "600",
   },
 });
 

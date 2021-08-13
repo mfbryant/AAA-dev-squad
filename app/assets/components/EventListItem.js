@@ -44,7 +44,7 @@ function EventListItem({
 
   return (
     <>
-      {show ? (
+      {show && (
         <TouchableHighlight
           underlayColor={custom.colors.medium}
           onPress={onPress}
@@ -75,7 +75,7 @@ function EventListItem({
             </View>
           </View>
         </TouchableHighlight>
-      ) : null}
+      )}
     </>
   );
 }

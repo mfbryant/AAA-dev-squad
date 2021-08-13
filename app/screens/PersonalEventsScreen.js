@@ -10,7 +10,7 @@ const sampleEvents = [
   {
     eventId: 1,
     eventName: "Welcome Back Bash",
-    startDate: "2021-10-07T18:00:00",
+    startDate: "2021-09-07T18:00:00",
     endDate: "2021-09-07T20:00:00",
     location: "UA Rec Fields",
     eventDeets: "Come out for a good time of catching up, food, and kickball!",
@@ -23,7 +23,7 @@ const sampleEvents = [
   {
     eventId: 2,
     eventName: "Welcome Back Bash",
-    startDate: "2021-09-07T18:00:00",
+    startDate: "2021-08-07T18:00:00",
     endDate: "2021-09-07T20:00:00",
     location: "UA Rec Fields",
     eventDeets: "Come out for a good time of catching up, food, and kickball!",
@@ -32,33 +32,6 @@ const sampleEvents = [
     eventPending: true,
     eventApproved: false,
     userId: 1,
-  },
-];
-
-const userData = [
-  {
-    userId: 1,
-    userName: "Mattie Bryant",
-    userEmail: "mfbryant@crimson.ua.edu",
-    executive: false,
-    officer: true,
-    orgId: 4,
-  },
-  {
-    userId: 2,
-    userName: "Joseph May",
-    userEmail: "jdmay2@crimson.ua.edu",
-    executive: false,
-    officer: true,
-    orgId: 4,
-  },
-  {
-    userId: 3,
-    userName: "Jeff Lucas",
-    userEmail: "jslucas@cba.ua.edu",
-    executive: true,
-    officer: false,
-    orgId: 4,
   },
 ];
 
@@ -76,6 +49,7 @@ function PersonalEventsScreen({ navigation }) {
   const [refreshing, setRefreshing] = useState(false);
   const [eventData, setEventData] = useState([]);
   const [orgData, setOrgData] = useState([]);
+  const [userData, setUserData] = useState([]);
 
   const getData = async () => {
     try {
@@ -86,10 +60,15 @@ function PersonalEventsScreen({ navigation }) {
       const response2 = await fetch(
         "https://aims-ambassadorship-app.herokuapp.com/api/organizations"
       );
+      const response3 = await fetch(
+        "https://aims-ambassadorship-app.herokuapp.com/api/users"
+      );
       const json1 = await response1.json();
       const json2 = await response2.json();
+      const json3 = await response3.json();
       setOrgData(json2);
       setEventData(json1);
+      setUserData(json3);
       setRefreshing(false);
     } catch (error) {
       console.error(error);
@@ -154,7 +133,6 @@ function PersonalEventsScreen({ navigation }) {
     >
       <View style={styles.list}>
         <FlatList
-          style={styles.flatList}
           data={
             personal
               ? eventData.sort((a, b) =>
@@ -189,7 +167,7 @@ function PersonalEventsScreen({ navigation }) {
                       userData,
                       user,
                       orgData,
-                      item,
+                      event: item,
                     });
               }}
             />

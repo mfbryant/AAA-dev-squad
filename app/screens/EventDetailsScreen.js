@@ -6,6 +6,7 @@ import {
   StyleSheet,
   Dimensions,
   ScrollView,
+  FlatList,
 } from "react-native";
 import { format } from "date-fns";
 import QRCode from "react-native-qrcode-svg";
@@ -15,32 +16,106 @@ import colors from "../assets/config/colors";
 import AffinityText from "../assets/components/AffinityText";
 import ScreenModal from "../assets/components/ScreenModal";
 import FormButton from "../assets/components/FormButton";
+import Person from "../assets/components/PeopleListItem";
+
+const sampleAttend = [
+  {
+    attendanceId: 1,
+    eventId: 1,
+    userId: 3,
+  },
+  {
+    attendanceId: 2,
+    eventId: 1,
+    userId: 4,
+  },
+  {
+    attendanceId: 3,
+    eventId: 1,
+    userId: 1,
+  },
+  {
+    attendanceId: 4,
+    eventId: 1,
+    userId: 2,
+  },
+  {
+    attendanceId: 5,
+    eventId: 1,
+    userId: 5,
+  },
+  {
+    attendanceId: 6,
+    eventId: 1,
+    userId: 6,
+  },
+  {
+    attendanceId: 7,
+    eventId: 1,
+    userId: 7,
+  },
+  {
+    attendanceId: 8,
+    eventId: 1,
+    userId: 8,
+  },
+  {
+    attendanceId: 9,
+    eventId: 1,
+    userId: 9,
+  },
+  {
+    attendanceId: 10,
+    eventId: 1,
+    userId: 10,
+  },
+];
 
 function EventDetailsScreen({ route, navigation }) {
   const qrWidth = 0.8 * Dimensions.get("window").width;
-  const { personal, userData, user, item, orgData } = route.params;
+  const { personal, userData, user, orgData, event } = route.params;
+  //const [attendanceData, setAttendanceDate] = useState([]);
+  // const [refreshing, setRefreshing] = useState(false);
+
+  // const getData = async () => {
+  //   try {
+  //     setRefreshing(true);
+  //     const response = await fetch(
+  //       "https://aims-ambassadorship-app.herokuapp.com/api/attendance"
+  //     );
+  //     const json = await response.json();
+  //     setAttendanceData(json);
+  //     setRefreshing(false);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   getData();
+  // }, []);
 
   // users access status
   // Change values when data is correct
-  var start = new Date(item.startDate);
-  var end = new Date(item.endDate);
+  var start = new Date(event.startDate);
+  var end = new Date(event.endDate);
   var show = false;
   var roster = false;
   if (
-    (user.executive || (user.officer && user.orgId === item.orgId)) &&
-    item.eventApproved
+    (user.executive || (user.officer && user.orgId === event.orgId)) &&
+    event.eventApproved
   ) {
     start >= new Date() ? (show = true) : (roster = true);
   }
 
   var status = null;
-  if (item.eventDraft) {
+  if (event.eventDraft) {
     var status = "Draft";
   } else {
-    if (item.eventPending) {
+    if (event.eventPending) {
       var status = "Pending";
     } else {
-      if (item.eventApproved) {
+      if (event.eventApproved) {
         var status = "Approved";
       } else {
         var status = "Denied";
@@ -86,7 +161,7 @@ function EventDetailsScreen({ route, navigation }) {
       <SafeAreaView style={styles.screen}>
         <View style={styles.info}>
           <View style={styles.textBar}>
-            <Text style={styles.header}>{item.eventName}</Text>
+            <Text style={styles.header}>{event.eventName}</Text>
             {personal ? (
               <View style={styles.statusArea}>
                 <View
@@ -109,16 +184,16 @@ function EventDetailsScreen({ route, navigation }) {
             ) : null}
           </View>
           <AffinityText style={styles.subHeader}>
-            {orgData[item.orgId - 1].orgName}
+            {orgData[event.orgId - 1].orgName}
           </AffinityText>
           {personal ? (
             <Text style={styles.creator}>
-              Created by {userData[item.userId - 1].userName}
+              Created by {userData[event.userId - 1].userName}
             </Text>
           ) : null}
           <View style={styles.textRow}>
             <Text style={styles.sideText}>Location: </Text>
-            <Text style={styles.bodyText}>{item.location}</Text>
+            <Text style={styles.bodyText}>{event.location}</Text>
           </View>
           <View style={styles.textRow}>
             <Text style={styles.sideText}>Date: </Text>
@@ -133,15 +208,35 @@ function EventDetailsScreen({ route, navigation }) {
             </Text>
           </View>
           <Text style={styles.sideText}>Details: </Text>
-          <ScrollView>
-            <Text style={styles.bodyText}>{item.eventDeets}</Text>
-          </ScrollView>
+          {roster ? null : (
+            <ScrollView>
+              <Text style={styles.bodyText}>{event.eventDeets}</Text>
+            </ScrollView>
+          )}
         </View>
-        {roster ? (
-          <View style={{ flex: 1 }}>
-            <Text>Hello</Text>
+        {roster && (
+          <View style={styles.list}>
+            <FlatList
+              data={sampleAttend} // change to attendance
+              extraData={userData}
+              keyExtractor={({ attendanceId }) => attendanceId.toString()}
+              renderItem={({ item }) => (
+                <Person
+                  show={item.eventId === event.eventId}
+                  title={userData[item.userId - 1].userName}
+                  subTitle={userData[item.userId - 1].userEmail}
+                />
+              )}
+              ItemSeparatorComponent={() => <View style={styles.separator} />}
+              // refreshing={refreshing}
+              // onRefresh={() => {
+              //   setRefreshing(true);
+              //   setAttendanceData();
+              //   setRefreshing(false);
+              // }}
+            />
           </View>
-        ) : null}
+        )}
         <View style={styles.buttonBox}>
           <View style={styles.button}>
             <FormButton
@@ -164,7 +259,7 @@ function EventDetailsScreen({ route, navigation }) {
             >
               <View style={styles.qr}>
                 <View style={styles.qrBack}>
-                  <QRCode value={item.eventId.toString()} size={qrWidth} />
+                  <QRCode value={event.eventId.toString()} size={qrWidth} />
                 </View>
               </View>
             </ScreenModal>
@@ -180,6 +275,13 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingVertical: 10,
     paddingHorizontal: 15,
+  },
+  list: {
+    flex: 2.4,
+  },
+  separator: {
+    width: "100%",
+    height: 1,
   },
   info: {
     flex: 1,

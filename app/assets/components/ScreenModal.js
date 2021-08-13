@@ -7,7 +7,6 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from "react-native";
-import { MaterialIcons } from "@expo/vector-icons";
 import FormButton from "./FormButton";
 import colors from "../config/colors";
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Text,
   SafeAreaView,
@@ -75,7 +75,7 @@ function EventDetailsScreen({ route, navigation }) {
   const qrWidth = 0.8 * Dimensions.get("window").width;
   const { personal, userData, user, orgData, event } = route.params;
   //const [attendanceData, setAttendanceDate] = useState([]);
-  // const [refreshing, setRefreshing] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
 
   // const getData = async () => {
   //   try {
@@ -97,6 +97,10 @@ function EventDetailsScreen({ route, navigation }) {
 
   // users access status
   // Change values when data is correct
+
+  var later = new Date(event.startDate);
+  later.setTime(new Date(event.endDate).getTime());
+
   var start = new Date(event.startDate);
   var end = new Date(event.endDate);
   var show = false;
@@ -105,7 +109,7 @@ function EventDetailsScreen({ route, navigation }) {
     (user.executive || (user.officer && user.orgId === event.orgId)) &&
     event.eventApproved
   ) {
-    start >= new Date() ? (show = true) : (roster = true);
+    start >= later ? (show = true) : (roster = true);
   }
 
   var status = null;
@@ -162,7 +166,7 @@ function EventDetailsScreen({ route, navigation }) {
         <View style={styles.info}>
           <View style={styles.textBar}>
             <Text style={styles.header}>{event.eventName}</Text>
-            {personal ? (
+            {personal && (
               <View style={styles.statusArea}>
                 <View
                   style={{
@@ -181,16 +185,16 @@ function EventDetailsScreen({ route, navigation }) {
                   </Text>
                 </View>
               </View>
-            ) : null}
+            )}
           </View>
           <AffinityText style={styles.subHeader}>
             {orgData[event.orgId - 1].orgName}
           </AffinityText>
-          {personal ? (
+          {personal && (
             <Text style={styles.creator}>
               Created by {userData[event.userId - 1].userName}
             </Text>
-          ) : null}
+          )}
           <View style={styles.textRow}>
             <Text style={styles.sideText}>Location: </Text>
             <Text style={styles.bodyText}>{event.location}</Text>
@@ -207,36 +211,38 @@ function EventDetailsScreen({ route, navigation }) {
               {format(end, "hh:mm a")}
             </Text>
           </View>
-          <Text style={styles.sideText}>Details: </Text>
-          {roster ? null : (
+          <Text style={styles.sideText}>
+            {roster ? "Attendees:" : "Details:"}
+          </Text>
+          {!roster ? (
             <ScrollView>
               <Text style={styles.bodyText}>{event.eventDeets}</Text>
             </ScrollView>
+          ) : (
+            <View style={styles.list}>
+              <FlatList
+                style={styles.flatList}
+                data={sampleAttend} // change to attendance
+                extraData={userData}
+                keyExtractor={({ attendanceId }) => attendanceId.toString()}
+                renderItem={({ item }) => (
+                  <Person
+                    show={item.eventId === event.eventId}
+                    title={userData[item.userId - 1].userName}
+                    subTitle={userData[item.userId - 1].userEmail}
+                  />
+                )}
+                ItemSeparatorComponent={() => <View style={styles.separator} />}
+                refreshing={refreshing}
+                onRefresh={() => {
+                  setRefreshing(true);
+                  //   setAttendanceData();
+                  setRefreshing(false);
+                }}
+              />
+            </View>
           )}
         </View>
-        {roster && (
-          <View style={styles.list}>
-            <FlatList
-              data={sampleAttend} // change to attendance
-              extraData={userData}
-              keyExtractor={({ attendanceId }) => attendanceId.toString()}
-              renderItem={({ item }) => (
-                <Person
-                  show={item.eventId === event.eventId}
-                  title={userData[item.userId - 1].userName}
-                  subTitle={userData[item.userId - 1].userEmail}
-                />
-              )}
-              ItemSeparatorComponent={() => <View style={styles.separator} />}
-              // refreshing={refreshing}
-              // onRefresh={() => {
-              //   setRefreshing(true);
-              //   setAttendanceData();
-              //   setRefreshing(false);
-              // }}
-            />
-          </View>
-        )}
         <View style={styles.buttonBox}>
           <View style={styles.button}>
             <FormButton
@@ -244,13 +250,13 @@ function EventDetailsScreen({ route, navigation }) {
               text="Approve"
               color={colors.green}
               style={{ marginRight: 15 }}
-              onPress={() => setModalVisible(true)}
+              onPress={handleApprove}
             />
             <FormButton
               v={personal && user.executive}
               text="Deny"
               color={colors.danger}
-              onPress={() => setModalVisible(true)}
+              onPress={handleDeny}
             />
             <ScreenModal
               buttonShow={show}
@@ -277,11 +283,18 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
   },
   list: {
-    flex: 2.4,
+    flex: 1,
+    borderColor: colors.medium,
+    borderRadius: 10,
+    borderWidth: 2,
+    padding: 5,
+  },
+  flatList: {
+    borderRadius: 5,
   },
   separator: {
     width: "100%",
-    height: 1,
+    height: 3,
   },
   info: {
     flex: 1,

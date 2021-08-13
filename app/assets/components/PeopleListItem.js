@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import custom from "../config/styles";
 
-function EventListItem({ show, title, subTitle }) {
+function PeopleListItem({ show, title, subTitle }) {
   return (
     <>
       {show && (
@@ -41,4 +41,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default EventListItem;
+export default PeopleListItem;

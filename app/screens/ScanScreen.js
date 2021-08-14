@@ -8,22 +8,22 @@ const sampleAttend = [
   {
     attendanceId: 1,
     eventId: 1,
-    userId: 3,
+    userId: 11,
   },
   {
     attendanceId: 2,
     eventId: 1,
-    userId: 4,
+    userId: 2,
   },
   {
     attendanceId: 3,
     eventId: 1,
-    userId: 1,
+    userId: 3,
   },
   {
     attendanceId: 4,
     eventId: 1,
-    userId: 2,
+    userId: 4,
   },
   {
     attendanceId: 5,
@@ -58,7 +58,7 @@ const sampleAttend = [
 ];
 
 const user = {
-  userId: 1,
+  userId: 4,
   userName: "Mattie Bryant",
   userEmail: "mfbryant@crimson.ua.edu",
   executive: true,
@@ -102,15 +102,19 @@ function ScanScreen({ navigation }) {
   }, []);
 
   const approved = (data) => {
-    // sampleAttend.includes(user.userId)
-    //   ? Alert.alert(
-    //       `${eventData[data - 1].eventName}`,
-    //       `You have already checked in`
-    //     )
-    //   : Alert.alert(
-    //       `${eventData[data - 1].eventName}`,
-    //       `You are now checked in to this event`
-    //     );
+    sampleAttend.some(
+      (i) =>
+        i.eventId.toString() === data.toString() &&
+        i.userId.toString() === user.userId.toString()
+    )
+      ? Alert.alert(
+          `${eventData[data - 1].eventName}`,
+          `You have already checked in`
+        )
+      : Alert.alert(
+          `${eventData[data - 1].eventName}`,
+          `You are now checked in to this event`
+        );
   };
 
   const error = () => {

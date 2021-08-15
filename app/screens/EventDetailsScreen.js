@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Text,
   SafeAreaView,
@@ -6,6 +6,7 @@ import {
   StyleSheet,
   Dimensions,
   ScrollView,
+  FlatList,
 } from "react-native";
 import { format } from "date-fns";
 import QRCode from "react-native-qrcode-svg";
@@ -14,41 +15,111 @@ import Icon from "../assets/components/IconButton";
 import colors from "../assets/config/colors";
 import AffinityText from "../assets/components/AffinityText";
 import ScreenModal from "../assets/components/ScreenModal";
+import FormButton from "../assets/components/FormButton";
+import Person from "../assets/components/PeopleListItem";
 
-const user = {
-  officerStatus: 1, // orgID
-  label: "AIMS", // orgAbbr
-  userOrgs: ["aims", "cmiss"],
-};
+const sampleAttend = [
+  {
+    attendanceId: 1,
+    eventId: 1,
+    userId: 3,
+  },
+  {
+    attendanceId: 2,
+    eventId: 1,
+    userId: 4,
+  },
+  {
+    attendanceId: 3,
+    eventId: 1,
+    userId: 1,
+  },
+  {
+    attendanceId: 4,
+    eventId: 1,
+    userId: 2,
+  },
+  {
+    attendanceId: 5,
+    eventId: 1,
+    userId: 5,
+  },
+  {
+    attendanceId: 6,
+    eventId: 1,
+    userId: 6,
+  },
+  {
+    attendanceId: 7,
+    eventId: 1,
+    userId: 7,
+  },
+  {
+    attendanceId: 8,
+    eventId: 1,
+    userId: 8,
+  },
+  {
+    attendanceId: 9,
+    eventId: 1,
+    userId: 9,
+  },
+  {
+    attendanceId: 10,
+    eventId: 1,
+    userId: 10,
+  },
+];
 
 function EventDetailsScreen({ route, navigation }) {
   const qrWidth = 0.8 * Dimensions.get("window").width;
-  const { item, orgData } = route.params;
-  const event = item;
-  // const user = route.params;
+  const { personal, userData, user, orgData, event } = route.params;
+  //const [attendanceData, setAttendanceDate] = useState([]);
+  const [refreshing, setRefreshing] = useState(false);
+
+  // const getData = async () => {
+  //   try {
+  //     setRefreshing(true);
+  //     const response = await fetch(
+  //       "https://aims-ambassadorship-app.herokuapp.com/api/attendance"
+  //     );
+  //     const json = await response.json();
+  //     setAttendanceData(json);
+  //     setRefreshing(false);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   getData();
+  // }, []);
 
   // users access status
   // Change values when data is correct
-  var show = false;
-  if (
-    (user.executive || user.officerStatus) &&
-    user.userOrgs.includes(orgData[item.orgId - 1].orgName) &&
-    event.eventApproved
-  ) {
-    var show = true;
-  }
+
+  var later = new Date(event.startDate);
+  later.setTime(new Date(event.endDate).getTime());
 
   var start = new Date(event.startDate);
   var end = new Date(event.endDate);
+  var show = false;
+  var roster = false;
+  if (
+    (user.executive || (user.officer && user.orgId === event.orgId)) &&
+    event.eventApproved
+  ) {
+    start >= later ? (show = true) : (roster = true);
+  }
 
   var status = null;
-  if (item.drafted) {
+  if (event.eventDraft) {
     var status = "Draft";
   } else {
-    if (item.pending) {
+    if (event.eventPending) {
       var status = "Pending";
     } else {
-      if (item.approved) {
+      if (event.eventApproved) {
         var status = "Approved";
       } else {
         var status = "Denied";
@@ -66,6 +137,17 @@ function EventDetailsScreen({ route, navigation }) {
     var a = colors.yellow;
   }
 
+  const handleApprove = () => {
+    //Navigate back to previous screen
+    //Set pending to false
+    //Set Approve to true
+  };
+
+  const handleDeny = () => {
+    //Navigate back to previous screen
+    //Set pending to false
+  };
+
   return (
     <EventScreen
       barChildren={
@@ -76,7 +158,7 @@ function EventDetailsScreen({ route, navigation }) {
             onPress={() => navigation.goBack()}
             size={25}
           />
-          <Text style={styles.barText}>Your Events</Text>
+          <Text style={styles.barText}>Events</Text>
         </View>
       }
     >
@@ -84,28 +166,35 @@ function EventDetailsScreen({ route, navigation }) {
         <View style={styles.info}>
           <View style={styles.textBar}>
             <Text style={styles.header}>{event.eventName}</Text>
-            <View style={styles.statusArea}>
-              <View
-                style={{
-                  backgroundColor: a,
-                  borderRadius: 7,
-                  paddingHorizontal: 10,
-                  paddingVertical: 5,
-                }}
-              >
-                <Text
-                  adjustsFontSizeToFit
-                  numberOfLines={1}
-                  style={styles.status}
+            {personal && (
+              <View style={styles.statusArea}>
+                <View
+                  style={{
+                    backgroundColor: a,
+                    borderRadius: 7,
+                    paddingHorizontal: 10,
+                    paddingVertical: 5,
+                  }}
                 >
-                  {status}
-                </Text>
+                  <Text
+                    adjustsFontSizeToFit
+                    numberOfLines={1}
+                    style={styles.status}
+                  >
+                    {status}
+                  </Text>
+                </View>
               </View>
-            </View>
+            )}
           </View>
           <AffinityText style={styles.subHeader}>
-            {orgData[item.orgId - 1].orgName}
+            {orgData[event.orgId - 1].orgName}
           </AffinityText>
+          {personal && (
+            <Text style={styles.creator}>
+              Created by {userData[event.userId - 1].userName}
+            </Text>
+          )}
           <View style={styles.textRow}>
             <Text style={styles.sideText}>Location: </Text>
             <Text style={styles.bodyText}>{event.location}</Text>
@@ -122,13 +211,53 @@ function EventDetailsScreen({ route, navigation }) {
               {format(end, "hh:mm a")}
             </Text>
           </View>
-          <Text style={styles.sideText}>Details: </Text>
-          <ScrollView>
-            <Text style={styles.bodyText}>{event.eventDeets}</Text>
-          </ScrollView>
+          <Text style={styles.sideText}>
+            {roster ? "Attendees:" : "Details:"}
+          </Text>
+          {!roster ? (
+            <ScrollView>
+              <Text style={styles.bodyText}>{event.eventDeets}</Text>
+            </ScrollView>
+          ) : (
+            <View style={styles.list}>
+              <FlatList
+                style={styles.flatList}
+                data={sampleAttend} // change to attendance
+                extraData={userData}
+                keyExtractor={({ attendanceId }) => attendanceId.toString()}
+                renderItem={({ item }) => (
+                  <Person
+                    show={item.eventId === event.eventId}
+                    title={userData[item.userId - 1].userName}
+                    subTitle={userData[item.userId - 1].userEmail}
+                  />
+                )}
+                ItemSeparatorComponent={() => <View style={styles.separator} />}
+                refreshing={refreshing}
+                onRefresh={() => {
+                  setRefreshing(true);
+                  //   setAttendanceData();
+                  setRefreshing(false);
+                }}
+              />
+            </View>
+          )}
         </View>
         <View style={styles.buttonBox}>
           <View style={styles.button}>
+            <FormButton
+              v={personal && user.executive}
+              text="Approve"
+              color={colors.green}
+              style={{ marginRight: 15 }}
+              onPress={handleApprove}
+            />
+            <FormButton
+              v={personal && user.executive}
+              text="Deny"
+              color={colors.danger}
+              onPress={handleDeny}
+            />
             <ScreenModal
               buttonShow={show}
               buttonText="Get Event QR"
@@ -153,6 +282,20 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 15,
   },
+  list: {
+    flex: 1,
+    borderColor: colors.medium,
+    borderRadius: 10,
+    borderWidth: 2,
+    padding: 5,
+  },
+  flatList: {
+    borderRadius: 5,
+  },
+  separator: {
+    width: "100%",
+    height: 3,
+  },
   info: {
     flex: 1,
   },
@@ -167,8 +310,12 @@ const styles = StyleSheet.create({
   },
   subHeader: {
     fontSize: 20,
-    marginBottom: 10,
+    marginBottom: 5,
     color: colors.crimson,
+  },
+  creator: {
+    fontSize: 15,
+    fontWeight: "700",
   },
   textRow: {
     flexDirection: "row",
@@ -184,7 +331,7 @@ const styles = StyleSheet.create({
     fontWeight: "400",
   },
   button: {
-    width: "80%",
+    width: "90%",
     alignItems: "center",
     flexDirection: "row",
   },
@@ -221,7 +368,8 @@ const styles = StyleSheet.create({
   },
   status: {
     color: colors.white,
-    fontWeight: "500",
+    fontWeight: "600",
+    fontSize: 17,
   },
 });
 

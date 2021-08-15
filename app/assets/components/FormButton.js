@@ -2,13 +2,13 @@ import React from "react";
 import { TouchableOpacity, Text, StyleSheet, View } from "react-native";
 import colors from "../config/colors";
 
-function FormButton({ v, text, color, onPress }) {
+function FormButton({ v, text, color, onPress, style }) {
   return (
     <>
       {v ? (
         <TouchableOpacity
           onPress={onPress}
-          style={[{ backgroundColor: color }, styles.button]}
+          style={[{ backgroundColor: color }, styles.button, style]}
         >
           <Text adjustsFontSizeToFit numberOfLines={1} style={styles.text}>
             {text}

@@ -39,9 +39,9 @@ const user = {
   userId: 1,
   userName: "Mattie Bryant",
   userEmail: "mfbryant@crimson.ua.edu",
-  executive: true,
-  officer: false,
-  orgId: null,
+  executive: false,
+  officer: true,
+  orgId: 4,
 };
 
 function PersonalEventsScreen({ navigation }) {

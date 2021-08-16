@@ -124,7 +124,9 @@ function ScanScreen({ navigation }) {
   const handleBarCodeScanned = ({ data }) => {
     setScanned(true);
     navigation.goBack();
-    !eventData[data - 1].eventApproved ? approved(data) : error();
+    Number.isInteger(data)
+      ? eventData[data - 1].eventApproved ? approved(data) : error() 
+      : error();
     setScanned(false);
   };
 

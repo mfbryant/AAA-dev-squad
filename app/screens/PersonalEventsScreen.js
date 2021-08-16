@@ -39,8 +39,8 @@ const user = {
   userId: 1,
   userName: "Mattie Bryant",
   userEmail: "mfbryant@crimson.ua.edu",
-  executive: false,
-  officer: true,
+  executive: true,
+  officer: false,
   orgId: 4,
 };
 

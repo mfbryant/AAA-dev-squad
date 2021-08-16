@@ -4,59 +4,6 @@ import { BarCodeScanner } from "expo-barcode-scanner";
 import { useIsFocused } from "@react-navigation/native";
 import { Camera } from "expo-camera";
 
-const sampleAttend = [
-  {
-    attendanceId: 1,
-    eventId: 1,
-    userId: 11,
-  },
-  {
-    attendanceId: 2,
-    eventId: 1,
-    userId: 2,
-  },
-  {
-    attendanceId: 3,
-    eventId: 1,
-    userId: 3,
-  },
-  {
-    attendanceId: 4,
-    eventId: 1,
-    userId: 4,
-  },
-  {
-    attendanceId: 5,
-    eventId: 1,
-    userId: 5,
-  },
-  {
-    attendanceId: 6,
-    eventId: 1,
-    userId: 6,
-  },
-  {
-    attendanceId: 7,
-    eventId: 1,
-    userId: 7,
-  },
-  {
-    attendanceId: 8,
-    eventId: 1,
-    userId: 8,
-  },
-  {
-    attendanceId: 9,
-    eventId: 1,
-    userId: 9,
-  },
-  {
-    attendanceId: 10,
-    eventId: 1,
-    userId: 10,
-  },
-];
-
 const user = {
   userId: 4,
   userName: "Mattie Bryant",
@@ -70,7 +17,7 @@ function ScanScreen({ navigation }) {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
   const [eventData, setEventData] = useState([]);
-  // const [attendanceData, setAttendanceData] = useState([]);
+  const [attendanceData, setAttendanceData] = useState([]);
   const isFocused = useIsFocused();
 
   const getData = async () => {
@@ -78,13 +25,13 @@ function ScanScreen({ navigation }) {
       const response1 = await fetch(
         "https://aims-ambassadorship-app.herokuapp.com/api/events"
       );
-      // const response2 = await fetch(
-      //   "https://aims-ambassadorship-app.herokuapp.com/api/attendance"
-      // );
+      const response2 = await fetch(
+        "https://aims-ambassadorship-app.herokuapp.com/api/attendance"
+      );
       const json1 = await response1.json();
-      // const json2 = await response2.json();
+      const json2 = await response2.json();
       setEventData(json1);
-      // setAttendanceData(json2);
+      setAttendanceData(json2);
     } catch (error) {
       console.error(error);
     }
@@ -102,7 +49,7 @@ function ScanScreen({ navigation }) {
   }, []);
 
   const approved = (data) => {
-    sampleAttend.some(
+    attendanceData.some(
       (i) =>
         i.eventId.toString() === data.toString() &&
         i.userId.toString() === user.userId.toString()
@@ -125,7 +72,9 @@ function ScanScreen({ navigation }) {
     setScanned(true);
     navigation.goBack();
     Number.isInteger(data)
-      ? eventData[data - 1].eventApproved ? approved(data) : error() 
+      ? eventData[data - 1].eventApproved
+        ? approved(data)
+        : error()
       : error();
     setScanned(false);
   };

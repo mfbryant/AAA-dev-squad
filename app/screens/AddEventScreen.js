@@ -218,7 +218,7 @@ function AddEventScreen({ route, navigation }) {
             {event.eventDeets}
           </TextInput>
         </View>
-        <View style={styles.buttonRow}>
+        <View style={[styles.buttonRow, { marginTop: 5 }]}>
           {!user.executive && (
             <View style={styles.spacing}>
               <TextModal
@@ -245,7 +245,7 @@ function AddEventScreen({ route, navigation }) {
               v={true}
               text="Save as Draft"
               color={colors.medium}
-              // onPress={handleAddEvent}
+              onPress={handleDraft}
             />
           </View>
         )}

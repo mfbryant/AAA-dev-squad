@@ -39,9 +39,9 @@ const user = {
   userId: 1,
   userName: "Mattie Bryant",
   userEmail: "mfbryant@crimson.ua.edu",
-  executive: true,
-  officer: false,
-  orgId: null,
+  executive: false,
+  officer: true,
+  orgId: 4,
 };
 
 function PersonalEventsScreen({ navigation }) {
@@ -121,7 +121,12 @@ function PersonalEventsScreen({ navigation }) {
                   name="plus"
                   color={colors.white}
                   onPress={() =>
-                    navigation.navigate("Add Event", { item, orgData })
+                    navigation.navigate("Add Event", {
+                      eventData,
+                      orgData,
+                      event: item,
+                      user,
+                    })
                   }
                   size={25}
                 />
@@ -136,7 +141,7 @@ function PersonalEventsScreen({ navigation }) {
           data={
             personal
               ? eventData.sort((a, b) =>
-                  a.eventId.toString().localeCompare(b.eventId.toString())
+                  b.eventId.toString().localeCompare(a.eventId.toString())
                 )
               : eventData.sort((a, b) => a.startDate.localeCompare(b.startDate))
           }
@@ -161,7 +166,12 @@ function PersonalEventsScreen({ navigation }) {
               statusShow={personal}
               onPress={() => {
                 item.eventDraft
-                  ? navigation.navigate("Add Event", { orgData, item })
+                  ? navigation.navigate("Add Event", {
+                      eventData,
+                      orgData,
+                      event: item,
+                      user,
+                    })
                   : navigation.navigate("Event Details", {
                       personal,
                       userData,

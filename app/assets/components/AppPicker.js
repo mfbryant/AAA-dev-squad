@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useReducer } from "react";
 import {
   View,
   Text,
@@ -13,7 +13,15 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import PickerItem from "./PickerItem";
 import defaultStyles from "../config/styles";
 
-function AppPicker({ data, icon, onSelectItem, placeholder, selectedItem }) {
+function AppPicker({
+  user,
+  status,
+  data,
+  icon,
+  onSelectItem,
+  placeholder,
+  selectedItem,
+}) {
   const [modalVisible, setModalVisible] = useState(false);
   return (
     <>
@@ -58,6 +66,7 @@ function AppPicker({ data, icon, onSelectItem, placeholder, selectedItem }) {
                 keyExtractor={({ orgId }) => orgId.toString()}
                 renderItem={({ item }) => (
                   <PickerItem
+                    show={status ? true : item.orgId === user.orgId}
                     label={item.orgName}
                     onPress={() => {
                       setModalVisible(false);

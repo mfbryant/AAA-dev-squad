@@ -18,85 +18,29 @@ import ScreenModal from "../assets/components/ScreenModal";
 import FormButton from "../assets/components/FormButton";
 import Person from "../assets/components/PeopleListItem";
 
-const sampleAttend = [
-  {
-    attendanceId: 1,
-    eventId: 1,
-    userId: 3,
-  },
-  {
-    attendanceId: 2,
-    eventId: 1,
-    userId: 4,
-  },
-  {
-    attendanceId: 3,
-    eventId: 1,
-    userId: 1,
-  },
-  {
-    attendanceId: 4,
-    eventId: 1,
-    userId: 2,
-  },
-  {
-    attendanceId: 5,
-    eventId: 1,
-    userId: 5,
-  },
-  {
-    attendanceId: 6,
-    eventId: 1,
-    userId: 6,
-  },
-  {
-    attendanceId: 7,
-    eventId: 1,
-    userId: 7,
-  },
-  {
-    attendanceId: 8,
-    eventId: 1,
-    userId: 8,
-  },
-  {
-    attendanceId: 9,
-    eventId: 1,
-    userId: 9,
-  },
-  {
-    attendanceId: 10,
-    eventId: 1,
-    userId: 10,
-  },
-];
-
 function EventDetailsScreen({ route, navigation }) {
   const qrWidth = 0.8 * Dimensions.get("window").width;
   const { personal, userData, user, orgData, event } = route.params;
-  //const [attendanceData, setAttendanceDate] = useState([]);
+  const [attendanceData, setAttendanceData] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
 
-  // const getData = async () => {
-  //   try {
-  //     setRefreshing(true);
-  //     const response = await fetch(
-  //       "https://aims-ambassadorship-app.herokuapp.com/api/attendance"
-  //     );
-  //     const json = await response.json();
-  //     setAttendanceData(json);
-  //     setRefreshing(false);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
+  const getData = async () => {
+    try {
+      setRefreshing(true);
+      const response = await fetch(
+        "https://aims-ambassadorship-app.herokuapp.com/api/attendance"
+      );
+      const json = await response.json();
+      setAttendanceData(json);
+      setRefreshing(false);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
-  // useEffect(() => {
-  //   getData();
-  // }, []);
-
-  // users access status
-  // Change values when data is correct
+  useEffect(() => {
+    getData();
+  }, []);
 
   var later = new Date(event.startDate);
   later.setTime(new Date(event.endDate).getTime());
@@ -138,14 +82,14 @@ function EventDetailsScreen({ route, navigation }) {
   }
 
   const handleApprove = () => {
-    //Navigate back to previous screen
-    //Set pending to false
-    //Set Approve to true
+    navigation.goBack();
+    event.eventPending = false;
+    event.eventApproved = true;
   };
 
   const handleDeny = () => {
-    //Navigate back to previous screen
-    //Set pending to false
+    navigation.goBack();
+    event.eventPending = false;
   };
 
   return (
@@ -222,7 +166,7 @@ function EventDetailsScreen({ route, navigation }) {
             <View style={styles.list}>
               <FlatList
                 style={styles.flatList}
-                data={sampleAttend} // change to attendance
+                data={attendanceData}
                 extraData={userData}
                 keyExtractor={({ attendanceId }) => attendanceId.toString()}
                 renderItem={({ item }) => (
@@ -236,7 +180,7 @@ function EventDetailsScreen({ route, navigation }) {
                 refreshing={refreshing}
                 onRefresh={() => {
                   setRefreshing(true);
-                  //   setAttendanceData();
+                  setAttendanceData(attendanceData);
                   setRefreshing(false);
                 }}
               />

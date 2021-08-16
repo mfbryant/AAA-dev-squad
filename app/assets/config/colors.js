@@ -10,6 +10,7 @@ export default {
   grey: "#333333",
   charcoal: "#222222",
   danger: "#ff5252",
+  red: "#ff0000",
   green: "#008000",
   yellow: "#ff8637",
   crimson: "#b01030",

@@ -6,7 +6,7 @@ import colors from "../config/colors";
 function EventScreen({ barChildren, children }) {
   return (
     <LinearGradient
-      colors={[colors.light, colors.leet]}
+      colors={[colors.light, colors.light]}
       style={styles.gradient}
     >
       <StatusBar barStyle="light-content" />

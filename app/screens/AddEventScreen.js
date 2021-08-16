@@ -11,7 +11,7 @@ import TextModal from "../assets/components/TextModal";
 import EventScreen from "../assets/components/EventScreen";
 
 function AddEventScreen({ route, navigation }) {
-  const { orgData, item } = route.params;
+  const { eventData, orgData, event, user } = route.params;
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [isStartTimePickerVisible, setStartTimePickerVisibility] = useState(
     false
@@ -20,13 +20,13 @@ function AddEventScreen({ route, navigation }) {
 
   // Just added, feeds data from previous navigator page if user selects an event that is in draft mode.
   const [date, setDate] = useState(
-    item.startDate != null ? new Date(item.startDate) : new Date()
+    event.startDate != null ? new Date(event.startDate) : new Date()
   );
   const [startTime, setStartTime] = useState(
-    item.startDate != null ? new Date(item.startDate) : new Date()
+    event.startDate != null ? new Date(event.startDate) : new Date()
   );
   const [endTime, setEndTime] = useState(
-    item.endDate != null ? new Date(item.endDate) : new Date()
+    event.endDate != null ? new Date(event.endDate) : new Date()
   );
   const [location, setLocation] = useState();
   const [description, setDescription] = useState();
@@ -85,15 +85,25 @@ function AddEventScreen({ route, navigation }) {
   //   })
   // }
 
-  const handleDraft = () => {};
+  const handleSubmit = () => {
+    navigation.goBack();
+  };
+
+  const handleDraft = () => {
+    navigation.goBack();
+  };
 
   const handleCancel = () => {
-    // if events.includes(event.eventId) {
-    //   // delete event from sql
-    //   navigation.goBack();
-    // } else {
-    //   navigation.goBack();
-    // }
+    if (event.eventId != null) {
+      if (
+        eventData.filter(
+          (i) => i.eventId.toString() === event.eventId.toString()
+        ) != null
+      ) {
+        event = null; // delete event
+      }
+    }
+    navigation.goBack();
   };
 
   return (
@@ -112,14 +122,20 @@ function AddEventScreen({ route, navigation }) {
     >
       <Screen style={styles.screen}>
         <Text style={styles.header}>Name of Event</Text>
-        <View style={styles.textBox}>
+        <View
+          style={
+            name
+              ? [styles.textBox, styles.text2]
+              : [styles.textBox, { backgroundColor: colors.leet }]
+          }
+        >
           <TextInput
             onChangeText={setName}
             placeholder="GOBD, Tree-Cleaning, etc.,"
-            placeholderTextColor={colors.leet}
+            placeholderTextColor={colors.medium}
             style={styles.textInput}
           >
-            {item.eventName}
+            {event.eventName}
           </TextInput>
         </View>
         <Text style={styles.title}>Organization</Text>
@@ -127,10 +143,12 @@ function AddEventScreen({ route, navigation }) {
           selectedItem={org}
           onSelectItem={(item) => setOrg(item)}
           data={orgData}
+          status={user.executive}
+          user={user}
           icon="school"
           placeholder={
-            item.orgId != null
-              ? orgData[item.orgId - 1].orgName
+            event.orgId != null
+              ? orgData[event.orgId - 1].orgName
               : "aims, cmiss, wit, etc.,"
           }
         />
@@ -165,51 +183,72 @@ function AddEventScreen({ route, navigation }) {
           />
         </View>
         <Text style={styles.title}>Location</Text>
-        <View style={styles.descriptionBox}>
+        <View
+          style={
+            location
+              ? [styles.descriptionBox, styles.text2]
+              : [styles.descriptionBox, { backgroundColor: colors.leet }]
+          }
+        >
           <TextInput
             placeholder="Ferguson Student Center, AIME Building, Jeff's Office..."
-            placeholderTextColor={colors.leet}
+            placeholderTextColor={colors.medium}
             multiline={true}
             onChangeText={setLocation}
             style={styles.descriptionInput}
           >
-            {item.location}
+            {event.location}
           </TextInput>
         </View>
         <Text style={styles.title}>Event Description/Details</Text>
-        <View style={styles.descriptionBox2}>
+        <View
+          style={
+            description
+              ? [styles.descriptionBox2, styles.text2]
+              : [styles.descriptionBox2, { backgroundColor: colors.leet }]
+          }
+        >
           <TextInput
             placeholder="Cleaning the wonderful trees around campus..."
-            placeholderTextColor={colors.leet}
+            placeholderTextColor={colors.medium}
             multiline={true}
             onChangeText={setDescription}
             style={styles.descriptionInput}
           >
-            {item.eventDeets}
+            {event.eventDeets}
           </TextInput>
         </View>
         <View style={styles.buttonRow}>
-          <View style={styles.spacing}>
-            <TextModal
-              icon="lock"
-              buttonText="Bypass Review"
-              buttonColor={colors.medium}
-              text="Enter Executive Key"
-              input={input}
-              onChange={handleInput}
-              secure={true}
-            />
-          </View>
-          <FormButton v={true} text="Submit for Review" color={colors.green} />
-        </View>
-        <View style={styles.buttonRow}>
+          {!user.executive && (
+            <View style={styles.spacing}>
+              <TextModal
+                icon="lock"
+                buttonText="Bypass Review"
+                buttonColor={colors.medium}
+                text="Enter Executive Key"
+                input={input}
+                onChange={handleInput}
+                secure={true}
+              />
+            </View>
+          )}
           <FormButton
             v={true}
-            text="Save as Draft"
-            color={colors.medium}
-            // onPress={handleAddEvent}
+            text={user.executive ? "Submit" : "Submit for Review"}
+            color={colors.green}
+            onPress={handleSubmit}
           />
         </View>
+        {!user.executive && (
+          <View style={styles.buttonRow}>
+            <FormButton
+              v={true}
+              text="Save as Draft"
+              color={colors.medium}
+              // onPress={handleAddEvent}
+            />
+          </View>
+        )}
         <View style={styles.button}>
           <FormButton
             v={true}
@@ -253,6 +292,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
   },
+  text2: {
+    backgroundColor: colors.light,
+    borderWidth: 2,
+    borderColor: colors.leet,
+  },
   objectRow: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -268,18 +312,12 @@ const styles = StyleSheet.create({
     paddingBottom: 3,
   },
   textBox: {
-    backgroundColor: colors.light,
-    borderWidth: 2,
-    borderColor: colors.black,
     paddingHorizontal: 10,
     paddingVertical: 5,
     borderRadius: 5,
   },
   descriptionBox: {
     flex: 3,
-    backgroundColor: colors.light,
-    borderWidth: 2,
-    borderColor: colors.black,
     paddingHorizontal: 10,
     paddingVertical: 5,
     borderRadius: 10,
@@ -287,9 +325,6 @@ const styles = StyleSheet.create({
   },
   descriptionBox2: {
     flex: 4,
-    backgroundColor: colors.light,
-    borderWidth: 2,
-    borderColor: colors.black,
     paddingHorizontal: 10,
     paddingVertical: 5,
     borderRadius: 10,

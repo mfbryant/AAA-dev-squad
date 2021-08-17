@@ -54,38 +54,41 @@ function AddEventScreen({ route, navigation }) {
     setInput(input);
   };
 
-  // const handleAddEvent = () => {
-  //   try {
-  //     const response = await fetch(
-  //       "https://aims-ambassadorship-app.herokuapp.com/api/events"
-  //     );
-  //     const json = await response.json();
-  //     setEventData(json);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-
   //   useEffect(() => {
   //     getEvents();
   //   }, []);
   // }
 
-  // const handleAddEvent = () => {
-  //   let newEvent = {
-
-  //   }
-
-  //   fetch("https://aims-ambassadorship-app.herokuapp.com/api/events", {
-  //     method: 'POST',
-  //     headers: {
-  //       'Accept': 'application/json',
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify(newEvent)
-  //   })
-  // }
-
+  
   const handleSubmit = () => {
+    // let inputName = event.eventName; 
+    // let inputOrg = orgData[event.orgId - 1].orgName;
+    // let inputDate = date;
+    // let inputStart = startTime;
+    // let inputEnd = endTime; 
+    // let inputLocation = event.location; 
+    // let inputDeets = event.eventDeets;
+    let newEvent = {
+      eventName: event.eventName,
+      startDate: startTime,
+      endDate: endTime,
+      location: event.location,
+      eventDeets: event.eventDeets,
+      orgId: event.orgId,
+      eventDraft: false,
+      eventPending: true,
+      eventApproved: false
+    };
+
+    fetch("https://aims-ambassadorship-app.herokuapp.com/api/events", {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newEvent)
+    })
+    
     navigation.goBack();
   };
 

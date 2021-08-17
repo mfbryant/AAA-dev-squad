@@ -1,6 +1,5 @@
 import React from "react";
 import { StyleSheet, TouchableOpacity, View, Text } from "react-native";
-import {  } from 'expo-google-sign-in';
 import { StatusBar } from "expo-status-bar";
 import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
 import * as GoogleSignIn from 'expo-google-sign-in';
@@ -8,30 +7,44 @@ import * as GoogleSignIn from 'expo-google-sign-in';
 import Screen from "../assets/components/Screen";
 import AffinityText from "../assets/components/AffinityText";
 import Icon from '../assets/components/IconButton';
-import * as Google from 'expo-auth-session';
+import { BottomTabBarHeightContext } from "@react-navigation/bottom-tabs";
 
 
 
 function LoginScreen() {
 
-  const [request, response, promptAsync] = Google.useAuthRequest({
-    expoClientId: '425541249408-3plajqimd7pt1ne62ggngv63lkgf7ak1.apps.googleusercontent.com',
-    scopes: ['email', 'profile'],
-  });
+  // const handleMessage = (message, type ) => {
+  //   setMessage(message);
+  //   setMessageType(type);
+  // }
 
-  React.useEffect(() => {
-    if(response?.type === 'success') {
-      const { authentication } = response;
-    }
-    }, [response]);
+  const handleOnPress = () => {
+    const config = GoogleSignIn.initAsync({
+      scopes: ['email']
+    });
 
-    // console.log('response', response);
+    GoogleSignIn.signInAsync(config).then((result) => 
+    {
+      const {type, user} = result;
 
+      if(type === 'success'){
+        const {firstName, lastName} = user;
+      // handleMessage('Google signin sucess', 'Success');
+      } else {
+        // handleMessage('Google Sign in was canceled')
+      }
+    })
+    .catch(error => {
+      console.log(error);
+      // handleMessage('An error occurred. Check your network and try again');
+    }) 
+  }
+ 
   return (
     <Screen>
       <StatusBar style='auto'/>
       <AffinityText style={styles.text}>Aims</AffinityText>
-      <TouchableOpacity style={styles.button} onPress={() => console.log(() => promptAsync())} >
+      <TouchableOpacity style={styles.button} onPress={handleOnPress} >
         <View style={{ flexDirection: 'row' }} >
           <AntDesign name='google' size={34} color={'#fff'} />
           <Text style={styles.characters}>Sign In With Google</Text>

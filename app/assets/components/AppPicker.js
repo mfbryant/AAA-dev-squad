@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState, useReducer } from "react";
 import {
   View,
   Text,
@@ -13,7 +13,15 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import PickerItem from "./PickerItem";
 import defaultStyles from "../config/styles";
 
-function AppPicker({ icon, items, onSelectItem, placeholder, selectedItem }) {
+function AppPicker({
+  user,
+  status,
+  data,
+  icon,
+  onSelectItem,
+  placeholder,
+  selectedItem,
+}) {
   const [modalVisible, setModalVisible] = useState(false);
   return (
     <>
@@ -40,7 +48,7 @@ function AppPicker({ icon, items, onSelectItem, placeholder, selectedItem }) {
                 : [styles.text, styles.text2]
             }
           >
-            {selectedItem ? selectedItem.label : placeholder}
+            {selectedItem ? selectedItem.orgName : placeholder}
           </Text>
           <MaterialCommunityIcons
             name="chevron-down"
@@ -54,11 +62,12 @@ function AppPicker({ icon, items, onSelectItem, placeholder, selectedItem }) {
           <View style={styles.modalBox}>
             <View style={styles.modal}>
               <FlatList
-                data={items}
-                keyExtractor={(item) => item.value.toString()}
+                data={data} // was orgData
+                keyExtractor={({ orgId }) => orgId.toString()}
                 renderItem={({ item }) => (
                   <PickerItem
-                    label={item.label}
+                    show={status ? true : item.orgId === user.orgId}
+                    label={item.orgName}
                     onPress={() => {
                       setModalVisible(false);
                       onSelectItem(item);

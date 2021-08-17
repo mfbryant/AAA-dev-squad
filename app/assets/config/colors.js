@@ -10,6 +10,12 @@ export default {
   grey: "#333333",
   charcoal: "#222222",
   danger: "#ff5252",
+  red: "#ff0000",
   green: "#008000",
   yellow: "#ff8637",
+  crimson: "#b01030",
+  instagram: ["#515bd4", "#8134af", "#dd2a7b", "#f58529"],
+  twitter: ["#08a0e9", "#55acee", "#1da1f2"],
+  linkedin: ["#0077b5", "#0e76a8", "#006699"],
+  facebook: ["#1877f2", "#333399"],
 };

@@ -10,30 +10,28 @@ import FormButton from "../assets/components/FormButton";
 import TextModal from "../assets/components/TextModal";
 import EventScreen from "../assets/components/EventScreen";
 
-const systemOrgs = [
-  {
-    value: 1, // orgID
-    label: "AIMS", // orgAbbr
-  },
-  {
-    value: 2,
-    label: "CMISS",
-  },
-  {
-    value: 3,
-    label: "WIT",
-  },
-];
-
-function AddEventScreen({ navigation }) {
+function AddEventScreen({ route, navigation }) {
+  const { eventData, orgData, event, user } = route.params;
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [isStartTimePickerVisible, setStartTimePickerVisibility] = useState(
     false
   );
   const [isEndTimePickerVisible, setEndTimePickerVisibility] = useState(false);
-  const [date, setDate] = useState(new Date());
-  const [startTime, setStartTime] = useState(new Date());
-  const [endTime, setEndTime] = useState(new Date());
+
+  // Just added, feeds data from previous navigator page if user selects an event that is in draft mode.
+  const [date, setDate] = useState(
+    event.startDate != null ? new Date(event.startDate) : new Date()
+  );
+  const [startTime, setStartTime] = useState(
+    event.startDate != null ? new Date(event.startDate) : new Date()
+  );
+  const [endTime, setEndTime] = useState(
+    event.endDate != null ? new Date(event.endDate) : new Date()
+  );
+  const [location, setLocation] = useState();
+  const [description, setDescription] = useState();
+  // End of changes
+  const [name, setName] = useState();
   const [org, setOrg] = useState();
   const [input, setInput] = useState();
 
@@ -56,15 +54,59 @@ function AddEventScreen({ navigation }) {
     setInput(input);
   };
 
-  const handleDraft = () => {};
+  //   useEffect(() => {
+  //     getEvents();
+  //   }, []);
+  // }
+
+  
+  const handleSubmit = () => {
+    // let inputName = event.eventName; 
+    // let inputOrg = orgData[event.orgId - 1].orgName;
+    // let inputDate = date;
+    // let inputStart = startTime;
+    // let inputEnd = endTime; 
+    // let inputLocation = event.location; 
+    // let inputDeets = event.eventDeets;
+    let newEvent = {
+      eventName: event.eventName,
+      startDate: startTime,
+      endDate: endTime,
+      location: event.location,
+      eventDeets: event.eventDeets,
+      orgId: event.orgId,
+      eventDraft: false,
+      eventPending: true,
+      eventApproved: false
+    };
+
+    fetch("https://aims-ambassadorship-app.herokuapp.com/api/events", {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newEvent)
+    })
+    
+    navigation.goBack();
+  };
+
+  const handleDraft = () => {
+    navigation.goBack();
+  };
 
   const handleCancel = () => {
-    // if events.includes(event.eventId) {
-    //   // delete event from sql
-    //   navigation.goBack();
-    // } else {
-    //   navigation.goBack();
-    // }
+    if (event.eventId != null) {
+      if (
+        eventData.filter(
+          (i) => i.eventId.toString() === event.eventId.toString()
+        ) != null
+      ) {
+        event = null; // delete event
+      }
+    }
+    navigation.goBack();
   };
 
   return (
@@ -77,26 +119,41 @@ function AddEventScreen({ navigation }) {
             onPress={() => navigation.goBack()}
             size={25}
           />
-          <Text style={styles.barText}>Your Events</Text>
+          <Text style={styles.barText}>Events</Text>
         </View>
       }
     >
       <Screen style={styles.screen}>
         <Text style={styles.header}>Name of Event</Text>
-        <View style={styles.textBox}>
+        <View
+          style={
+            name
+              ? [styles.textBox, styles.text2]
+              : [styles.textBox, { backgroundColor: colors.leet }]
+          }
+        >
           <TextInput
+            onChangeText={setName}
             placeholder="GOBD, Tree-Cleaning, etc.,"
-            placeholderTextColor={colors.leet}
+            placeholderTextColor={colors.medium}
             style={styles.textInput}
-          />
+          >
+            {event.eventName}
+          </TextInput>
         </View>
         <Text style={styles.title}>Organization</Text>
         <AppPicker
           selectedItem={org}
           onSelectItem={(item) => setOrg(item)}
-          items={systemOrgs}
+          data={orgData}
+          status={user.executive}
+          user={user}
           icon="school"
-          placeholder="aims, cmiss, wit, etc.,"
+          placeholder={
+            event.orgId != null
+              ? orgData[event.orgId - 1].orgName
+              : "aims, cmiss, wit, etc.,"
+          }
         />
         <View style={styles.textRow}>
           <Text style={styles.title}>Date of Event</Text>
@@ -129,40 +186,72 @@ function AddEventScreen({ navigation }) {
           />
         </View>
         <Text style={styles.title}>Location</Text>
-        <View style={styles.descriptionBox}>
+        <View
+          style={
+            location
+              ? [styles.descriptionBox, styles.text2]
+              : [styles.descriptionBox, { backgroundColor: colors.leet }]
+          }
+        >
           <TextInput
             placeholder="Ferguson Student Center, AIME Building, Jeff's Office..."
-            placeholderTextColor={colors.leet}
+            placeholderTextColor={colors.medium}
             multiline={true}
+            onChangeText={setLocation}
             style={styles.descriptionInput}
-          />
+          >
+            {event.location}
+          </TextInput>
         </View>
         <Text style={styles.title}>Event Description/Details</Text>
-        <View style={styles.descriptionBox2}>
+        <View
+          style={
+            description
+              ? [styles.descriptionBox2, styles.text2]
+              : [styles.descriptionBox2, { backgroundColor: colors.leet }]
+          }
+        >
           <TextInput
             placeholder="Cleaning the wonderful trees around campus..."
-            placeholderTextColor={colors.leet}
+            placeholderTextColor={colors.medium}
             multiline={true}
+            onChangeText={setDescription}
             style={styles.descriptionInput}
+          >
+            {event.eventDeets}
+          </TextInput>
+        </View>
+        <View style={[styles.buttonRow, { marginTop: 5 }]}>
+          {!user.executive && (
+            <View style={styles.spacing}>
+              <TextModal
+                icon="lock"
+                buttonText="Bypass Review"
+                buttonColor={colors.medium}
+                text="Enter Executive Key"
+                input={input}
+                onChange={handleInput}
+                secure={true}
+              />
+            </View>
+          )}
+          <FormButton
+            v={true}
+            text={user.executive ? "Submit" : "Submit for Review"}
+            color={colors.green}
+            onPress={handleSubmit}
           />
         </View>
-        <View style={styles.buttonRow}>
-          <View style={styles.spacing}>
-            <TextModal
-              icon="lock"
-              buttonText="Bypass Review"
-              buttonColor={colors.medium}
-              text="Enter Executive Key"
-              input={input}
-              onChange={handleInput}
-              secure={true}
+        {!user.executive && (
+          <View style={styles.buttonRow}>
+            <FormButton
+              v={true}
+              text="Save as Draft"
+              color={colors.medium}
+              onPress={handleDraft}
             />
           </View>
-          <FormButton v={true} text="Submit for Review" color={colors.green} />
-        </View>
-        <View style={styles.buttonRow}>
-          <FormButton v={true} text="Save as Draft" color={colors.medium} />
-        </View>
+        )}
         <View style={styles.button}>
           <FormButton
             v={true}
@@ -206,6 +295,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
   },
+  text2: {
+    backgroundColor: colors.light,
+    borderWidth: 2,
+    borderColor: colors.leet,
+  },
   objectRow: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -221,18 +315,12 @@ const styles = StyleSheet.create({
     paddingBottom: 3,
   },
   textBox: {
-    backgroundColor: colors.light,
-    borderWidth: 2,
-    borderColor: colors.black,
     paddingHorizontal: 10,
     paddingVertical: 5,
     borderRadius: 5,
   },
   descriptionBox: {
-    flex: 1,
-    backgroundColor: colors.light,
-    borderWidth: 2,
-    borderColor: colors.black,
+    flex: 3,
     paddingHorizontal: 10,
     paddingVertical: 5,
     borderRadius: 10,
@@ -240,9 +328,6 @@ const styles = StyleSheet.create({
   },
   descriptionBox2: {
     flex: 4,
-    backgroundColor: colors.light,
-    borderWidth: 2,
-    borderColor: colors.black,
     paddingHorizontal: 10,
     paddingVertical: 5,
     borderRadius: 10,

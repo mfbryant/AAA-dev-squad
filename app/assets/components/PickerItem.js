@@ -2,12 +2,16 @@ import React from "react";
 import { Text, TouchableOpacity, StyleSheet, View } from "react-native";
 import colors from "../config/colors";
 
-function PickerItem({ label, onPress }) {
+function PickerItem({ label, onPress, show }) {
   return (
-    <TouchableOpacity onPress={onPress}>
-      <Text style={styles.text}>{label}</Text>
-      <View style={styles.bar} />
-    </TouchableOpacity>
+    <>
+      {show && (
+        <TouchableOpacity onPress={onPress}>
+          <Text style={styles.text}>{label}</Text>
+          <View style={styles.bar} />
+        </TouchableOpacity>
+      )}
+    </>
   );
 }
 

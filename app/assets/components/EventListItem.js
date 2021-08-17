@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableHighlight } from "react-native";
+import { format } from "date-fns";
 import AffinityText from "./AffinityText";
-
 import custom from "../config/styles";
 
 function EventListItem({
@@ -12,84 +12,84 @@ function EventListItem({
   org,
   title,
   subTitle,
+  date,
   onPress,
+  statusShow,
 }) {
   var status = null;
   if (drafted) {
-    var status = "Draft";
+    status = "Draft";
   } else {
     if (pending) {
-      var status = "Pending";
+      status = "Pending";
     } else {
       if (approved) {
-        var status = "Approved";
+        status = "Approved";
       } else {
-        var status = "Denied";
+        status = "Denied";
       }
     }
   }
 
+  var a = custom.colors.black;
   if (status === "Approved") {
-    var a = custom.colors.green;
+    a = custom.colors.green;
   } else if (status === "Denied") {
-    var a = custom.colors.danger;
+    a = custom.colors.danger;
   } else if (status === "Pending") {
-    var a = custom.colors.medium;
+    a = custom.colors.medium;
   } else if (status === "Draft") {
-    var a = custom.colors.yellow;
+    a = custom.colors.yellow;
   }
 
   return (
     <>
-      {show ? (
+      {show && (
         <TouchableHighlight
           underlayColor={custom.colors.medium}
           onPress={onPress}
-          style={{ borderRadius: 15 }}
         >
           <View style={styles.container}>
-            <View style={styles.label}>
-              <AffinityText style={styles.labelText}>{org}</AffinityText>
-            </View>
             <View style={styles.detailsContainer}>
               <Text style={styles.title}>{title}</Text>
+              <AffinityText style={styles.labelText}>{org}</AffinityText>
               {subTitle && <Text style={styles.subTitle}>{subTitle}</Text>}
             </View>
             <View style={styles.statusArea}>
               <View
-                style={{
-                  backgroundColor: a,
-                  borderRadius: 7,
-                  paddingHorizontal: 10,
-                  paddingVertical: 5,
-                }}
+                style={[
+                  styles.statusBox,
+                  {
+                    backgroundColor: statusShow ? a : custom.colors.medium,
+                  },
+                ]}
               >
                 <Text
                   adjustsFontSizeToFit
                   numberOfLines={1}
-                  style={styles.status}
+                  style={statusShow ? styles.status : styles.date}
                 >
-                  {status}
+                  {statusShow ? status : format(new Date(date), "MMM dd")}
                 </Text>
               </View>
             </View>
           </View>
         </TouchableHighlight>
-      ) : null}
+      )}
     </>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    borderRadius: 15,
     flexDirection: "row",
-    padding: 15,
+    paddingHorizontal: 15,
+    paddingVertical: 10,
     backgroundColor: custom.colors.white,
   },
   detailsContainer: {
-    flex: 3,
-    marginLeft: 10,
+    flex: 4,
+    marginLeft: 5,
     justifyContent: "center",
   },
   label: {
@@ -103,18 +103,30 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "flex-end",
   },
+  statusBox: {
+    borderRadius: 7,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+  },
   labelText: {
-    fontSize: 20,
+    fontSize: 15,
+    color: custom.colors.crimson,
   },
   status: {
     color: custom.colors.white,
-    fontWeight: "500",
+    fontWeight: "600",
+  },
+  date: {
+    color: custom.colors.white,
+    fontWeight: "600",
   },
   subTitle: {
     color: custom.colors.medium,
+    fontWeight: "500",
   },
   title: {
-    fontWeight: "500",
+    fontSize: 20,
+    fontWeight: "600",
   },
 });
 

@@ -42,18 +42,30 @@ function EventDetailsScreen({ route, navigation }) {
     getData();
   }, []);
 
+  var earlier = new Date(event.startDate);
+  var earlier = new Date(earlier.setMinutes(earlier.getMinutes() - 30));
   var later = new Date(event.startDate);
-  later.setTime(new Date(event.endDate).getTime());
+  var later = new Date(later.setHours(new Date(event.endDate).getHours()));
+  var later = new Date(
+    later.setMinutes(new Date(event.endDate).getMinutes() + 30)
+  );
 
   var start = new Date(event.startDate);
   var end = new Date(event.endDate);
   var show = false;
   var roster = false;
+
   if (
     (user.executive || (user.officer && user.orgId === event.orgId)) &&
     event.eventApproved
   ) {
-    start >= later ? (show = true) : (roster = true);
+    if (new Date() <= later && new Date() >= earlier) {
+      show = true;
+      roster = true;
+    } else if (new Date() > later) {
+      show = false;
+      roster = true;
+    }
   }
 
   var status = null;
@@ -232,6 +244,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderWidth: 2,
     padding: 5,
+    marginTop: 5,
+    marginBottom: 15,
   },
   flatList: {
     borderRadius: 5,

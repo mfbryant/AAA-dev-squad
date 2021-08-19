@@ -10,8 +10,8 @@ const sampleEvents = [
   {
     eventId: 1,
     eventName: "Welcome Back Bash",
-    startDate: "2021-09-07T18:00:00",
-    endDate: "2021-09-07T20:00:00",
+    startDate: "2021-08-19T12:00:00",
+    endDate: "2021-09-07T18:30:00",
     location: "UA Rec Fields",
     eventDeets: "Come out for a good time of catching up, food, and kickball!",
     orgId: 4,
@@ -23,8 +23,8 @@ const sampleEvents = [
   {
     eventId: 2,
     eventName: "Welcome Back Bash",
-    startDate: "2021-08-07T18:00:00",
-    endDate: "2021-09-07T20:00:00",
+    startDate: "2021-08-07T12:35:00",
+    endDate: "2021-09-07T17:33:00",
     location: "UA Rec Fields",
     eventDeets: "Come out for a good time of catching up, food, and kickball!",
     orgId: 3,
@@ -140,10 +140,12 @@ function PersonalEventsScreen({ navigation }) {
         <FlatList
           data={
             personal
-              ? eventData.sort((a, b) =>
+              ? sampleEvents.sort((a, b) =>
                   b.eventId.toString().localeCompare(a.eventId.toString())
                 )
-              : eventData.sort((a, b) => a.startDate.localeCompare(b.startDate))
+              : sampleEvents.sort((a, b) =>
+                  a.startDate.localeCompare(b.startDate)
+                )
           }
           extraData={orgData}
           keyExtractor={({ eventId }) => eventId.toString()}
@@ -154,7 +156,13 @@ function PersonalEventsScreen({ navigation }) {
                   ? user.executive
                     ? item.eventPending
                     : item.orgId === user.orgId
-                  : new Date(item.startDate) >= new Date() && item.eventApproved
+                  : new Date(
+                      new Date(
+                        new Date(item.startDate).setHours(
+                          new Date(item.endDate).getHours()
+                        )
+                      ).setMinutes(new Date(item.endDate).getMinutes())
+                    ) >= new Date() && item.eventApproved
               }
               org={orgData[item.orgId - 1].orgName}
               title={item.eventName}

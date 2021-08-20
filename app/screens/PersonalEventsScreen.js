@@ -140,12 +140,10 @@ function PersonalEventsScreen({ navigation }) {
         <FlatList
           data={
             personal
-              ? sampleEvents.sort((a, b) =>
+              ? eventData.sort((a, b) =>
                   b.eventId.toString().localeCompare(a.eventId.toString())
                 )
-              : sampleEvents.sort((a, b) =>
-                  a.startDate.localeCompare(b.startDate)
-                )
+              : eventData.sort((a, b) => a.startDate.localeCompare(b.startDate))
           }
           extraData={orgData}
           keyExtractor={({ eventId }) => eventId.toString()}

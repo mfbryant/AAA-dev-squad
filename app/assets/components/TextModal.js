@@ -13,7 +13,7 @@ import {
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import defaultStyles from "../config/styles";
 
-import FormButton from "../components/FormButton";
+import { FormButton } from "./Button";
 import { BlurView } from "expo-blur";
 
 function TextModal({

@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import { View, StyleSheet, TextInput, Text } from "react-native";
 import colors from "../assets/config/colors";
-import Icon from "../assets/components/IconButton";
 import AppPicker from "../assets/components/AppPicker";
 import Screen from "../assets/components/Screen";
 import DatePicker from "../assets/components/DatePicker";
 import TimePicker from "../assets/components/TimePicker";
-import FormButton from "../assets/components/FormButton";
+import { FormButton, IconButton } from "../assets/components/Button";
 import TextModal from "../assets/components/TextModal";
 import EventScreen from "../assets/components/EventScreen";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
@@ -113,7 +112,7 @@ function AddEventScreen({ route, navigation }) {
     <EventScreen
       barChildren={
         <View style={styles.bar}>
-          <Icon
+          <IconButton
             name="arrow-left"
             color={colors.white}
             onPress={() => navigation.goBack()}

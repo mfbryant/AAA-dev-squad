@@ -11,11 +11,10 @@ import {
 import { format } from "date-fns";
 import QRCode from "react-native-qrcode-svg";
 import EventScreen from "../assets/components/EventScreen";
-import Icon from "../assets/components/IconButton";
 import colors from "../assets/config/colors";
 import AffinityText from "../assets/components/AffinityText";
 import ScreenModal from "../assets/components/ScreenModal";
-import FormButton from "../assets/components/FormButton";
+import { FormButton, IconButton } from "../assets/components/Button";
 import Person from "../assets/components/PeopleListItem";
 
 function EventDetailsScreen({ route, navigation }) {
@@ -108,7 +107,7 @@ function EventDetailsScreen({ route, navigation }) {
     <EventScreen
       barChildren={
         <View style={styles.bar}>
-          <Icon
+          <IconButton
             name="arrow-left"
             color={colors.white}
             onPress={() => navigation.goBack()}

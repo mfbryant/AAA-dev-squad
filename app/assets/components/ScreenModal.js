@@ -7,7 +7,7 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from "react-native";
-import FormButton from "./FormButton";
+import { FormButton } from "./Button";
 import colors from "../config/colors";
 
 function ScreenModal({

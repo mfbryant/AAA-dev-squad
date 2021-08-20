@@ -3,7 +3,7 @@ import { View, Text, FlatList, StyleSheet } from "react-native";
 
 import EventListItem from "../assets/components/EventListItem";
 import EventListItemAction from "../assets/components/EventListItemAction";
-import Icon from "../assets/components/IconButton";
+import { IconButton } from "../assets/components/Button";
 import EventScreen from "../assets/components/EventScreen";
 import colors from "../assets/config/colors";
 
@@ -116,7 +116,7 @@ function PersonalEventsScreen({ navigation }) {
       barChildren={
         <View style={styles.bar}>
           <View style={styles.barItem}>
-            <Icon
+            <IconButton
               name="arrow-left"
               color={colors.white}
               onPress={() => navigation.navigate("Home")}
@@ -137,7 +137,7 @@ function PersonalEventsScreen({ navigation }) {
           <View style={[{ justifyContent: "flex-end" }, styles.barItem]}>
             <View style={styles.iconRow}>
               {!personal && (
-                <Icon
+                <IconButton
                   name="playlist-star"
                   color={colors.white}
                   onPress={handleFavorite}
@@ -146,14 +146,14 @@ function PersonalEventsScreen({ navigation }) {
               )}
               {user.executive || user.officer ? (
                 <>
-                  <Icon
+                  <IconButton
                     name="school"
                     color={colors.white}
                     onPress={handlePersonal}
                     size={25}
                     style={{ marginRight: 10, marginLeft: 10 }}
                   />
-                  <Icon
+                  <IconButton
                     name="plus"
                     color={colors.white}
                     onPress={() =>

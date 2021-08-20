@@ -2,7 +2,7 @@ import React from "react";
 import { View, StyleSheet } from "react-native";
 import { StatusBar } from "expo-status-bar";
 
-import AppButton from "../assets/components/AppButton";
+import { AppButton } from "../assets/components/Button";
 
 function HomeScreen({ navigation }) {
   return (

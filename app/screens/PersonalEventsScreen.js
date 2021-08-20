@@ -241,6 +241,7 @@ function PersonalEventsScreen({ navigation }) {
             setRefreshing(true);
             setOrgData(orgData);
             setEventData(eventData);
+            // setFavorites(favorites);
             setRefreshing(false);
           }}
         />

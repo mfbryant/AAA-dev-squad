@@ -7,16 +7,33 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from "react-native";
-import OrgName from "./OrgName";
-import colors from "../config/colors";
-import { LinearGradient } from "expo-linear-gradient";
+import { FormButton } from "../Button";
+import colors from "../../config/colors";
 
-function OrgModal({ item, children }) {
+function ScreenModal({
+  buttonShow,
+  buttonText,
+  buttonColor,
+  onShow,
+  onDismiss,
+  children,
+}) {
   const [modalVisible, setModalVisible] = useState(false);
   return (
     <>
-      <OrgName orgName={item.orgName} onPress={() => setModalVisible(true)} />
-      <Modal visible={modalVisible} animationType="slide" transparent={true}>
+      <FormButton
+        v={buttonShow}
+        text={buttonText}
+        color={buttonColor}
+        onPress={() => setModalVisible(true)}
+      />
+      <Modal
+        onShow={onShow}
+        onDismiss={onDismiss}
+        visible={modalVisible}
+        animationType="slide"
+        transparent={true}
+      >
         <View style={styles.screen}>
           <SafeAreaView style={styles.topArea}>
             <View style={styles.topButton}>
@@ -26,24 +43,19 @@ function OrgModal({ item, children }) {
                 }}
               >
                 <View style={styles.top}>
+                  {/* <MaterialIcons
+                  name="keyboard-arrow-down"
+                  size={40}
+                  color={colors.white}
+                /> */}
                   <Text style={styles.text}>Close</Text>
                 </View>
               </TouchableOpacity>
             </View>
           </SafeAreaView>
-          <LinearGradient
-            colors={[colors.light, colors.light, colors.grey]} // colors.medium
-            start={[0, 0]}
-            end={[0, 1]}
-            style={styles.modal}
-          >
-            <View style={styles.modal}>
-              <SafeAreaView style={styles.body}>{children}</SafeAreaView>
-            </View>
-          </LinearGradient>
-          {/* <View style={styles.modal}>
+          <View style={styles.modal}>
             <SafeAreaView style={styles.body}>{children}</SafeAreaView>
-          </View> */}
+          </View>
         </View>
       </Modal>
     </>
@@ -59,6 +71,7 @@ const styles = StyleSheet.create({
   modal: {
     flex: 1,
     width: "100%",
+    backgroundColor: colors.black,
   },
   top: {
     backgroundColor: colors.grey,
@@ -82,4 +95,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default OrgModal;
+export default ScreenModal;

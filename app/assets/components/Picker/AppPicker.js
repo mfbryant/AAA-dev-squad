@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useReducer } from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import PickerItem from "./PickerItem";
-import defaultStyles from "../config/styles";
+import defaultStyles from "../../config/styles";
 
 function AppPicker({
   user,

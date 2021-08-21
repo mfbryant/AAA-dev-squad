@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, SafeAreaView, StatusBar, View } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import colors from "../config/colors";
+import colors from "../../config/colors";
 
 function EventScreen({ barChildren, children }) {
   return (

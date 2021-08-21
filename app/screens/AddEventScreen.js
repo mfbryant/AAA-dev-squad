@@ -1,14 +1,12 @@
 import React, { useState } from "react";
 import { View, StyleSheet, TextInput, Text } from "react-native";
 import colors from "../assets/config/colors";
-import Icon from "../assets/components/IconButton";
-import AppPicker from "../assets/components/AppPicker";
+import { AppPicker, DatePicker, TimePicker } from "../assets/components/Picker";
 import Screen from "../assets/components/Screen";
-import DatePicker from "../assets/components/DatePicker";
-import TimePicker from "../assets/components/TimePicker";
-import FormButton from "../assets/components/FormButton";
-import TextModal from "../assets/components/TextModal";
-import EventScreen from "../assets/components/EventScreen";
+import { FormButton, IconButton } from "../assets/components/Button";
+import { TextModal } from "../assets/components/Modal";
+import { EventScreen } from "../assets/components/EventItems";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 function AddEventScreen({ route, navigation }) {
   const { eventData, orgData, event, user } = route.params;
@@ -52,15 +50,20 @@ function AddEventScreen({ route, navigation }) {
   const handleInput = (input) => {
     setInput(input);
   };
-  
-  const handleSubmit = (event) => {
-    let inputName = event.eventName; 
-    let inputOrg = event.org;
+
+  //   useEffect(() => {
+  //     getEvents();
+  //   }, []);
+  // }
+
+  const handleSubmit = () => {
+    // let inputName = event.eventName;
+    // let inputOrg = orgData[event.orgId - 1].orgName;
     // let inputDate = date;
-    let inputStart = date + startTime;
-    let inputEnd = date + endTime; 
-    let inputLocation = event.location; 
-    let inputDeets = event.description;
+    // let inputStart = startTime;
+    // let inputEnd = endTime;
+    // let inputLocation = event.location;
+    // let inputDeets = event.eventDeets;
     let newEvent = {
       eventName: inputName,
       startDate: inputStart,
@@ -71,18 +74,17 @@ function AddEventScreen({ route, navigation }) {
       eventDraft: false,
       eventPending: true,
       eventApproved: false,
-      userId: event.userId
     };
     // setEvent(newEvent);
 
     fetch("https://aims-ambassadorship-app.herokuapp.com/api/events", {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
+        Accept: "application/json",
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(newEvent)
-    })
+      body: JSON.stringify(newEvent),
+    });
 
     navigation.goBack();
   };
@@ -108,7 +110,7 @@ function AddEventScreen({ route, navigation }) {
     <EventScreen
       barChildren={
         <View style={styles.bar}>
-          <Icon
+          <IconButton
             name="arrow-left"
             color={colors.white}
             onPress={() => navigation.goBack()}
@@ -119,142 +121,149 @@ function AddEventScreen({ route, navigation }) {
       }
     >
       <Screen style={styles.screen}>
-        <Text style={styles.header}>Name of Event</Text>
-        <View
-          style={
-            name
-              ? [styles.textBox, styles.text2]
-              : [styles.textBox, { backgroundColor: colors.leet }]
-          }
+        <KeyboardAwareScrollView
+          style={{ flex: 1 }}
+          resetScrollToCoords={{ x: 0, y: 0 }}
+          contentContainerStyle={{ flex: 1 }}
+          scrollEnabled={false}
         >
-          <TextInput
-            onChangeText={setName}
-            placeholder="GOBD, Tree-Cleaning, etc.,"
-            placeholderTextColor={colors.medium}
-            style={styles.textInput}
+          <Text style={styles.header}>Name of Event</Text>
+          <View
+            style={
+              name
+                ? [styles.textBox, styles.text2]
+                : [styles.textBox, { backgroundColor: colors.leet }]
+            }
           >
-            {event.eventName}
-          </TextInput>
-        </View>
-        <Text style={styles.title}>Organization</Text>
-        <AppPicker
-          selectedItem={org}
-          onSelectItem={(item) => setOrg(item)}
-          data={orgData}
-          status={user.executive}
-          user={user}
-          icon="school"
-          placeholder={
-            event.orgId != null
-              ? orgData[event.orgId - 1].orgName
-              : "aims, cmiss, wit, etc.,"
-          }
-        />
-        <View style={styles.textRow}>
-          <Text style={styles.title}>Date of Event</Text>
-          <Text style={styles.title}>Time</Text>
-        </View>
-        <View style={styles.objectRow}>
-          <DatePicker
-            showDatePicker={() => setDatePickerVisibility(true)}
-            hideDatePicker={() => setDatePickerVisibility(false)}
-            isDatePickerVisible={isDatePickerVisible}
-            date={date}
-            handleConfirm={handleDateConfirm}
+            <TextInput
+              onChangeText={setName}
+              placeholder="GOBD, Tree-Cleaning, etc.,"
+              placeholderTextColor={colors.medium}
+              style={styles.textInput}
+            >
+              {event.eventName}
+            </TextInput>
+          </View>
+          <Text style={styles.title}>Organization</Text>
+          <AppPicker
+            selectedItem={org}
+            onSelectItem={(item) => setOrg(item)}
+            data={orgData}
+            status={user.executive}
+            user={user}
+            icon="school"
+            placeholder={
+              event.orgId != null
+                ? orgData[event.orgId - 1].orgName
+                : "aims, cmiss, wit, etc.,"
+            }
           />
-          <TimePicker
-            showDatePicker={() => setStartTimePickerVisibility(true)}
-            hideDatePicker={() => setStartTimePickerVisibility(false)}
-            isDatePickerVisible={isStartTimePickerVisible}
-            date={startTime}
-            handleConfirm={handleStartTimeConfirm}
-          />
-        </View>
-        <Text style={styles.title}>When Does it End?</Text>
-        <View style={styles.row}>
-          <TimePicker
-            showDatePicker={() => setEndTimePickerVisibility(true)}
-            hideDatePicker={() => setEndTimePickerVisibility(false)}
-            isDatePickerVisible={isEndTimePickerVisible}
-            date={endTime}
-            handleConfirm={handleEndTimeConfirm}
-          />
-        </View>
-        <Text style={styles.title}>Location</Text>
-        <View
-          style={
-            location
-              ? [styles.descriptionBox, styles.text2]
-              : [styles.descriptionBox, { backgroundColor: colors.leet }]
-          }
-        >
-          <TextInput
-            placeholder="Ferguson Student Center, AIME Building, Jeff's Office..."
-            placeholderTextColor={colors.medium}
-            multiline={true}
-            onChangeText={setLocation}
-            style={styles.descriptionInput}
+          <View style={styles.textRow}>
+            <Text style={styles.title}>Date of Event</Text>
+            <Text style={styles.title}>Time</Text>
+          </View>
+          <View style={styles.objectRow}>
+            <DatePicker
+              showDatePicker={() => setDatePickerVisibility(true)}
+              hideDatePicker={() => setDatePickerVisibility(false)}
+              isDatePickerVisible={isDatePickerVisible}
+              date={date}
+              handleConfirm={handleDateConfirm}
+            />
+            <TimePicker
+              showDatePicker={() => setStartTimePickerVisibility(true)}
+              hideDatePicker={() => setStartTimePickerVisibility(false)}
+              isDatePickerVisible={isStartTimePickerVisible}
+              date={startTime}
+              handleConfirm={handleStartTimeConfirm}
+            />
+          </View>
+          <Text style={styles.title}>When Does it End?</Text>
+          <View style={styles.row}>
+            <TimePicker
+              showDatePicker={() => setEndTimePickerVisibility(true)}
+              hideDatePicker={() => setEndTimePickerVisibility(false)}
+              isDatePickerVisible={isEndTimePickerVisible}
+              date={endTime}
+              handleConfirm={handleEndTimeConfirm}
+            />
+          </View>
+          <Text style={styles.title}>Location</Text>
+          <View
+            style={
+              location
+                ? [styles.descriptionBox, styles.text2]
+                : [styles.descriptionBox, { backgroundColor: colors.leet }]
+            }
           >
-            {event.location}
-          </TextInput>
-        </View>
-        <Text style={styles.title}>Event Description/Details</Text>
-        <View
-          style={
-            description
-              ? [styles.descriptionBox2, styles.text2]
-              : [styles.descriptionBox2, { backgroundColor: colors.leet }]
-          }
-        >
-          <TextInput
-            placeholder="Cleaning the wonderful trees around campus..."
-            placeholderTextColor={colors.medium}
-            multiline={true}
-            onChangeText={setDescription}
-            style={styles.descriptionInput}
+            <TextInput
+              placeholder="Ferguson Student Center, AIME Building, Jeff's Office..."
+              placeholderTextColor={colors.medium}
+              multiline={true}
+              onChangeText={setLocation}
+              style={styles.descriptionInput}
+            >
+              {event.location}
+            </TextInput>
+          </View>
+          <Text style={styles.title}>Event Description/Details</Text>
+          <View
+            style={
+              description
+                ? [styles.descriptionBox2, styles.text2]
+                : [styles.descriptionBox2, { backgroundColor: colors.leet }]
+            }
           >
-            {event.eventDeets}
-          </TextInput>
-        </View>
-        <View style={[styles.buttonRow, { marginTop: 5 }]}>
+            <TextInput
+              placeholder="Cleaning the wonderful trees around campus..."
+              placeholderTextColor={colors.medium}
+              multiline={true}
+              onChangeText={setDescription}
+              style={styles.descriptionInput}
+            >
+              {event.eventDeets}
+            </TextInput>
+          </View>
+          <View style={[styles.buttonRow, { marginTop: 5 }]}>
+            {!user.executive && (
+              <View style={styles.spacing}>
+                <TextModal
+                  icon="lock"
+                  buttonText="Bypass Review"
+                  buttonColor={colors.medium}
+                  text="Enter Executive Key"
+                  input={input}
+                  onChange={handleInput}
+                  secure={true}
+                />
+              </View>
+            )}
+            <FormButton
+              v={true}
+              text={user.executive ? "Submit" : "Submit for Review"}
+              color={colors.green}
+              onPress={handleSubmit}
+            />
+          </View>
           {!user.executive && (
-            <View style={styles.spacing}>
-              <TextModal
-                icon="lock"
-                buttonText="Bypass Review"
-                buttonColor={colors.medium}
-                text="Enter Executive Key"
-                input={input}
-                onChange={handleInput}
-                secure={true}
+            <View style={styles.buttonRow}>
+              <FormButton
+                v={true}
+                text="Save as Draft"
+                color={colors.medium}
+                onPress={handleDraft}
               />
             </View>
           )}
-          <FormButton
-            v={true}
-            text={user.executive ? "Submit" : "Submit for Review"}
-            color={colors.green}
-            onPress={handleSubmit}
-          />
-        </View>
-        {!user.executive && (
-          <View style={styles.buttonRow}>
+          <View style={styles.button}>
             <FormButton
               v={true}
-              text="Save as Draft"
-              color={colors.medium}
-              onPress={handleDraft}
+              text="Cancel"
+              color={colors.danger}
+              onPress={handleCancel}
             />
           </View>
-        )}
-        <View style={styles.button}>
-          <FormButton
-            v={true}
-            text="Cancel"
-            color={colors.danger}
-            onPress={handleCancel}
-          />
-        </View>
+        </KeyboardAwareScrollView>
       </Screen>
     </EventScreen>
   );

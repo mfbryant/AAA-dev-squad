@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     paddingHorizontal: 15,
     paddingVertical: 10,
-    backgroundColor: custom.colors.white,
+    backgroundColor: custom.colors.grey,
     borderRadius: 5,
   },
   detailsContainer: {
@@ -32,12 +32,13 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   subTitle: {
-    color: custom.colors.medium,
+    color: custom.colors.light,
     fontWeight: "500",
   },
   title: {
     fontSize: 20,
     fontWeight: "600",
+    color: custom.colors.white,
   },
 });
 

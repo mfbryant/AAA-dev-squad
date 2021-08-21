@@ -3,9 +3,9 @@ import { SafeAreaView, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { format } from "date-fns";
 import DateTimePicker from "react-native-modal-datetime-picker";
-import colors from "../config/colors";
+import colors from "../../config/colors";
 
-function DatePicker({
+function TimePicker({
   showDatePicker,
   hideDatePicker,
   isDatePickerVisible,
@@ -23,20 +23,20 @@ function DatePicker({
           onValueChange={(item) => setSelectedValue(item)}
         >
           <MaterialCommunityIcons
-            name="calendar-multiselect"
+            name="calendar-clock"
             size={20}
             color={colors.white}
           />
-          <Text style={styles.buttonText}>{format(date, "MMMM do yyyy")}</Text>
+          <Text style={styles.buttonText}>{format(date, "hh:mm a")}</Text>
         </TouchableOpacity>
       </>
       <DateTimePicker
         isVisible={isDatePickerVisible}
         value={date}
-        mode="date"
-        minimumDate={currentDate}
+        mode="time"
+        minuteInterval={15}
         date={currentDate}
-        display={Platform.OS === "ios" ? "inline" : "calendar"}
+        display="spinner"
         onConfirm={handleConfirm}
         onCancel={hideDatePicker}
         // isDarkModeEnabled={true}
@@ -64,4 +64,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DatePicker;
+export default TimePicker;

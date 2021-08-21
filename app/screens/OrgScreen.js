@@ -8,7 +8,7 @@ import {
   Button,
 } from "react-native";
 
-import OrgModal from "../assets/components/OrgModal";
+import { OrgModal } from "../assets/components/Modal";
 import AffinityText from "../assets/components/AffinityText";
 import SocialTag from "../assets/components/SocialTag";
 import colors from "../assets/config/colors";

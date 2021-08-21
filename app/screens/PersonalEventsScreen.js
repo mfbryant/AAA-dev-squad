@@ -1,10 +1,54 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, FlatList, StyleSheet } from "react-native";
-
-import EventListItem from "../assets/components/EventListItem";
-import Icon from "../assets/components/IconButton";
-import EventScreen from "../assets/components/EventScreen";
+import {
+  EventListItem,
+  EventListItemAction,
+  EventScreen,
+} from "../assets/components/EventItems";
+import { IconButton } from "../assets/components/Button";
 import colors from "../assets/config/colors";
+
+const sampleEvents = [
+  {
+    eventId: 1,
+    eventName: "Welcome Back Bash",
+    startDate: "2021-09-19T12:00:00",
+    endDate: "2021-09-07T18:30:00",
+    location: "UA Rec Fields",
+    eventDeets: "Come out for a good time of catching up, food, and kickball!",
+    orgId: 4,
+    eventDraft: false,
+    eventPending: false,
+    eventApproved: true,
+    userId: 1,
+  },
+  {
+    eventId: 2,
+    eventName: "Welcome Back Bash",
+    startDate: "2021-08-07T12:35:00",
+    endDate: "2021-09-07T17:33:00",
+    location: "UA Rec Fields",
+    eventDeets: "Come out for a good time of catching up, food, and kickball!",
+    orgId: 3,
+    eventDraft: false,
+    eventPending: true,
+    eventApproved: false,
+    userId: 1,
+  },
+];
+
+const favoriteData = [
+  {
+    favoriteId: 1,
+    eventId: 2,
+    userId: 1,
+  },
+  {
+    favoriteId: 2,
+    eventId: 1,
+    userId: 2,
+  },
+];
 
 const user = {
   userId: 1,
@@ -17,8 +61,10 @@ const user = {
 
 function PersonalEventsScreen({ navigation }) {
   const [personal, setPersonal] = useState(false);
+  const [favorite, setFavorite] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [eventData, setEventData] = useState([]);
+  // const [favorites, setFavorites] = useState([]);
   const [orgData, setOrgData] = useState([]);
   const [userData, setUserData] = useState([]);
 
@@ -28,18 +74,23 @@ function PersonalEventsScreen({ navigation }) {
       const response1 = await fetch(
         "https://aims-ambassadorship-app.herokuapp.com/api/events"
       );
-      const response2 = await fetch(
+      // const response2 = await fetch(
+      //   "https://aims-ambassadorship-app.herokuapp.com/api/favorites"
+      // );
+      const response3 = await fetch(
         "https://aims-ambassadorship-app.herokuapp.com/api/organizations"
       );
-      const response3 = await fetch(
+      const response4 = await fetch(
         "https://aims-ambassadorship-app.herokuapp.com/api/users"
       );
       const json1 = await response1.json();
-      const json2 = await response2.json();
+      // const json2 = await response2.json();
       const json3 = await response3.json();
-      setOrgData(json2);
+      const json4 = await response4.json();
+      setOrgData(json3);
       setEventData(json1);
-      setUserData(json3);
+      // setFavorites(json2);
+      setUserData(json4);
       setRefreshing(false);
     } catch (error) {
       console.error(error);
@@ -54,6 +105,10 @@ function PersonalEventsScreen({ navigation }) {
     !personal ? setPersonal(true) : setPersonal(false);
   };
 
+  const handleFavorite = () => {
+    !favorite ? setFavorite(true) : setFavorite(false);
+  };
+
   //Necessary for no errors when filling in data on add page
   var item = [null];
 
@@ -62,8 +117,8 @@ function PersonalEventsScreen({ navigation }) {
       barChildren={
         <View style={styles.bar}>
           <View style={styles.barItem}>
-            <Icon
-              name="home"
+            <IconButton
+              name="arrow-left"
               color={colors.white}
               onPress={() => navigation.navigate("Home")}
               size={25}
@@ -75,34 +130,46 @@ function PersonalEventsScreen({ navigation }) {
                 ? user.executive
                   ? "Need Approval"
                   : "Your Events"
+                : favorite
+                ? "Favorites"
                 : "Events"}
             </Text>
           </View>
           <View style={[{ justifyContent: "flex-end" }, styles.barItem]}>
-            {user.executive || user.officer ? (
-              <View style={styles.iconRow}>
-                <Icon
-                  name="school"
+            <View style={styles.iconRow}>
+              {!personal && (
+                <IconButton
+                  name="playlist-star"
                   color={colors.white}
-                  onPress={handlePersonal}
-                  size={25}
-                  style={{ marginRight: 10 }}
-                />
-                <Icon
-                  name="plus"
-                  color={colors.white}
-                  onPress={() =>
-                    navigation.navigate("Add Event", {
-                      eventData,
-                      orgData,
-                      event: item,
-                      user,
-                    })
-                  }
+                  onPress={handleFavorite}
                   size={25}
                 />
-              </View>
-            ) : null}
+              )}
+              {user.executive || user.officer ? (
+                <>
+                  <IconButton
+                    name="school"
+                    color={colors.white}
+                    onPress={handlePersonal}
+                    size={25}
+                    style={{ marginRight: 10, marginLeft: 10 }}
+                  />
+                  <IconButton
+                    name="plus"
+                    color={colors.white}
+                    onPress={() =>
+                      navigation.navigate("Add Event", {
+                        eventData,
+                        orgData,
+                        event: item,
+                        user,
+                      })
+                    }
+                    size={25}
+                  />
+                </>
+              ) : null}
+            </View>
           </View>
         </View>
       }
@@ -120,12 +187,25 @@ function PersonalEventsScreen({ navigation }) {
           keyExtractor={({ eventId }) => eventId.toString()}
           renderItem={({ item }) => (
             <EventListItem
+              // Change favoriteData to favorites once in SQL
               show={
                 personal
                   ? user.executive
                     ? item.eventPending
                     : item.orgId === user.orgId
-                  : new Date(item.startDate) >= new Date() && item.eventApproved
+                  : favorite
+                  ? item.eventApproved &&
+                    favoriteData.filter(
+                      (f) =>
+                        f.eventId === item.eventId && f.userId === user.userId
+                    ).length > 0
+                  : new Date(
+                      new Date(
+                        new Date(item.startDate).setHours(
+                          new Date(item.endDate).getHours()
+                        )
+                      ).setMinutes(new Date(item.endDate).getMinutes())
+                    ) >= new Date() && item.eventApproved
               }
               org={orgData[item.orgId - 1].orgName}
               title={item.eventName}
@@ -151,6 +231,9 @@ function PersonalEventsScreen({ navigation }) {
                       event: item,
                     });
               }}
+              renderRightActions={() =>
+                !personal && <EventListItemAction event={item} user={user} />
+              }
             />
           )}
           ItemSeparatorComponent={() => <View style={styles.separator} />}
@@ -159,6 +242,7 @@ function PersonalEventsScreen({ navigation }) {
             setRefreshing(true);
             setOrgData(orgData);
             setEventData(eventData);
+            // setFavorites(favorites);
             setRefreshing(false);
           }}
         />

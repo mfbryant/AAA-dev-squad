@@ -6,35 +6,6 @@ import Icon from "../assets/components/IconButton";
 import EventScreen from "../assets/components/EventScreen";
 import colors from "../assets/config/colors";
 
-const sampleEvents = [
-  {
-    eventId: 1,
-    eventName: "Welcome Back Bash",
-    startDate: "2021-09-07T18:00:00",
-    endDate: "2021-09-07T20:00:00",
-    location: "UA Rec Fields",
-    eventDeets: "Come out for a good time of catching up, food, and kickball!",
-    orgId: 4,
-    eventDraft: false,
-    eventPending: false,
-    eventApproved: true,
-    userId: 1,
-  },
-  {
-    eventId: 2,
-    eventName: "Welcome Back Bash",
-    startDate: "2021-08-07T18:00:00",
-    endDate: "2021-09-07T20:00:00",
-    location: "UA Rec Fields",
-    eventDeets: "Come out for a good time of catching up, food, and kickball!",
-    orgId: 3,
-    eventDraft: false,
-    eventPending: true,
-    eventApproved: false,
-    userId: 1,
-  },
-];
-
 const user = {
   userId: 1,
   userName: "Mattie Bryant",

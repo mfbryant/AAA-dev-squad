@@ -13,9 +13,7 @@ import EventScreen from "../assets/components/EventScreen";
 function AddEventScreen({ route, navigation }) {
   const { eventData, orgData, event, user } = route.params;
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
-  const [isStartTimePickerVisible, setStartTimePickerVisibility] = useState(
-    false
-  );
+  const [isStartTimePickerVisible, setStartTimePickerVisibility] = useState(false);
   const [isEndTimePickerVisible, setEndTimePickerVisibility] = useState(false);
 
   // Just added, feeds data from previous navigator page if user selects an event that is in draft mode.
@@ -28,12 +26,13 @@ function AddEventScreen({ route, navigation }) {
   const [endTime, setEndTime] = useState(
     event.endDate != null ? new Date(event.endDate) : new Date()
   );
-  const [location, setLocation] = useState();
-  const [description, setDescription] = useState();
+  const [location, setLocation] = useState('');
+  const [description, setDescription] = useState('');
   // End of changes
-  const [name, setName] = useState();
-  const [org, setOrg] = useState();
-  const [input, setInput] = useState();
+  const [name, setName] = useState('');
+  const [org, setOrg] = useState('');
+  const [input, setInput] = useState('');
+  // const [nEvent, setEvent] = useState();
 
   const handleDateConfirm = (date) => {
     setDate(date);
@@ -53,32 +52,28 @@ function AddEventScreen({ route, navigation }) {
   const handleInput = (input) => {
     setInput(input);
   };
-
-  //   useEffect(() => {
-  //     getEvents();
-  //   }, []);
-  // }
-
   
-  const handleSubmit = () => {
-    // let inputName = event.eventName; 
-    // let inputOrg = orgData[event.orgId - 1].orgName;
+  const handleSubmit = (event) => {
+    let inputName = event.eventName; 
+    let inputOrg = event.org;
     // let inputDate = date;
-    // let inputStart = startTime;
-    // let inputEnd = endTime; 
-    // let inputLocation = event.location; 
-    // let inputDeets = event.eventDeets;
+    let inputStart = date + startTime;
+    let inputEnd = date + endTime; 
+    let inputLocation = event.location; 
+    let inputDeets = event.description;
     let newEvent = {
-      eventName: event.eventName,
-      startDate: startTime,
-      endDate: endTime,
-      location: event.location,
-      eventDeets: event.eventDeets,
-      orgId: event.orgId,
+      eventName: inputName,
+      startDate: inputStart,
+      endDate: inputEnd,
+      location: inputLocation,
+      eventDeets: inputDeets,
+      orgId: inputOrg,
       eventDraft: false,
       eventPending: true,
-      eventApproved: false
+      eventApproved: false,
+      userId: event.userId
     };
+    // setEvent(newEvent);
 
     fetch("https://aims-ambassadorship-app.herokuapp.com/api/events", {
       method: 'POST',
@@ -88,7 +83,7 @@ function AddEventScreen({ route, navigation }) {
       },
       body: JSON.stringify(newEvent)
     })
-    
+
     navigation.goBack();
   };
 

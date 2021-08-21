@@ -2,8 +2,8 @@ import React from "react";
 import { View, Text, StyleSheet, TouchableHighlight } from "react-native";
 import { format } from "date-fns";
 import Swipeable from "react-native-gesture-handler/Swipeable";
-import AffinityText from "./AffinityText";
-import custom from "../config/styles";
+import AffinityText from "../AffinityText";
+import custom from "../../config/styles";
 
 function EventListItem({
   show,

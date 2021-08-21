@@ -10,10 +10,10 @@ import {
 } from "react-native";
 import { format } from "date-fns";
 import QRCode from "react-native-qrcode-svg";
-import EventScreen from "../assets/components/EventScreen";
+import { EventScreen } from "../assets/components/EventItems";
 import colors from "../assets/config/colors";
 import AffinityText from "../assets/components/AffinityText";
-import ScreenModal from "../assets/components/ScreenModal";
+import { ScreenModal } from "../assets/components/Modal";
 import { FormButton, IconButton } from "../assets/components/Button";
 import Person from "../assets/components/PeopleListItem";
 

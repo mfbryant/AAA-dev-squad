@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, FlatList, StyleSheet } from "react-native";
-
-import EventListItem from "../assets/components/EventListItem";
-import EventListItemAction from "../assets/components/EventListItemAction";
+import {
+  EventListItem,
+  EventListItemAction,
+  EventScreen,
+} from "../assets/components/EventItems";
 import { IconButton } from "../assets/components/Button";
-import EventScreen from "../assets/components/EventScreen";
 import colors from "../assets/config/colors";
 
 const sampleEvents = [

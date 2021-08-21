@@ -11,9 +11,9 @@ import {
   TextInput,
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import defaultStyles from "../config/styles";
+import defaultStyles from "../../config/styles";
 
-import { FormButton } from "./Button";
+import { FormButton } from "../Button";
 import { BlurView } from "expo-blur";
 
 function TextModal({

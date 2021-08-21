@@ -1,13 +1,11 @@
 import React, { useState } from "react";
 import { View, StyleSheet, TextInput, Text } from "react-native";
 import colors from "../assets/config/colors";
-import AppPicker from "../assets/components/AppPicker";
+import { AppPicker, DatePicker, TimePicker } from "../assets/components/Picker";
 import Screen from "../assets/components/Screen";
-import DatePicker from "../assets/components/DatePicker";
-import TimePicker from "../assets/components/TimePicker";
 import { FormButton, IconButton } from "../assets/components/Button";
-import TextModal from "../assets/components/TextModal";
-import EventScreen from "../assets/components/EventScreen";
+import { TextModal } from "../assets/components/Modal";
+import { EventScreen } from "../assets/components/EventItems";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 function AddEventScreen({ route, navigation }) {

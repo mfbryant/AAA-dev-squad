@@ -7,6 +7,7 @@ import { AppButton } from "../assets/components/Button";
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import SponsorsScreen from './SponsorsScreen';
 import FeedNavigator from '../navigation/FeedNavigator';
 
@@ -24,6 +25,11 @@ function InvolvementScreen({ navigation }) {
 import SponsorsScreen from "./SponsorsScreen";
 
 function InvolvementScreen({ navigation }) {
+=======
+import SponsorsScreen from "./SponsorsScreen";
+
+function InvolvementScreen({ navigation }) {
+>>>>>>> a2938060f0f4184335f8a978522ff6e94ae281f8
 =======
 import SponsorsScreen from "./SponsorsScreen";
 
@@ -66,6 +72,9 @@ function InvolvementScreen({ navigation }) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> a2938060f0f4184335f8a978522ff6e94ae281f8
+=======
 >>>>>>> a2938060f0f4184335f8a978522ff6e94ae281f8
 =======
 >>>>>>> a2938060f0f4184335f8a978522ff6e94ae281f8

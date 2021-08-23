@@ -49,47 +49,35 @@ function LoginScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-aims: {
- width: 300,
- height: 150,
- alignSelf: 'center'
-},
-alabama: {
-  textAlign: 'center',
-  textAlignVertical: 'bottom',
-  fontWeight: 'bold',
-  marginTop: 425,
-
-},
-button: {
-alignSelf: 'center',
-borderRadius: 20,
-backgroundColor: 'crimson',
-height: 55,
-marginTop: 125,
-padding: 10,
-width: '90%',
-flexDirection: 'row'
-},
-text: {
-textAlign: 'center',
-fontSize: 125,
-marginTop: 20,
-},
-characters: {
-  fontSize: 27, 
-  color: '#fff', 
-  marginLeft: 10, 
-  fontWeight: '500',
-  textAlignVertical: 'center',
-  paddingLeft: 10
-},
-water: {
-  width: 300,
-  height: 20,
-  alignSelf: 'center',
-  marginTop: 425
-}
+  alabama: {
+    textAlign: "center",
+    textAlignVertical: "bottom",
+    fontWeight: "bold",
+    marginTop: 425,
+  },
+  button: {
+    alignSelf: "center",
+    borderRadius: 20,
+    backgroundColor: "crimson",
+    height: 55,
+    marginTop: 125,
+    padding: 10,
+    width: "90%",
+    flexDirection: "row",
+  },
+  text: {
+    textAlign: "center",
+    fontSize: 125,
+    marginTop: 20,
+  },
+  characters: {
+    fontSize: 27,
+    color: "#fff",
+    marginLeft: 10,
+    fontWeight: "500",
+    textAlignVertical: "center",
+    paddingLeft: 10,
+  },
 });
 
 export default LoginScreen;

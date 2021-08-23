@@ -1,6 +1,6 @@
 import React from "react";
 import { Text, TouchableOpacity, StyleSheet, View } from "react-native";
-import colors from "../config/colors";
+import colors from "../../config/colors";
 
 function PickerItem({ label, onPress, show }) {
   return (

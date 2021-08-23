@@ -10,12 +10,11 @@ import {
 } from "react-native";
 import { format } from "date-fns";
 import QRCode from "react-native-qrcode-svg";
-import EventScreen from "../assets/components/EventScreen";
-import Icon from "../assets/components/IconButton";
+import { EventScreen } from "../assets/components/EventItems";
 import colors from "../assets/config/colors";
 import AffinityText from "../assets/components/AffinityText";
-import ScreenModal from "../assets/components/ScreenModal";
-import FormButton from "../assets/components/FormButton";
+import { ScreenModal } from "../assets/components/Modal";
+import { FormButton, IconButton } from "../assets/components/Button";
 import Person from "../assets/components/PeopleListItem";
 
 function EventDetailsScreen({ route, navigation }) {
@@ -42,18 +41,30 @@ function EventDetailsScreen({ route, navigation }) {
     getData();
   }, []);
 
+  var earlier = new Date(event.startDate);
+  var earlier = new Date(earlier.setMinutes(earlier.getMinutes() - 30));
   var later = new Date(event.startDate);
-  later.setTime(new Date(event.endDate).getTime());
+  var later = new Date(later.setHours(new Date(event.endDate).getHours()));
+  var later = new Date(
+    later.setMinutes(new Date(event.endDate).getMinutes() + 30)
+  );
 
   var start = new Date(event.startDate);
   var end = new Date(event.endDate);
   var show = false;
   var roster = false;
+
   if (
     (user.executive || (user.officer && user.orgId === event.orgId)) &&
     event.eventApproved
   ) {
-    start >= later ? (show = true) : (roster = true);
+    if (new Date() <= later && new Date() >= earlier) {
+      show = true;
+      roster = true;
+    } else if (new Date() > later) {
+      show = false;
+      roster = true;
+    }
   }
 
   var status = null;
@@ -96,7 +107,7 @@ function EventDetailsScreen({ route, navigation }) {
     <EventScreen
       barChildren={
         <View style={styles.bar}>
-          <Icon
+          <IconButton
             name="arrow-left"
             color={colors.white}
             onPress={() => navigation.goBack()}
@@ -232,6 +243,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderWidth: 2,
     padding: 5,
+    marginTop: 5,
+    marginBottom: 15,
   },
   flatList: {
     borderRadius: 5,

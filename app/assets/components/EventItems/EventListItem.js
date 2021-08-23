@@ -1,8 +1,9 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableHighlight } from "react-native";
 import { format } from "date-fns";
-import AffinityText from "./AffinityText";
-import custom from "../config/styles";
+import Swipeable from "react-native-gesture-handler/Swipeable";
+import AffinityText from "../AffinityText";
+import custom from "../../config/styles";
 
 function EventListItem({
   show,
@@ -14,6 +15,7 @@ function EventListItem({
   subTitle,
   date,
   onPress,
+  renderRightActions,
   statusShow,
 }) {
   var status = null;
@@ -45,36 +47,38 @@ function EventListItem({
   return (
     <>
       {show && (
-        <TouchableHighlight
-          underlayColor={custom.colors.medium}
-          onPress={onPress}
-        >
-          <View style={styles.container}>
-            <View style={styles.detailsContainer}>
-              <Text style={styles.title}>{title}</Text>
-              <AffinityText style={styles.labelText}>{org}</AffinityText>
-              {subTitle && <Text style={styles.subTitle}>{subTitle}</Text>}
-            </View>
-            <View style={styles.statusArea}>
-              <View
-                style={[
-                  styles.statusBox,
-                  {
-                    backgroundColor: statusShow ? a : custom.colors.medium,
-                  },
-                ]}
-              >
-                <Text
-                  adjustsFontSizeToFit
-                  numberOfLines={1}
-                  style={statusShow ? styles.status : styles.date}
+        <Swipeable renderRightActions={renderRightActions}>
+          <TouchableHighlight
+            underlayColor={custom.colors.medium}
+            onPress={onPress}
+          >
+            <View style={styles.container}>
+              <View style={styles.detailsContainer}>
+                <Text style={styles.title}>{title}</Text>
+                <AffinityText style={styles.labelText}>{org}</AffinityText>
+                {subTitle && <Text style={styles.subTitle}>{subTitle}</Text>}
+              </View>
+              <View style={styles.statusArea}>
+                <View
+                  style={[
+                    styles.statusBox,
+                    {
+                      backgroundColor: statusShow ? a : custom.colors.medium,
+                    },
+                  ]}
                 >
-                  {statusShow ? status : format(new Date(date), "MMM dd")}
-                </Text>
+                  <Text
+                    adjustsFontSizeToFit
+                    numberOfLines={1}
+                    style={statusShow ? styles.status : styles.date}
+                  >
+                    {statusShow ? status : format(new Date(date), "MMM dd")}
+                  </Text>
+                </View>
               </View>
             </View>
-          </View>
-        </TouchableHighlight>
+          </TouchableHighlight>
+        </Swipeable>
       )}
     </>
   );

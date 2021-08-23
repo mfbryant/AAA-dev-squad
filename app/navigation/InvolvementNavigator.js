@@ -7,19 +7,16 @@ import InvolvementScreen from '../screens/InvolvementScreen';
 import SponsorsScreen from '../screens/SponsorsScreen';
 import { MaterialTopTabView } from '@react-navigation/material-top-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import FeedNavigator from './FeedNavigator';
 
 const Stack = createStackNavigator();
 
-const FeedNavigator = () => (
-        // <Stack.Navigator mode='modal'>
-        //     <Stack.Screen name='Involvement' component={InvolvementScreen} options={{ headerShown: false }} />
-        //     <Stack.Screen name='Sponsors' component={SponsorsScreen} options={{ headerShown: false }} />
-        // </Stack.Navigator>
-
+const InvolvementNavigator = () => (
     <Stack.Navigator mode='modal'>
-        <Stack.Screen name='Volunteer' component={VolunteerScreen} options={{ headerShown: false }} />
-        <Stack.Screen name='VolunteerDetail' component={VolunteerDetailScreen} options={{ headerShown: false }} />
+    <Stack.Screen name='Involvement' component={InvolvementScreen} options={{ headerShown: false }} />
+    <Stack.Screen name='Sponsors' component={SponsorsScreen} options={{ headerShown: false }} />
+    <Stack.Screen name='FeedNav' component={FeedNavigator} options={{ headerShown: false }} />
     </Stack.Navigator>
 );
 
-export default FeedNavigator;
+export default InvolvementNavigator;

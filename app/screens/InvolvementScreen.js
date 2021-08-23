@@ -3,6 +3,7 @@ import { View, ImageBackground, StyleSheet } from "react-native";
 import { AppButton } from "../assets/components/Button";
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import SponsorsScreen from './SponsorsScreen';
 import FeedNavigator from '../navigation/FeedNavigator';
 
@@ -20,6 +21,11 @@ function InvolvementScreen({ navigation }) {
 import SponsorsScreen from "./SponsorsScreen";
 
 function InvolvementScreen({ navigation }) {
+=======
+import SponsorsScreen from "./SponsorsScreen";
+
+function InvolvementScreen({ navigation }) {
+>>>>>>> a2938060f0f4184335f8a978522ff6e94ae281f8
   return (
     <ImageBackground
       style={styles.image}
@@ -38,6 +44,9 @@ function InvolvementScreen({ navigation }) {
       </View>
     </ImageBackground>
   );
+<<<<<<< HEAD
+>>>>>>> a2938060f0f4184335f8a978522ff6e94ae281f8
+=======
 >>>>>>> a2938060f0f4184335f8a978522ff6e94ae281f8
 }
 

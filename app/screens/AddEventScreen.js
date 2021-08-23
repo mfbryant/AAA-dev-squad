@@ -57,13 +57,13 @@ function AddEventScreen({ route, navigation }) {
   // }
 
   const handleSubmit = () => {
-    // let inputName = event.eventName;
-    // let inputOrg = orgData[event.orgId - 1].orgName;
-    // let inputDate = date;
-    // let inputStart = startTime;
-    // let inputEnd = endTime;
-    // let inputLocation = event.location;
-    // let inputDeets = event.eventDeets;
+    let inputName = event.eventName;
+    let inputOrg = orgData[event.orgId - 1].orgName;
+    let inputDate = date;
+    let inputStart = startTime;
+    let inputEnd = endTime;
+    let inputLocation = event.location;
+    let inputDeets = event.eventDeets;
     let newEvent = {
       eventName: inputName,
       startDate: inputStart,

@@ -1,19 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, TouchableOpacity, View, Text } from "react-native";
-import {} from "expo-google-sign-in";
+import * as GoogleSignIn from "expo-google-sign-in";
 import { StatusBar } from "expo-status-bar";
 import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
-import * as GoogleSignIn from "expo-google-sign-in";
 
 import Screen from "../assets/components/Screen";
 import AffinityText from "../assets/components/AffinityText";
-import { IconButton } from "../assets/components/Button";
-import * as Google from "expo-auth-session";
+import * as Google from "expo-auth-session/providers/google";
 
-function LoginScreen() {
+function LoginScreen({ navigation }) {
   const [request, response, promptAsync] = Google.useAuthRequest({
+    responseType: "id_token",
     expoClientId:
       "425541249408-3plajqimd7pt1ne62ggngv63lkgf7ak1.apps.googleusercontent.com",
+    iosClientId:
+      "425541249408-cg5c17mv09k3141e6f51p55j256tjq4v.apps.googleusercontent.com",
+    androidClientId:
+      "425541249408-okf5lqjevg39dia3i0k8t5bkm1mcrtar.apps.googleusercontent.com",
     scopes: ["email", "profile"],
   });
 
@@ -23,15 +26,14 @@ function LoginScreen() {
     }
   }, [response]);
 
-  // console.log('response', response);
-
   return (
     <Screen>
       <StatusBar style="auto" />
       <AffinityText style={styles.text}>Aims</AffinityText>
       <TouchableOpacity
+        disabled={!request}
         style={styles.button}
-        onPress={() => console.log(() => promptAsync())}
+        onPress={() => promptAsync()}
       >
         <View style={{ flexDirection: "row" }}>
           <AntDesign name="google" size={34} color={"#fff"} />

@@ -3,6 +3,7 @@ import { View, ImageBackground, StyleSheet } from 'react-native';
 import Button from '../assets/components/AppButton';
 
 import SponsorsScreen from './SponsorsScreen';
+import FeedNavigator from '../navigation/FeedNavigator';
 
 function InvolvementScreen({ navigation }) {
     return (
@@ -10,6 +11,7 @@ function InvolvementScreen({ navigation }) {
         <View style={styles.container}>
             <Button title="Internship Info" onPress={() => console.log('internship pressed')}/>
             <Button title="Hiring Sponsors" onPress={() => navigation.navigate('Sponsors')} />
+            <Button title="Volunteer Information" onPress={() => navigation.navigate('FeedNav')} />
         </View>
         </ImageBackground>
     );

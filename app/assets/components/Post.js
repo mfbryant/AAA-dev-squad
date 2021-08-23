@@ -4,15 +4,16 @@ import colors from '../config/colors';
 
 import AffinityText from './AffinityText';
 
-function Post({ group, onPress, title, subtitle }) {
+function Post({ group, onPress, title, subtitle, time}) {
     //Makes a "postcard" for each post within the selected tab
     return (
           <TouchableOpacity onPress={onPress}>
           <View style={styles.conatiner}>
             <View style={styles.post}>
-                 <AffinityText style={styles.group}>{group}</AffinityText>
+                <AffinityText style={styles.group}>{group}</AffinityText>
                 <Text numberOfLines={2} style={styles.title}>{title}</Text>
                 <Text numberOfLines={3} style={styles.subtitle}>{subtitle}</Text>
+                <Text style={styles.date}>{time}</Text>
             </View>
           </View>
           </TouchableOpacity>
@@ -21,19 +22,25 @@ function Post({ group, onPress, title, subtitle }) {
 
 const styles = StyleSheet.create({
     conatiner: {
-        backgroundColor: 'crimson',
-        width: '95%',
+        backgroundColor: colors.charcoal,
+        width: '100%',
         padding: 20,
-        borderRadius: 25,
+        // borderRadius: 25,
         marginBottom: 10,
         marginTop: 10,
-        alignSelf: 'center'
+        alignSelf: 'center',
+        shadowOpacity: .5,
+    },
+    date: {
+        color: colors.white,
+        alignSelf: 'flex-end'
     },
     group: {
         marginBottom: 10,
         fontSize: 20,
         marginLeft: 5,
-        
+        color: colors.white,
+        textDecorationLine:'underline'
     },
     post: {
         flex: 1,

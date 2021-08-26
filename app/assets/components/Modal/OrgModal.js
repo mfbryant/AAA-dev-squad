@@ -32,7 +32,7 @@ function OrgModal({ item, children }) {
             </View>
           </SafeAreaView>
           <LinearGradient
-            colors={[colors.light, colors.light, colors.grey]} // colors.medium
+            colors={[colors.light, colors.light]} // colors.medium
             start={[0, 0]}
             end={[0, 1]}
             style={styles.modal}
@@ -41,9 +41,6 @@ function OrgModal({ item, children }) {
               <SafeAreaView style={styles.body}>{children}</SafeAreaView>
             </View>
           </LinearGradient>
-          {/* <View style={styles.modal}>
-            <SafeAreaView style={styles.body}>{children}</SafeAreaView>
-          </View> */}
         </View>
       </Modal>
     </>

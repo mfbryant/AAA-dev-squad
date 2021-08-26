@@ -64,7 +64,7 @@ function PersonalEventsScreen({ navigation }) {
   const [favorite, setFavorite] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const [eventData, setEventData] = useState([]);
-  // const [favorites, setFavorites] = useState([]);
+  const [favorites, setFavorites] = useState([]);
   const [orgData, setOrgData] = useState([]);
   const [userData, setUserData] = useState([]);
 
@@ -74,9 +74,9 @@ function PersonalEventsScreen({ navigation }) {
       const response1 = await fetch(
         "https://aims-ambassadorship-app.herokuapp.com/api/events"
       );
-      // const response2 = await fetch(
-      //   "https://aims-ambassadorship-app.herokuapp.com/api/favorites"
-      // );
+      const response2 = await fetch(
+        "https://aims-ambassadorship-app.herokuapp.com/api/favorites"
+      );
       const response3 = await fetch(
         "https://aims-ambassadorship-app.herokuapp.com/api/organizations"
       );
@@ -84,12 +84,12 @@ function PersonalEventsScreen({ navigation }) {
         "https://aims-ambassadorship-app.herokuapp.com/api/users"
       );
       const json1 = await response1.json();
-      // const json2 = await response2.json();
+      const json2 = await response2.json();
       const json3 = await response3.json();
       const json4 = await response4.json();
       setOrgData(json3);
       setEventData(json1);
-      // setFavorites(json2);
+      setFavorites(json2);
       setUserData(json4);
       setRefreshing(false);
     } catch (error) {
@@ -195,7 +195,7 @@ function PersonalEventsScreen({ navigation }) {
                     : item.orgId === user.orgId
                   : favorite
                   ? item.eventApproved &&
-                    favoriteData.filter(
+                    favorites.filter(
                       (f) =>
                         f.eventId === item.eventId && f.userId === user.userId
                     ).length > 0
@@ -232,7 +232,13 @@ function PersonalEventsScreen({ navigation }) {
                     });
               }}
               renderRightActions={() =>
-                !personal && <EventListItemAction event={item} user={user} />
+                !personal && (
+                  <EventListItemAction
+                    favs={favorites}
+                    event={item}
+                    user={user}
+                  />
+                )
               }
             />
           )}
@@ -242,7 +248,7 @@ function PersonalEventsScreen({ navigation }) {
             setRefreshing(true);
             setOrgData(orgData);
             setEventData(eventData);
-            // setFavorites(favorites);
+            setFavorites(favorites);
             setRefreshing(false);
           }}
         />
